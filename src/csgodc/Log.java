@@ -50,15 +50,7 @@ public class Log {
 		String mode = Main.getMode();
 		path = "src/csgodc/log/" + mode + ".txt";
 		
-		switch(mode){
-			case "csgo": setDefaultLog("csgo");
-				break;
-			case "lol": setDefaultLog("lol");
-				break;
-			case "ow": setDefaultLog("OW");
-				break;
-				
-		}
+		fillDefault();
 			
 		try{
 			
@@ -77,6 +69,32 @@ public class Log {
 		 }catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	public static void fillDefault(){
+		
+		String mode = Main.getMode();
+		path = "src/csgodc/log/" + mode + ".txt";
+		
+		switch(mode){
+			case "csgo": setDefaultLog("Outaimed,0\n"
+					+ "Crept up upon,0\n"
+					+ "Bad positioning,0\n"
+					+ "Overwhelmed,0\n"
+					+ "Got Traded,0\n"
+					+ "I Traded,0\n"
+					+ "Flashed,0\n"
+					+ "Peaked an AWP,0\n"
+					+ "Tried to cheese,0\n");
+				break;
+			case "lol": setDefaultLog("lol");
+				break;
+			case "ow": setDefaultLog("ow");
+				break;
+			case "pubg": setDefaultLog("pubg");
+				break;		
+		}
+		
 	}
 	
 	public static String getDefaultLog() {
