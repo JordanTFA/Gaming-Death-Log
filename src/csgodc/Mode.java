@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class Mode {
 	
-	public Mode(String id, String name, ImageIcon img, Color BGColour){
+	public Mode(String id, String name,  Color BGColour, String log){
 		
 	}
 
