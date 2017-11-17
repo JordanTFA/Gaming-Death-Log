@@ -2,20 +2,22 @@ package csgodc;
 
 public class Main {
 	
-	static String mode;
+	static String currentMode;
 
 	public static void main(String[] args) {
 		
+		setCurrentMode("noMode");
+		GUI.generateModes();
 		GUI gui = new GUI();
 
 	}
 	
-	public static String getMode() {
-		return mode;
+	public static String getCurrentMode() {
+		return currentMode;
 	}
 
-	public static void setMode(String mode) {
-		Main.mode = mode;
+	public static void setCurrentMode(String mode) {
+		Main.currentMode = mode;
 	}
 
 }

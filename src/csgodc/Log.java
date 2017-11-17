@@ -17,7 +17,7 @@ public class Log {
 
 	public static ArrayList<String> getCategories(){
 			
-		path = "src/csgodc/log/" + Main.getMode() + ".txt";
+		path = "src/csgodc/log/" + Main.getCurrentMode() + ".txt";
 		ArrayList<String> theCategories = new ArrayList<String>();
 		String line = null;
 		
@@ -47,7 +47,7 @@ public class Log {
 	
 	public static void createFile(){
 		
-		String mode = Main.getMode();
+		String mode = Main.getCurrentMode();
 		path = "src/csgodc/log/" + mode + ".txt";
 		
 		fillDefault();
@@ -73,7 +73,7 @@ public class Log {
 	
 	public static void fillDefault(){
 		
-		String mode = Main.getMode();
+		String mode = Main.getCurrentMode();
 		path = "src/csgodc/log/" + mode + ".txt";
 		
 		switch(mode){

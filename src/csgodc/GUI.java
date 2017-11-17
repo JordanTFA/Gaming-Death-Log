@@ -77,19 +77,19 @@ public class GUI {
 		JMenu cfg = new JMenu("Configure");
 		jmb.add(cfg);
 		
-		loadMode("ow");
+		loadMode("noMode");
 		
 	}
 	
 	public void loadMode(String mode){
-		
-		Main.setMode(mode);
 		
 		frame.setTitle(mode + " Death Log");
 		
 		Color BGColour = Color.BLACK;
 		
 		switch(mode){
+		case "noMode" : BGColour = Color.PINK;
+			break;
 		case "csgo": BGColour = Color.BLACK;
 			break;
 		case "lol": BGColour = Color.BLUE;
@@ -105,7 +105,9 @@ public class GUI {
 		ArrayList<String> theCategories = Log.getCategories();	
 	}
 	
-	public void generateModes(){
+	public static void generateModes(){
+		
+		Mode noMode = new Mode("dc", "Death Counter", Color.BLACK, "");
 		
 		Mode csgo = new Mode("csgo", "Counter-Strike: Global Offensive", Color.BLACK, "Outaimed,0\n"
 					+ "Crept up upon,0\n"
