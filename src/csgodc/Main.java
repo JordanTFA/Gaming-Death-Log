@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		setCurrentMode("noMode");
-		GUI.generateModes();
+		Mode.generateModes();
 		GUI gui = new GUI();
 
 	}
