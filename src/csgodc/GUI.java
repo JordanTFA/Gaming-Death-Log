@@ -1,10 +1,13 @@
 package csgodc;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -14,6 +17,7 @@ public class GUI {
 	
 	JFrame frame;
 	JPanel panel;
+	JLabel icon;
 	
 	public final int WIDTH = 400;
 	public final int HEIGHT = 600;
@@ -41,7 +45,8 @@ public class GUI {
 			
 			csgo.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					loadMode("csgo");
+					Main.setCurrentMode("csgo");
+					loadMode();
 				}
 			});
 			
@@ -51,7 +56,8 @@ public class GUI {
 			
 			lol.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					loadMode("lol");
+					Main.setCurrentMode("lol");
+					loadMode();
 				}
 			});
 			
@@ -60,7 +66,8 @@ public class GUI {
 			jm_mode.add(ow);
 			ow.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					loadMode("ow");
+					Main.setCurrentMode("ow");
+					loadMode();
 				}
 			});
 			
@@ -70,41 +77,42 @@ public class GUI {
 			
 			pubg.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					loadMode("pubg");
+					Main.setCurrentMode("pubg");
+					loadMode();
 				}
 			});
 			
 		JMenu cfg = new JMenu("Configure");
 		jmb.add(cfg);
 		
-		loadMode("noMode");
+		Main.setCurrentMode("noMode");
+		loadMode();
 		
 	}
 	
-	public void loadMode(String mode){
+	public void loadMode(){
+	
+		ArrayList<Mode> theModes = Mode.getTheModes();
 		
-		frame.setTitle(mode + " Death Log");
+		Mode currentMode = null;
 		
-		Color BGColour = Color.BLACK;
-		
-		switch(mode){
-		case "noMode" : BGColour = Color.PINK;
-			break;
-		case "csgo": BGColour = Color.BLACK;
-			break;
-		case "lol": BGColour = Color.BLUE;
-			break;
-		case "ow": BGColour = Color.WHITE;
-			break;
-		case "pubg": BGColour = Color.ORANGE;
-			break;
+		for(Mode m : theModes){
+			if(m.id==Main.getCurrentMode()){	
+				currentMode = m;				
+			}
 		}
 		
-		panel.setBackground(BGColour);
+		Color BGColour = currentMode.BGColour;
 		
-		ArrayList<String> theCategories = Log.getCategories();	
-	}
-	
+		/*Image imgLogo = currentMode.img;
+		ImageIcon imgIcon= new ImageIcon(imgLogo);
+		icon = new JLabel(imgIcon);
+		icon.setBounds(5, 5, 30, 30);
+		panel.add(icon);*/
+		
+		frame.setTitle(currentMode.name + " Death Log");
+		panel.setBackground(BGColour);
 
+	}
 
 }
