@@ -15,25 +15,26 @@ public class Mode {
 	String name;
 	Color BGColour;
 	Image img;
-	private HashMap<String, Double> log;
+	HashMap<String, Double> log;
 	
-	public Mode(String theid, String thename,  Color theBGColour, Image image, HashMap<String, Double> thelog){
+	public Mode(String theid, String thename,  Color theBGColour, Image theimage, HashMap<String, Double> thelog){
 		id = theid;
 		name = thename;
 		BGColour = theBGColour;
-		img = image;
-		// log = thelog;
+		img = theimage;
+		log = thelog;
 	
 	}
 	
 	public static ArrayList<Mode> generateModes(){
 		
 		HashMap<String,Double> h = new HashMap<String, Double>();
-		h.put("Outaimed",0.0);
+		h = Log.generateCategories("noMode");
 		
 		Mode noMode = new Mode("noMode", "", Color.PINK, new ImageIcon("src//img//img_lol.png").getImage(), h);
 		
-
+		h.clear();
+		h = Log.generateCategories("csgo");
 		Mode csgo = new Mode("csgo", "Counter-Strike: Global Offensive", Color.BLACK, new ImageIcon("src//img//img_csgo.png").getImage() , h /*"Outaimed,0\n"
 					+ "Crept up upon,0\n"
 					+ "Bad positioning,0\n"
@@ -44,12 +45,13 @@ public class Mode {
 					+ "Peaked an AWP,0\n"
 					+ "Tried to cheese,0\n"*/);
 		
-		
-		
+		h = Log.generateCategories("lol");
 		Mode lol = new Mode("lol", "League of Legends", Color.BLUE, new ImageIcon("src//img//img_lol.png").getImage(), h);
 		
+		h = Log.generateCategories("ow");
 		Mode ow = new Mode("ow", "Overwatch", Color.WHITE, new ImageIcon("src//img//img_ow.png").getImage(), h);
-		
+
+		h = Log.generateCategories("pubg");
 		Mode pubg = new Mode("pubg", "PLAYERUNKNOWN'S BATTLEGROUNDS", Color.ORANGE, new ImageIcon("src//img//img_pubg.png").getImage(),h);
 		
 		theModes.add(noMode);
@@ -57,8 +59,6 @@ public class Mode {
 		theModes.add(lol);
 		theModes.add(ow);
 		theModes.add(pubg);
-		
-		Color e = csgo.BGColour;
 		
 		return theModes;
 	}

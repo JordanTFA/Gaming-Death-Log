@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Log {
@@ -16,10 +15,10 @@ public class Log {
 	public static BufferedReader br;
 	public static String defaultLog;
 
-	public static HashMap<String, Double> generateCategories(){
+	public static HashMap<String, Double> generateCategories(String modeid){
 			
-		path = "src/csgodc/log/" + Main.getCurrentMode() + ".txt";
-		ArrayList<String> theCategories = new ArrayList<String>();
+		path = "src/csgodc/log/" + modeid + ".txt";
+		HashMap<String, Double> theCategories = new HashMap<String, Double>();
 		String line = null;
 		
 		try {
@@ -28,7 +27,8 @@ public class Log {
 			br = new BufferedReader(fr);
 			
             while((line = br.readLine()) != null) {
-                System.out.println(line);
+            	String array[] = line.split(",");
+            	theCategories.put(array[0],Double.parseDouble(array[1]));
             }   
 
             // Always close files.
@@ -38,13 +38,13 @@ public class Log {
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to open file '" + path + "'. Creating new file...");
 			createFile();
-			generateCategories();
+			generateCategories(modeid);
 
 		} catch(IOException ex){
 			ex.printStackTrace();
 		}
 		
-		return null;
+		return theCategories;
 	}
 	
 	public static void createFile(){

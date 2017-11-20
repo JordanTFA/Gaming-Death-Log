@@ -5,9 +5,11 @@ public class Main {
 	static String currentMode;
 
 	public static void main(String[] args) {
-		
+			
+		setCurrentMode("csgo");
 		Mode.generateModes();
 		GUI gui = new GUI();
+		
 
 	}
 	
