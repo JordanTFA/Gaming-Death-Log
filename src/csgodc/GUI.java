@@ -1,10 +1,14 @@
 package csgodc;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,9 +22,13 @@ public class GUI {
 	JFrame frame;
 	JPanel panel;
 	JLabel icon;
+	JButton button;
 	
 	public final int WIDTH = 400;
 	public final int HEIGHT = 600;
+	
+	public final int LOG_WIDTH = 300;
+	public final int LOG_HEIGHT = 600;
 
 	public GUI(){
 		
@@ -29,6 +37,7 @@ public class GUI {
 		frame.setTitle("Death Log");
 		frame.setVisible(true);
 		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panel = new JPanel();
@@ -39,6 +48,22 @@ public class GUI {
 		
 		JMenu jm_mode = new JMenu("Mode");
 		jmb.add(jm_mode);
+		
+		JMenu cfg = new JMenu("Configure");
+		jmb.add(cfg);
+		
+		JMenu jm_log = new JMenu("Log");
+		jmb.add(jm_log);
+		JMenuItem viewlog = new JMenuItem("View Log");
+		jm_log.add(viewlog);
+		
+		viewlog.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				createLog();
+			}
+		});
+		
+		loadMode();
 		
 			JMenuItem csgo = new JMenuItem("CounterStrike: Global Offensive");
 			jm_mode.add(csgo);
@@ -81,16 +106,30 @@ public class GUI {
 					loadMode();
 				}
 			});
-			
-		JMenu cfg = new JMenu("Configure");
-		jmb.add(cfg);
+	
+	}
+	
+	public void createLog(){
 		
-		Main.setCurrentMode("noMode");
-		loadMode();
+	    Toolkit tk = Toolkit.getDefaultToolkit();
+	    Dimension screenSize = tk.getScreenSize();
 		
+		JFrame logframe = new JFrame();
+		logframe.setSize(LOG_WIDTH, LOG_HEIGHT);
+		logframe.setVisible(true);
+		logframe.setTitle("Log");
+		logframe.setResizable(true);
+		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2)); // This needs to be configured correctly
+		
+		JPanel logpanel = new JPanel();
+		logpanel.setBackground(Color.GRAY);
+		
+		logframe.add(logpanel);
 	}
 	
 	public void loadMode(){
+		
+		panel.removeAll();
 	
 		ArrayList<Mode> theModes = Mode.getTheModes();
 		
@@ -98,36 +137,38 @@ public class GUI {
 		
 		for(Mode m : theModes){
 			if(m.id==Main.getCurrentMode()){	
-				currentMode = m;				
+				currentMode = m;
 			}
 		}
 		
 		Color BGColour = currentMode.BGColour;
 		
-		/*Image imgLogo = currentMode.img;
+		Image imgLogo = currentMode.img;
 		ImageIcon imgIcon= new ImageIcon(imgLogo);
 		icon = new JLabel(imgIcon);
-		icon.setBounds(5, 5, 30, 30);
-		panel.add(icon);*/
+		icon.setBounds(5, 5, 300, 80);
+		icon.setSize(300,80);
+		panel.add(icon);
 		
 		frame.setTitle(currentMode.name + " Death Log");
 		panel.setBackground(BGColour);
 		
-
-		
+		frame.validate();
+	
 		createButtons(currentMode.log);
 
 	}
 	
 	public void createButtons(HashMap<String, Double> l){
-
 				
 		for(String c : l.keySet()){
 			
-			System.out.println(c + " " + l.get(c));
+			// System.out.println(c + " " + l.get(c));
 			
-			JButton b = new JButton(c);
-			panel.add(b);
+			button = new JButton(c);
+			panel.add(button);
+			
+			frame.validate();
 		}
 	}
 

@@ -37,7 +37,7 @@ public class Log {
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to open file '" + path + "'. Creating new file...");
-			createFile();
+			createFile(modeid);
 			generateCategories(modeid);
 
 		} catch(IOException ex){
@@ -47,12 +47,11 @@ public class Log {
 		return theCategories;
 	}
 	
-	public static void createFile(){
-		
-		String mode = Main.getCurrentMode();
+	public static void createFile(String mode){
+
 		path = "src/csgodc/log/" + mode + ".txt";
 		
-		fillDefault();
+		fillDefault(mode);
 			
 		try{
 			
@@ -73,9 +72,7 @@ public class Log {
 	    }
 	}
 	
-	public static void fillDefault(){
-		
-		String mode = Main.getCurrentMode();
+	public static void fillDefault(String mode){
 		path = "src/csgodc/log/" + mode + ".txt";
 		
 		switch(mode){
@@ -87,13 +84,27 @@ public class Log {
 					+ "I Traded,0\n"
 					+ "Flashed,0\n"
 					+ "Peaked an AWP,0\n"
-					+ "Tried to cheese,0\n");
+					+ "Tried to cheese,0");
 				break;
-			case "lol": setDefaultLog("lol");
+			case "lol": setDefaultLog("Overextended,0\n"
+					+ "Facechecked Bush,0\n"
+					+ "Took bad fight,0\n" 
+					+ "Team Fight (Favourable),0\n"
+					+ "Team Fight (Unfavourable),0\n"
+					+ "Invaded,0\n"
+					+ "Ganked (Blame jg),0\n"
+					+ "Got Baited,0");
 				break;
-			case "ow": setDefaultLog("ow");
+			case "ow": setDefaultLog("Separated from team,0\n"
+					+ "Picked off/Sniped,0\n"
+					+ "Crept up upon,0\n"
+					+ "Team Fight (Favourable),0\n"
+					+ "Team Fight (Unfavourable),0\n"
+					+ "Dived on,0\n"
+					+ "I dived (Favourable),0\n"
+					+ "I dived (Unfavourable),0");
 				break;
-			case "pubg": setDefaultLog("pubg");
+			case "pubg": setDefaultLog("Unaware of enemy,0");
 				break;		
 		}
 		

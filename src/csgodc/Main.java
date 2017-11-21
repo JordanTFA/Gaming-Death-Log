@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 			
-		setCurrentMode("csgo");
+		setCurrentMode("noMode");
 		Mode.generateModes();
 		GUI gui = new GUI();
 		
