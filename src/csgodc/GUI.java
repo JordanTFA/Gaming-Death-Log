@@ -168,8 +168,34 @@ public class GUI {
 			button = new JButton(c);
 			panel.add(button);
 			
-			frame.validate();
+			button.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent evt){
+					
+					System.out.println("Add one to " + c);
+					
+					//Log.addEntry(c,l);
+					l.put(c, l.get(c) + 1);
+					System.out.println(l.get(c));
+					
+					Log.updateEntry(l);
+					
+				}
+				
+			});	
 		}
+		
+		/*JButton undo = new JButton("Undo");
+		undo.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				
+			}
+			
+		});	
+		panel.add(undo);*/
+		
+		//TODO: Need to find last change
+		
+		frame.validate();
 	}
 
 }

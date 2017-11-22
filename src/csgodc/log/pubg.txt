@@ -1,1 +1,1 @@
-Unaware of enemy,0
+Unaware of enemy,1.0

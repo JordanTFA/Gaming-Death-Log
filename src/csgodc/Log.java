@@ -110,6 +110,29 @@ public class Log {
 		
 	}
 	
+	public static void updateEntry(HashMap<String, Double> l){
+		
+		path = "src/csgodc/log/" + Main.getCurrentMode() + ".txt";
+		
+		try {
+
+			FileOutputStream fow = new FileOutputStream(path);
+			
+			for(String s : l.keySet()){
+				
+				fow.write((s + "," + l.get(s) + "\n").getBytes());
+				
+			}
+			
+		} catch (IOException e) {
+			System.out.println("Couldn't find file...");
+
+			e.printStackTrace();
+		}
+		
+
+	}
+	
 	public static String getDefaultLog() {
 		return defaultLog;
 	}
