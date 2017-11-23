@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GUI {
@@ -184,16 +185,31 @@ public class GUI {
 			});	
 		}
 		
-		/*JButton undo = new JButton("Undo");
+		JButton undo = new JButton("Undo");
 		undo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt){
 				
 			}
 			
 		});	
-		panel.add(undo);*/
+		panel.add(undo);
 		
 		//TODO: Need to find last change
+		
+		JButton reset = new JButton("Reset Stats");
+		reset.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				
+				int dialogButton = JOptionPane.YES_NO_OPTION;
+				
+				int dialogResult = JOptionPane.showConfirmDialog (null, "This will reset all of your stats! Are you sure you want to reset?", "Warning", dialogButton);
+				if(dialogResult == JOptionPane.YES_OPTION){
+				
+				Log.createFile(Main.getCurrentMode());
+			}
+		}});
+		
+		panel.add(reset);
 		
 		frame.validate();
 	}
