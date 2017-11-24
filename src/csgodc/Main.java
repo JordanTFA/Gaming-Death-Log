@@ -8,9 +8,7 @@ public class Main {
 			
 		setCurrentMode("noMode");
 		Mode.generateModes();
-		GUI gui = new GUI();
-		
-
+		GUI.buildGUI();
 	}
 	
 	public static String getCurrentMode() {

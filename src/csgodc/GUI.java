@@ -20,19 +20,23 @@ import javax.swing.JPanel;
 
 public class GUI {
 	
-	JFrame frame;
-	JPanel panel;
-	JLabel icon;
-	JButton button;
+	static JFrame frame;
+	static JPanel panel;
+	static JLabel icon;
+	static JButton button;
 	
-	public final int WIDTH = 400;
-	public final int HEIGHT = 600;
+	public final static int WIDTH = 400;
+	public final static int HEIGHT = 600;
 	
-	public final int LOG_WIDTH = 300;
-	public final int LOG_HEIGHT = 600;
+	public final static int LOG_WIDTH = 300;
+	public final static int LOG_HEIGHT = 600;
 
 	public GUI(){
 		
+		
+	}
+	
+	public static void buildGUI(){
 		frame = new JFrame();
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle("Death Log");
@@ -107,10 +111,9 @@ public class GUI {
 					loadMode();
 				}
 			});
-	
 	}
 	
-	public void createLog(){
+	public static void createLog(){
 		
 	    Toolkit tk = Toolkit.getDefaultToolkit();
 	    Dimension screenSize = tk.getScreenSize();
@@ -128,7 +131,7 @@ public class GUI {
 		logframe.add(logpanel);
 	}
 	
-	public void loadMode(){
+	public static void loadMode(){
 		
 		panel.removeAll();
 	
@@ -160,11 +163,9 @@ public class GUI {
 
 	}
 	
-	public void createButtons(HashMap<String, Double> l){
+	public static void createButtons(HashMap<String, Double> l){
 				
 		for(String c : l.keySet()){
-			
-			// System.out.println(c + " " + l.get(c));
 			
 			button = new JButton(c);
 			panel.add(button);
@@ -174,7 +175,6 @@ public class GUI {
 					
 					System.out.println("Add one to " + c);
 					
-					//Log.addEntry(c,l);
 					l.put(c, l.get(c) + 1);
 					System.out.println(l.get(c));
 					
@@ -210,6 +210,32 @@ public class GUI {
 		}});
 		
 		panel.add(reset);
+		
+		// TODO: Show stats
+		
+		JButton stats = new JButton("Show Stats");
+		stats.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				
+				ArrayList<Mode> theModes = Mode.getTheModes();
+				
+				Mode currentMode = null;
+				
+				for(Mode m : theModes){
+					if(m.id==Main.getCurrentMode()){	
+						currentMode = m;
+					}
+				}
+				
+				
+				JFrame showStats = new JFrame(currentMode.name + " Statistics");
+				showStats.setSize(300, 300);
+				showStats.setLocationRelativeTo(null);
+				showStats.setVisible(true);
+			}
+		});
+		
+		panel.add(stats);
 		
 		frame.validate();
 	}
