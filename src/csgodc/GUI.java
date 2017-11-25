@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class GUI {
 	
@@ -227,11 +229,28 @@ public class GUI {
 					}
 				}
 				
-				
 				JFrame showStats = new JFrame(currentMode.name + " Statistics");
 				showStats.setSize(300, 300);
 				showStats.setLocationRelativeTo(null);
 				showStats.setVisible(true);
+				
+				JPanel statsPanel = new JPanel();
+				
+				JTextArea statsList = new JTextArea();
+				statsPanel.add(statsList);	
+				
+				showStats.add(statsPanel);
+				
+				for(Entry<String,Double> entry : l.entrySet()){
+					String key = entry.getKey();
+			        Double value = entry.getValue();
+			        
+			        //statsList.
+			        
+			        System.out.println(key + "\t" + value);
+				}
+				
+
 			}
 		});
 		
