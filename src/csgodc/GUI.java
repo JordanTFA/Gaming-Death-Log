@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.function.BiFunction;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -208,12 +209,15 @@ public class GUI {
 				if(dialogResult == JOptionPane.YES_OPTION){
 				
 				Log.createFile(Main.getCurrentMode());
+				
+				l.replaceAll((BiFunction<? super String, ? super Double, ? extends Double>) Log.generateCategories(Main.getCurrentMode()));
+				// TODO: Reset stats in the hashmap, rather than the file. Otherwise it requires a reset to have stats reset.
+				
 			}
 		}});
 		
 		panel.add(reset);
-		
-		// TODO: Show stats
+
 		
 		JButton stats = new JButton("Show Stats");
 		stats.addActionListener(new ActionListener(){
@@ -234,21 +238,20 @@ public class GUI {
 				showStats.setLocationRelativeTo(null);
 				showStats.setVisible(true);
 				
-				JPanel statsPanel = new JPanel();
-				
-				JTextArea statsList = new JTextArea();
-				statsPanel.add(statsList);	
-				
+				JPanel statsPanel = new JPanel();			
 				showStats.add(statsPanel);
+				
+				JLabel fr = new JLabel("<html><body>");
+				statsPanel.add(fr);
 				
 				for(Entry<String,Double> entry : l.entrySet()){
 					String key = entry.getKey();
 			        Double value = entry.getValue();
 			        
-			        //statsList.
-			        
-			        System.out.println(key + "\t" + value);
+			        fr.setText(fr.getText() + "<p>" + key + ":     \t" + value + "</p>");
 				}
+				
+				fr.setText(fr.getText() + "</html>");
 				
 
 			}
