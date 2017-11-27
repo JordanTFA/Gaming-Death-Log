@@ -207,11 +207,13 @@ public class GUI {
 				
 				int dialogResult = JOptionPane.showConfirmDialog (null, "This will reset all of your stats! Are you sure you want to reset?", "Warning", dialogButton);
 				if(dialogResult == JOptionPane.YES_OPTION){
+					
+					for(String c : l.keySet()){
+
+						l.put(c, 0.0);
+					}
 				
 				Log.createFile(Main.getCurrentMode());
-				
-				l.replaceAll((BiFunction<? super String, ? super Double, ? extends Double>) Log.generateCategories(Main.getCurrentMode()));
-				// TODO: Reset stats in the hashmap, rather than the file. Otherwise it requires a reset to have stats reset.
 				
 			}
 		}});
