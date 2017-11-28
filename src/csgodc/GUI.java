@@ -33,12 +33,10 @@ public class GUI {
 	
 	public final static int LOG_WIDTH = 300;
 	public final static int LOG_HEIGHT = 600;
-
-	public GUI(){
-		
-		
-	}
 	
+	static String lastCat;
+	static Double lastChange;
+
 	public static void buildGUI(){
 		frame = new JFrame();
 		frame.setSize(WIDTH, HEIGHT);
@@ -131,7 +129,21 @@ public class GUI {
 		JPanel logpanel = new JPanel();
 		logpanel.setBackground(Color.GRAY);
 		
+		JTextArea log = new JTextArea();
+		
+		
 		logframe.add(logpanel);
+		logpanel.add(log);
+	}
+	
+	public static void updateLog(String cat, Double change){
+		
+		setLastCat(cat);
+		setLastChange(change);
+		
+		// TODO: Update Log
+		
+		
 	}
 	
 	public static void loadMode(){
@@ -182,6 +194,8 @@ public class GUI {
 					System.out.println(l.get(c));
 					
 					Log.updateEntry(l);
+					
+					updateLog(c, 1.0);
 					
 				}
 				
@@ -262,6 +276,22 @@ public class GUI {
 		panel.add(stats);
 		
 		frame.validate();
+	}
+	
+	public static String getLastCat() {
+		return lastCat;
+	}
+
+	public static void setLastCat(String lastCat) {
+		GUI.lastCat = lastCat;
+	}
+
+	public static Double getLastChange() {
+		return lastChange;
+	}
+
+	public static void setLastChange(Double lastChange) {
+		GUI.lastChange = lastChange;
 	}
 
 }
