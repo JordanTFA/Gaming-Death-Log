@@ -206,12 +206,23 @@ public class GUI {
 		undo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt){
 				
+				String cat = getLastCat();
+				Double change = (getLastChange()) * -1;
+				
+				for(String c: l.keySet()){
+					if(c==cat){
+						l.put(c,(l.get(c) + (change)));
+					}
+				}
+				
+				updateLog(cat,change);
+				
+				Log.updateEntry(l);
+				
 			}
 			
 		});	
 		panel.add(undo);
-		
-		//TODO: Need to find last change
 		
 		JButton reset = new JButton("Reset Stats");
 		reset.addActionListener(new ActionListener(){
@@ -227,7 +238,7 @@ public class GUI {
 						l.put(c, 0.0);
 					}
 				
-				Log.createFile(Main.getCurrentMode());
+				Log.updateEntry(l);
 				
 			}
 		}});
@@ -260,6 +271,7 @@ public class GUI {
 				JLabel fr = new JLabel("<html><body>");
 				statsPanel.add(fr);
 				
+				// TODO: Sort numerically
 				for(Entry<String,Double> entry : l.entrySet()){
 					String key = entry.getKey();
 			        Double value = entry.getValue();
