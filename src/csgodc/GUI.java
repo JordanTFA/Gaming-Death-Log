@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.function.BiFunction;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -196,7 +194,6 @@ public class GUI {
 					Log.updateEntry(l);
 					
 					updateLog(c, 1.0);
-					
 				}
 				
 			});	
@@ -239,7 +236,6 @@ public class GUI {
 					}
 				
 				Log.updateEntry(l);
-				
 			}
 		}});
 		
@@ -280,8 +276,6 @@ public class GUI {
 				}
 				
 				fr.setText(fr.getText() + "</html>");
-				
-
 			}
 		});
 		

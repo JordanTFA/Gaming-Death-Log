@@ -22,8 +22,7 @@ public class Mode {
 		name = thename;
 		BGColour = theBGColour;
 		img = theimage;
-		log = thelog;
-	
+		log = thelog;	
 	}
 	
 	public static ArrayList<Mode> generateModes(){

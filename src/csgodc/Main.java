@@ -18,5 +18,4 @@ public class Main {
 	public static void setCurrentMode(String mode) {
 		Main.currentMode = mode;
 	}
-
 }

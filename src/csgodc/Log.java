@@ -107,7 +107,6 @@ public class Log {
 			case "pubg": setDefaultLog("Unaware of enemy,0");
 				break;		
 		}
-		
 	}
 	
 	public static void updateEntry(HashMap<String, Double> l){
@@ -120,17 +119,16 @@ public class Log {
 			
 			for(String s : l.keySet()){
 				
-				fow.write((s + "," + l.get(s) + "\n").getBytes());
-				
+				fow.write((s + "," + l.get(s) + "\n").getBytes());	
 			}
+			
+			fow.close();
 			
 		} catch (IOException e) {
 			System.out.println("Couldn't find file...");
 
 			e.printStackTrace();
 		}
-		
-
 	}
 	
 	public static String getDefaultLog() {
