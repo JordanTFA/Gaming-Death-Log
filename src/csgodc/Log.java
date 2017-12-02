@@ -104,7 +104,10 @@ public class Log {
 					+ "I dived (Favourable),0\n"
 					+ "I dived (Unfavourable),0");
 				break;
-			case "pubg": setDefaultLog("Unaware of enemy,0");
+			case "pubg": setDefaultLog("Unaware of enemy,0\n"
+					+ "Poor Engagement,0\n"
+					+ ""
+					);
 				break;		
 		}
 	}

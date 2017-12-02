@@ -32,8 +32,8 @@ public class GUI {
 	public final static int LOG_WIDTH = 300;
 	public final static int LOG_HEIGHT = 600;
 	
-	static String lastCat;
-	static Double lastChange;
+	static String lastCat = null;
+	static Double lastChange = null;
 
 	public static void buildGUI(){
 		frame = new JFrame();
@@ -137,8 +137,7 @@ public class GUI {
 	public static void updateLog(String cat, Double change){
 		
 		setLastCat(cat);
-		setLastChange(change);
-		
+		setLastChange(change);	
 		// TODO: Update Log
 		
 		
@@ -202,19 +201,30 @@ public class GUI {
 		JButton undo = new JButton("Undo");
 		undo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt){
-				
-				String cat = getLastCat();
-				Double change = (getLastChange()) * -1;
-				
-				for(String c: l.keySet()){
-					if(c==cat){
-						l.put(c,(l.get(c) + (change)));
+					
+				if(getLastCat() != null && getLastChange() != null){
+					
+					String cat = getLastCat();
+					Double change = (getLastChange()) * -1;
+					
+					for(String c: l.keySet()){
+						if(c==cat){
+							l.put(c,(l.get(c) + (change)));
+						}
 					}
+					
+					updateLog(cat,change);
+					
+					Log.updateEntry(l);
+				}
+				else{
+					// TODO: Make alert here
+					int dialogButton = JOptionPane.OK_OPTION;
+					JOptionPane.showConfirmDialog (null, "Nothing to Undo", "Nothing to Undo", dialogButton);
+					System.out.println("Was null");
 				}
 				
-				updateLog(cat,change);
-				
-				Log.updateEntry(l);
+
 				
 			}
 			
