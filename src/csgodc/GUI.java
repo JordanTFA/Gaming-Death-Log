@@ -219,13 +219,8 @@ public class GUI {
 				}
 				else{
 					// TODO: Make alert here
-					int dialogButton = JOptionPane.OK_OPTION;
-					JOptionPane.showConfirmDialog (null, "Nothing to Undo", "Nothing to Undo", dialogButton);
-					System.out.println("Was null");
-				}
-				
-
-				
+					JOptionPane.showMessageDialog(null, "Nothing to Undo!");
+				}			
 			}
 			
 		});	
@@ -245,6 +240,7 @@ public class GUI {
 						l.put(c, 0.0);
 					}
 				
+				// TODO: Need to update last change so that undo works
 				Log.updateEntry(l);
 			}
 		}});
