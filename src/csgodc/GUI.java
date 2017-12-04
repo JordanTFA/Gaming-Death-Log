@@ -127,7 +127,16 @@ public class GUI {
 		JPanel logpanel = new JPanel();
 		logpanel.setBackground(Color.GRAY);
 		
-		JTextArea log = new JTextArea();
+		JLabel log = new JLabel("<html><body>");
+		
+		String cat = getLastCat();
+		Double change = getLastChange();//.intValue();
+		
+		if( cat != null && change != null){
+			log.setText(log.getText() + cat + " + " + Double.toString(change));
+		}
+		
+		log.setText(log.getText() + "</body></html>");
 		
 		
 		logframe.add(logpanel);
@@ -270,18 +279,18 @@ public class GUI {
 				JPanel statsPanel = new JPanel();			
 				showStats.add(statsPanel);
 				
-				JLabel fr = new JLabel("<html><body>");
-				statsPanel.add(fr);
+				JLabel theStats = new JLabel("<html><body>");
+				statsPanel.add(theStats);
 				
 				// TODO: Sort numerically
 				for(Entry<String,Double> entry : l.entrySet()){
 					String key = entry.getKey();
 			        Double value = entry.getValue();
 			        
-			        fr.setText(fr.getText() + "<p>" + key + ":     \t" + value + "</p>");
+			        theStats.setText(theStats.getText() + "<p>" + key + ":     \t" + value + "</p>");
 				}
 				
-				fr.setText(fr.getText() + "</html>");
+				theStats.setText(theStats.getText() + "</html>");
 			}
 		});
 		
