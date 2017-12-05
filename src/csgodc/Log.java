@@ -93,7 +93,8 @@ public class Log {
 					+ "Team Fight (Unfavourable),0\n"
 					+ "Invaded,0\n"
 					+ "Ganked (Blame jg),0\n"
-					+ "Got Baited,0");
+					+ "Got Baited,0\n"
+					+ "Held Summoner Spells,0");
 				break;
 			case "ow": setDefaultLog("Separated from team,0\n"
 					+ "Picked off/Sniped,0\n"

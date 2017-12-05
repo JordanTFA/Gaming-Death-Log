@@ -34,6 +34,8 @@ public class GUI {
 	
 	static String lastCat = null;
 	static Double lastChange = null;
+	
+	static String logContent;
 
 	public static void buildGUI(){
 		frame = new JFrame();
@@ -125,29 +127,28 @@ public class GUI {
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2)); // This needs to be configured correctly
 		
 		JPanel logpanel = new JPanel();
-		logpanel.setBackground(Color.GRAY);
+		logpanel.setBackground(new Color(220,220,220));
 		
-		JLabel log = new JLabel("<html><body>");
-		
-		String cat = getLastCat();
-		Double change = getLastChange();//.intValue();
-		
-		if( cat != null && change != null){
-			log.setText(log.getText() + cat + " + " + Double.toString(change));
+		JLabel log = new JLabel();
+		if(getLogContent() != null){
+			log.setText("<html><body>" + getLogContent() + "</body></html>");
 		}
-		
-		log.setText(log.getText() + "</body></html>");
-		
-		
+
 		logframe.add(logpanel);
 		logpanel.add(log);
 	}
 	
 	public static void updateLog(String cat, Double change){
 		
+		// TODO: Perhaps we can make it notify when a mode has been changed?
+		
 		setLastCat(cat);
 		setLastChange(change);	
-		// TODO: Update Log
+		
+		setLogContent("<p>" + cat + " + " + change.intValue() + "</p>" + getLogContent());
+		
+		// TODO: Currently this create a new window. We want it to update the current window
+		createLog();
 		
 		
 	}
@@ -227,7 +228,6 @@ public class GUI {
 					Log.updateEntry(l);
 				}
 				else{
-					// TODO: Make alert here
 					JOptionPane.showMessageDialog(null, "Nothing to Undo!");
 				}			
 			}
@@ -248,8 +248,6 @@ public class GUI {
 
 						l.put(c, 0.0);
 					}
-				
-				// TODO: Need to update last change so that undo works
 				Log.updateEntry(l);
 			}
 		}});
@@ -313,6 +311,14 @@ public class GUI {
 
 	public static void setLastChange(Double lastChange) {
 		GUI.lastChange = lastChange;
+	}
+	
+	public static String getLogContent() {
+		return logContent;
+	}
+
+	public static void setLogContent(String logContent) {
+		GUI.logContent = logContent;
 	}
 
 }
