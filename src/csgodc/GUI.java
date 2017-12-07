@@ -26,6 +26,8 @@ public class GUI {
 	static JLabel icon;
 	static JButton button;
 	
+	static JLabel log;
+	
 	public final static int WIDTH = 400;
 	public final static int HEIGHT = 600;
 	
@@ -129,7 +131,7 @@ public class GUI {
 		JPanel logpanel = new JPanel();
 		logpanel.setBackground(new Color(220,220,220));
 		
-		JLabel log = new JLabel();
+		log = new JLabel();
 		if(getLogContent() != null){
 			log.setText("<html><body>" + getLogContent() + "</body></html>");
 		}
@@ -147,8 +149,7 @@ public class GUI {
 		
 		setLogContent("<p>" + cat + " + " + change.intValue() + "</p>" + getLogContent());
 		
-		// TODO: Currently this create a new window. We want it to update the current window
-		createLog();
+		log.setText("<html><body>" + getLogContent() + "</body></html");
 		
 		
 	}
@@ -200,7 +201,7 @@ public class GUI {
 					l.put(c, l.get(c) + 1);
 					System.out.println(l.get(c));
 					
-					Log.updateEntry(l);
+					Log.updateFile(l);
 					
 					updateLog(c, 1.0);
 				}
@@ -225,7 +226,7 @@ public class GUI {
 					
 					updateLog(cat,change);
 					
-					Log.updateEntry(l);
+					Log.updateFile(l);
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Nothing to Undo!");
@@ -248,7 +249,7 @@ public class GUI {
 
 						l.put(c, 0.0);
 					}
-				Log.updateEntry(l);
+				Log.updateFile(l);
 			}
 		}});
 		

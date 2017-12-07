@@ -113,7 +113,7 @@ public class Log {
 		}
 	}
 	
-	public static void updateEntry(HashMap<String, Double> l){
+	public static void updateFile(HashMap<String, Double> l){
 		
 		path = "src/csgodc/log/" + Main.getCurrentMode() + ".txt";
 		
