@@ -1,9 +1,9 @@
-Got Traded,4.0
-Crept up upon,5.0
-Overwhelmed,2.0
+Got Traded,5.0
+Crept up upon,11.0
+Overwhelmed,3.0
 Bad positioning,4.0
-Flashed,5.0
-Outaimed,3.0
+Flashed,2.0
+Outaimed,1.0
 Tried to cheese,2.0
-Peaked an AWP,2.0
-I Traded,2.0
+Peaked an AWP,4.0
+I Traded,1.0

@@ -17,7 +17,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 public class GUI {
 	
@@ -26,6 +25,8 @@ public class GUI {
 	static JLabel icon;
 	static JButton button;
 	
+	static JFrame logframe;
+	static String logContent = "";
 	static JLabel log;
 	
 	public final static int WIDTH = 400;
@@ -37,7 +38,8 @@ public class GUI {
 	static String lastCat = null;
 	static Double lastChange = null;
 	
-	static String logContent;
+	static Mode currentMode;
+
 
 	public static void buildGUI(){
 		frame = new JFrame();
@@ -65,9 +67,11 @@ public class GUI {
 		JMenuItem viewlog = new JMenuItem("View Log");
 		jm_log.add(viewlog);
 		
+		createLog();
+		
 		viewlog.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				createLog();
+				logframe.setVisible(true);
 			}
 		});
 		
@@ -121,9 +125,9 @@ public class GUI {
 	    Toolkit tk = Toolkit.getDefaultToolkit();
 	    Dimension screenSize = tk.getScreenSize();
 		
-		JFrame logframe = new JFrame();
+		logframe = new JFrame();
 		logframe.setSize(LOG_WIDTH, LOG_HEIGHT);
-		logframe.setVisible(true);
+		logframe.setVisible(false);
 		logframe.setTitle("Log");
 		logframe.setResizable(true);
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2)); // This needs to be configured correctly
@@ -145,9 +149,20 @@ public class GUI {
 		// TODO: Perhaps we can make it notify when a mode has been changed?
 		
 		setLastCat(cat);
-		setLastChange(change);	
+		setLastChange(change);
 		
-		setLogContent("<p>" + cat + " + " + change.intValue() + "</p>" + getLogContent());
+		String fontColour;
+		char symbol;
+		
+		if(change<0){
+			fontColour = "<font color=\"red\">";
+			symbol = '-';
+		}else{
+			fontColour = "<font color=\"green\">";
+			symbol = '+';
+		}
+		
+		setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
 		
 		log.setText("<html><body>" + getLogContent() + "</body></html");
 		
@@ -320,6 +335,14 @@ public class GUI {
 
 	public static void setLogContent(String logContent) {
 		GUI.logContent = logContent;
+	}
+	
+	public static Mode getCurrentMode() {
+		return currentMode;
+	}
+
+	public static void setCurrentMode(Mode currentMode) {
+		GUI.currentMode = currentMode;
 	}
 
 }
