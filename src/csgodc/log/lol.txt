@@ -1,8 +1,8 @@
-Team Fight (Favourable),1.0
-Took bad fight,0.0
-Team Fight (Unfavourable),1.0
-Overextended,2.0
+Team Fight (Favourable),5.0
+Took bad fight,1.0
+Team Fight (Unfavourable),4.0
+Overextended,5.0
 Invaded,1.0
-Facechecked Bush,1.0
+Facechecked Bush,2.0
 Ganked (Blame jg),1.0
 Got Baited,1.0

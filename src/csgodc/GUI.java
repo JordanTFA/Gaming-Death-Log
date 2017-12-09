@@ -146,8 +146,6 @@ public class GUI {
 	
 	public static void updateLog(String cat, Double change){
 		
-		// TODO: Perhaps we can make it notify when a mode has been changed?
-		
 		setLastCat(cat);
 		setLastChange(change);
 		
@@ -175,12 +173,17 @@ public class GUI {
 	
 		ArrayList<Mode> theModes = Mode.getTheModes();
 		
-		Mode currentMode = null;
-		
 		for(Mode m : theModes){
 			if(m.id==Main.getCurrentMode()){	
-				currentMode = m;
+				setCurrentMode(m);
 			}
+		}
+		
+		Mode currentMode = getCurrentMode();
+		
+		if(currentMode.name.length() > 0){
+			setLogContent("<p>" + "<font color=\"blue\">Changed mode to " + currentMode.name + "</p>" + getLogContent());
+			log.setText("<html><body>" + getLogContent() + "</body></html");
 		}
 		
 		Color BGColour = currentMode.BGColour;
@@ -275,15 +278,7 @@ public class GUI {
 		stats.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt){
 				
-				ArrayList<Mode> theModes = Mode.getTheModes();
-				
-				Mode currentMode = null;
-				
-				for(Mode m : theModes){
-					if(m.id==Main.getCurrentMode()){	
-						currentMode = m;
-					}
-				}
+				Mode currentMode = getCurrentMode();
 				
 				JFrame showStats = new JFrame(currentMode.name + " Statistics");
 				showStats.setSize(300, 300);
