@@ -146,6 +146,8 @@ public class GUI {
 	
 	public static void updateLog(String cat, Double change){
 		
+		// TODO: Make the log scroll instead of going offscreen
+		
 		setLastCat(cat);
 		setLastChange(change);
 		
@@ -268,6 +270,9 @@ public class GUI {
 						l.put(c, 0.0);
 					}
 				Log.updateFile(l);
+				
+				setLogContent("<p>" + "<font color=\"purple\">Stats reset for " + currentMode.name + "</font></p>" + getLogContent());
+				log.setText("<html><body>" + getLogContent() + "</body></html");
 			}
 		}});
 		
@@ -296,10 +301,12 @@ public class GUI {
 					String key = entry.getKey();
 			        Double value = entry.getValue();
 			        
-			        theStats.setText(theStats.getText() + "<p>" + key + ":     \t" + value + "</p>");
+			        theStats.setText(theStats.getText() + "<p>" + key + ":     \t" + value.intValue() + "</p>");
 				}
 				
 				theStats.setText(theStats.getText() + "</html>");
+				
+				
 			}
 		});
 		
