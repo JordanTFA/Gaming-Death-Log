@@ -30,7 +30,7 @@ public class Mode {
 		HashMap<String,Double> h = new HashMap<String, Double>();
 		h = Log.generateCategories("noMode");
 		
-		Mode noMode = new Mode("noMode", "", Color.PINK, new ImageIcon("src//img//img_pubg.png").getImage(), h);
+		Mode noMode = new Mode("noMode", "", Color.PINK, new ImageIcon("src//img//img_nomode.png").getImage(), h);
 		
 		h = Log.generateCategories("csgo");
 		Mode csgo = new Mode("csgo", "Counter-Strike: Global Offensive", Color.GRAY, new ImageIcon("src//img//img_csgo.png").getImage() , h);

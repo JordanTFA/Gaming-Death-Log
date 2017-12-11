@@ -130,7 +130,7 @@ public class GUI {
 		logframe.setVisible(false);
 		logframe.setTitle("Log");
 		logframe.setResizable(true);
-		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2)); // This needs to be configured correctly
+		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2)); // TODO: This needs to be configured correctly
 		
 		JPanel logpanel = new JPanel();
 		logpanel.setBackground(new Color(220,220,220));
@@ -165,7 +165,6 @@ public class GUI {
 		setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
 		
 		log.setText("<html><body>" + getLogContent() + "</body></html");
-		
 		
 	}
 	
