@@ -3,7 +3,8 @@ package csgodc;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
+
 
 import javax.swing.ImageIcon;
 
@@ -15,9 +16,9 @@ public class Mode {
 	String name;
 	Color BGColour;
 	Image img;
-	HashMap<String, Double> log;
+	TreeMap<String, Double> log;
 	
-	public Mode(String theid, String thename,  Color theBGColour, Image theimage, HashMap<String, Double> thelog){
+	public Mode(String theid, String thename,  Color theBGColour, Image theimage, TreeMap<String, Double> thelog){
 		id = theid;
 		name = thename;
 		BGColour = theBGColour;
@@ -27,7 +28,7 @@ public class Mode {
 	
 	public static ArrayList<Mode> generateModes(){
 		
-		HashMap<String,Double> h = new HashMap<String, Double>();
+		TreeMap<String,Double> h = new TreeMap<String, Double>();
 		h = Log.generateCategories("noMode");
 		
 		Mode noMode = new Mode("noMode", "", Color.PINK, new ImageIcon("src//img//img_nomode.png").getImage(), h);

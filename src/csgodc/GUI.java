@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Map.Entry;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -205,7 +205,7 @@ public class GUI {
 
 	}
 	
-	public static void createButtons(HashMap<String, Double> l){
+	public static void createButtons(TreeMap<String, Double> l){
 				
 		for(String c : l.keySet()){
 			
@@ -295,8 +295,19 @@ public class GUI {
 				JLabel theStats = new JLabel("<html><body>");
 				statsPanel.add(theStats);
 				
+				TreeMap<Double, String> m = sortMap(l);
+				
 				// TODO: Sort numerically
-				for(Entry<String,Double> entry : l.entrySet()){
+				// TODO: Make this work
+				
+				/*for(Entry<Double, String> entry : m.entrySet()){
+					String key = entry.getValue();
+			        Double value = entry.getKey();
+			        
+			        theStats.setText(theStats.getText() + "<p>" + key + ":     \t" + value.intValue() + "</p>");
+				}*/
+				
+				for(Entry<String, Double> entry : l.entrySet()){
 					String key = entry.getKey();
 			        Double value = entry.getValue();
 			        
@@ -312,6 +323,18 @@ public class GUI {
 		panel.add(stats);
 		
 		frame.validate();
+	}
+	
+	public static TreeMap<Double, String> sortMap(TreeMap<String, Double> old){
+		
+		TreeMap<Double, String> newMap = new TreeMap<Double, String>();
+		
+		for (Object key : old.keySet()){
+			    newMap.put(old.get(key), (String) key);
+		}
+		    
+		
+		return newMap;
 	}
 	
 	public static String getLastCat() {

@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class Log {
 	
@@ -15,10 +15,10 @@ public class Log {
 	public static BufferedReader br;
 	public static String defaultLog;
 
-	public static HashMap<String, Double> generateCategories(String modeid){
+	public static TreeMap<String, Double> generateCategories(String modeid){
 			
 		path = "src/csgodc/log/" + modeid + ".txt";
-		HashMap<String, Double> theCategories = new HashMap<String, Double>();
+		TreeMap<String, Double> theCategories = new TreeMap<String, Double>();
 		String line = null;
 		
 		try {
@@ -113,7 +113,7 @@ public class Log {
 		}
 	}
 	
-	public static void updateFile(HashMap<String, Double> l){
+	public static void updateFile(TreeMap<String, Double> l){
 		
 		path = "src/csgodc/log/" + Main.getCurrentMode() + ".txt";
 		
