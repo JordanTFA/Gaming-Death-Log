@@ -6,8 +6,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +19,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import static java.util.stream.Collectors.*;
+import static java.util.Map.Entry.*;
 
 public class GUI {
 	
@@ -295,24 +306,15 @@ public class GUI {
 				JLabel theStats = new JLabel("<html><body>");
 				statsPanel.add(theStats);
 				
-				TreeMap<Double, String> m = sortMap(l);
+				Map<String, Double> m = sortMap(l);
 				
-				// TODO: Sort numerically
-				// TODO: Make this work
-				
-				/*for(Entry<Double, String> entry : m.entrySet()){
-					String key = entry.getValue();
-			        Double value = entry.getKey();
-			        
-			        theStats.setText(theStats.getText() + "<p>" + key + ":     \t" + value.intValue() + "</p>");
-				}*/
-				
-				for(Entry<String, Double> entry : l.entrySet()){
+				for(Entry<String, Double> entry : m.entrySet()){
 					String key = entry.getKey();
 			        Double value = entry.getValue();
 			        
 			        theStats.setText(theStats.getText() + "<p>" + key + ":     \t" + value.intValue() + "</p>");
 				}
+				
 				
 				theStats.setText(theStats.getText() + "</html>");
 				
@@ -325,15 +327,18 @@ public class GUI {
 		frame.validate();
 	}
 	
-	public static TreeMap<Double, String> sortMap(TreeMap<String, Double> old){
+	public static Map<String, Double> sortMap(TreeMap<String, Double> old){
+
+		// I don't really know what this does but it works
 		
-		TreeMap<Double, String> newMap = new TreeMap<Double, String>();
+		Map<String, Double> newMap = old.entrySet()
+		        .stream()
+		        .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+		        .collect(
+		            toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
+		                LinkedHashMap::new));
 		
-		for (Object key : old.keySet()){
-			    newMap.put(old.get(key), (String) key);
-		}
-		    
-		
+
 		return newMap;
 	}
 	
