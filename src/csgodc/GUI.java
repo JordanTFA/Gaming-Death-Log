@@ -51,7 +51,7 @@ public class GUI {
 	
 	static Mode currentMode;
 
-
+	// Main Window
 	public static void buildGUI(){
 		frame = new JFrame();
 		frame.setSize(WIDTH, HEIGHT);
@@ -78,15 +78,24 @@ public class GUI {
 		JMenuItem viewlog = new JMenuItem("View Log");
 		jm_log.add(viewlog);
 		
+		// Create the log window
 		createLog();
 		
+		// Make the log visible if it's selected from the menu bar
 		viewlog.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				logframe.setVisible(true);
 			}
 		});
 		
+		// Load the current mode, this should be noMode by default
 		loadMode();
+		
+		/*
+		 * These are all menu bar items for each mode
+		 * These should also probably be created procedurally
+		 * TODO: Make this procedural
+		 */
 		
 			JMenuItem csgo = new JMenuItem("CounterStrike: Global Offensive");
 			jm_mode.add(csgo);
