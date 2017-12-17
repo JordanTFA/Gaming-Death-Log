@@ -140,6 +140,7 @@ public class GUI {
 			});
 	}
 	
+	// Create log content
 	public static void createLog(){
 		
 	    Toolkit tk = Toolkit.getDefaultToolkit();
@@ -150,11 +151,14 @@ public class GUI {
 		logframe.setVisible(false);
 		logframe.setTitle("Log");
 		logframe.setResizable(true);
+		
+		// Set the log window next to the main window
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2)); // TODO: This needs to be configured correctly
 		
 		JPanel logpanel = new JPanel();
 		logpanel.setBackground(new Color(220,220,220));
 		
+		// Design the log using html
 		log = new JLabel();
 		if(getLogContent() != null){
 			log.setText("<html><body>" + getLogContent() + "</body></html>");
@@ -164,6 +168,7 @@ public class GUI {
 		logpanel.add(log);
 	}
 	
+	// Update the log whenever it receives a new entry
 	public static void updateLog(String cat, Double change){
 		
 		// TODO: Make the log scroll instead of going offscreen
@@ -188,6 +193,7 @@ public class GUI {
 		
 	}
 	
+	// Load a new mode onto the main window
 	public static void loadMode(){
 		
 		panel.removeAll();
