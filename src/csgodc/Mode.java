@@ -51,6 +51,9 @@ public class Mode {
 		theModes.add(ow);
 		theModes.add(pubg);
 		
+		// Set noMode as the default
+		GUI.setCurrentMode(noMode);
+		
 		return theModes;
 	}
 	

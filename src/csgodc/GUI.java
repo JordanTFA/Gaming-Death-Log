@@ -88,56 +88,37 @@ public class GUI {
 			}
 		});
 		
+		ArrayList<Mode> theModes = Mode.getTheModes();
+		
+		//Set default
+		setCurrentMode(theModes.get(0));
+		
 		// Load the current mode, this should be noMode by default
 		loadMode();
 		
 		/*
 		 * These are all menu bar items for each mode
-		 * These should also probably be created procedurally
-		 * TODO: Make this procedural
+		 * We remove the index 0 because this is the "no-mode" mode.
 		 */
 		
-			JMenuItem csgo = new JMenuItem("CounterStrike: Global Offensive");
-			jm_mode.add(csgo);
+		theModes.remove(0);
+		
+		for(Mode m : theModes){
+			JMenuItem menuitem = new JMenuItem(m.name);
 			
-			csgo.addActionListener(new ActionListener(){
+			if(m.id!="noMode"){
+				jm_mode.add(menuitem);
+			}
+			
+			
+			menuitem.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					Main.setCurrentMode("csgo");
+					setCurrentMode(m);
 					loadMode();
 				}
 			});
 			
-			
-			JMenuItem lol = new JMenuItem("League of Legends");
-			jm_mode.add(lol);
-			
-			lol.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e){
-					Main.setCurrentMode("lol");
-					loadMode();
-				}
-			});
-			
-			
-			JMenuItem ow = new JMenuItem("Overwatch");
-			jm_mode.add(ow);
-			ow.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e){
-					Main.setCurrentMode("ow");
-					loadMode();
-				}
-			});
-			
-			
-			JMenuItem pubg = new JMenuItem("PLAYERUNKNOWN'S BATTLEGROUNDS");
-			jm_mode.add(pubg);
-			
-			pubg.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e){
-					Main.setCurrentMode("pubg");
-					loadMode();
-				}
-			});
+		}
 	}
 	
 	// Create log content
@@ -168,10 +149,14 @@ public class GUI {
 		logpanel.add(log);
 	}
 	
+	public static void createCfg(){
+		
+	}
+	
 	// Update the log whenever it receives a new entry
 	public static void updateLog(String cat, Double change){
 		
-		// TODO: Make the log scroll instead of going offscreen
+		// TODO: Make the log scroll instead of going off-screen
 		
 		setLastCat(cat);
 		setLastChange(change);
@@ -187,6 +172,7 @@ public class GUI {
 			symbol = '+';
 		}
 		
+		// Create new line
 		setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
 		
 		log.setText("<html><body>" + getLogContent() + "</body></html");
@@ -197,14 +183,6 @@ public class GUI {
 	public static void loadMode(){
 		
 		panel.removeAll();
-	
-		ArrayList<Mode> theModes = Mode.getTheModes();
-		
-		for(Mode m : theModes){
-			if(m.id==Main.getCurrentMode()){	
-				setCurrentMode(m);
-			}
-		}
 		
 		Mode currentMode = getCurrentMode();
 		
