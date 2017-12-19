@@ -1,4 +1,6 @@
 package csgodc;
+import static java.util.stream.Collectors.toMap;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -6,12 +8,16 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -19,15 +25,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import static java.util.stream.Collectors.*;
-import static java.util.Map.Entry.*;
 
 public class GUI {
 	
@@ -70,8 +67,10 @@ public class GUI {
 		JMenu jm_mode = new JMenu("Mode");
 		jmb.add(jm_mode);
 		
-		JMenu cfg = new JMenu("Configure");
-		jmb.add(cfg);
+		JMenu jm_cfg = new JMenu("Configure");
+		jmb.add(jm_cfg);
+		JMenuItem viewcfg = new JMenuItem("Preferences...");
+		jm_cfg.add(viewcfg);
 		
 		JMenu jm_log = new JMenu("Log");
 		jmb.add(jm_log);
@@ -119,6 +118,12 @@ public class GUI {
 			});
 			
 		}
+		
+		viewcfg.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				createCfg();
+			}
+		});
 	}
 	
 	// Create log content
@@ -149,7 +154,30 @@ public class GUI {
 		logpanel.add(log);
 	}
 	
+	// Creates the configuration panel
 	public static void createCfg(){
+		
+		JFrame cfgFrame = new JFrame("Configuration");
+		cfgFrame.setSize(300, 300);
+		cfgFrame.setVisible(true);
+		cfgFrame.setResizable(false);
+		cfgFrame.setLocationRelativeTo(null);
+		
+		JPanel cfgPanel = new JPanel();
+		cfgFrame.add(cfgPanel);
+		
+		//System.out.println(getCurrentMode().log);
+		for(String s : getCurrentMode().log.keySet()){
+			JCheckBox cfgCheck = new JCheckBox(s);
+			cfgPanel.add(cfgCheck);
+		}
+		
+		JButton addCat = new JButton("Add Category");
+		cfgPanel.add(addCat);
+		
+		JButton removeCat = new JButton("Remove Category");
+		cfgPanel.add(removeCat);
+		
 		
 	}
 	
