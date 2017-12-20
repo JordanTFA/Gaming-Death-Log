@@ -166,7 +166,6 @@ public class GUI {
 		JPanel cfgPanel = new JPanel();
 		cfgFrame.add(cfgPanel);
 		
-		//System.out.println(getCurrentMode().log);
 		for(String s : getCurrentMode().log.keySet()){
 			JCheckBox cfgCheck = new JCheckBox(s);
 			cfgPanel.add(cfgCheck);
@@ -233,8 +232,10 @@ public class GUI {
 		
 		frame.validate();
 	
+		
+		System.out.println(currentMode.id);
+		
 		createButtons(currentMode.log);
-
 	}
 	
 	public static void createButtons(TreeMap<String, Double> l){

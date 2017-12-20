@@ -115,7 +115,7 @@ public class Log {
 	
 	public static void updateFile(TreeMap<String, Double> l){
 		
-		path = "src/csgodc/log/" + Main.getCurrentMode() + ".txt";
+		path = "src/csgodc/log/" + GUI.getCurrentMode().id + ".txt";
 		
 		try {
 
