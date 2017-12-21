@@ -231,9 +231,6 @@ public class GUI {
 		panel.setBackground(BGColour);
 		
 		frame.validate();
-	
-		
-		System.out.println(currentMode.id);
 		
 		createButtons(currentMode.log);
 	}
@@ -268,11 +265,11 @@ public class GUI {
 				if(getLastCat() != null && getLastChange() != null){
 					
 					String cat = getLastCat();
-					Double change = (getLastChange()) * -1;
+					Double change = getLastChange() * -1;
 					
 					for(String c: l.keySet()){
 						if(c==cat){
-							l.put(c,(l.get(c) + (change)));
+							l.put(c, l.get(c) + change);
 						}
 					}
 					
