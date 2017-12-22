@@ -144,7 +144,7 @@ public class GUI {
 		JPanel logpanel = new JPanel();
 		logpanel.setBackground(new Color(220,220,220));
 		
-		// Design the log using html
+		// Design the log using HTML
 		log = new JLabel();
 		if(getLogContent() != null){
 			log.setText("<html><body>" + getLogContent() + "</body></html>");
@@ -166,14 +166,17 @@ public class GUI {
 		JPanel cfgPanel = new JPanel();
 		cfgFrame.add(cfgPanel);
 		
+		// Create a check-box for each category
 		for(String s : getCurrentMode().log.keySet()){
 			JCheckBox cfgCheck = new JCheckBox(s);
 			cfgPanel.add(cfgCheck);
 		}
 		
+		// TODO: Add the ability to create a new category
 		JButton addCat = new JButton("Add Category");
 		cfgPanel.add(addCat);
 		
+		// TODO: Add the ability to remove a category
 		JButton removeCat = new JButton("Remove Category");
 		cfgPanel.add(removeCat);
 		
@@ -209,9 +212,15 @@ public class GUI {
 	// Load a new mode onto the main window
 	public static void loadMode(){
 		
+		//Clear the old mode screen
 		panel.removeAll();
 		
 		Mode currentMode = getCurrentMode();
+		
+		// Update log with a mode change - the if statement is to prevent "noMode" being picked up. Probably
+		// A better way to deal with this
+		// TODO: Fix maybe?
+		// TODO: Change the font colour to a variable rather than hard-code blue. Easy fix
 		
 		if(currentMode.name.length() > 0){
 			setLogContent("<p>" + "<font color=\"blue\">Changed mode to " + currentMode.name + "</p>" + getLogContent());
