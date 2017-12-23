@@ -134,7 +134,7 @@ public class GUI {
 		
 		logframe = new JFrame();
 		logframe.setSize(LOG_WIDTH, LOG_HEIGHT);
-		logframe.setVisible(false);
+		logframe.setVisible(true);
 		logframe.setTitle("Log");
 		logframe.setResizable(true);
 		
@@ -166,8 +166,9 @@ public class GUI {
 		JPanel cfgPanel = new JPanel();
 		cfgFrame.add(cfgPanel);
 		
+		TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
 		// Create a check-box for each category
-		for(String s : getCurrentMode().log.keySet()){
+		for(String s : cats.keySet()){
 			JCheckBox cfgCheck = new JCheckBox(s);
 			cfgPanel.add(cfgCheck);
 		}
@@ -223,7 +224,9 @@ public class GUI {
 		// TODO: Change the font colour to a variable rather than hard-code blue. Easy fix
 		
 		if(currentMode.name.length() > 0){
-			setLogContent("<p>" + "<font color=\"blue\">Changed mode to " + currentMode.name + "</p>" + getLogContent());
+			
+			String colour = "<font color=\'blue\'>";
+			setLogContent("<p>" + colour + "Changed mode to " + currentMode.name + "</p>" + getLogContent());
 			log.setText("<html><body>" + getLogContent() + "</body></html");
 		}
 		
