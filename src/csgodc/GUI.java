@@ -7,9 +7,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -25,6 +26,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class GUI {
 	
@@ -166,20 +168,42 @@ public class GUI {
 		JPanel cfgPanel = new JPanel();
 		cfgFrame.add(cfgPanel);
 		
+
+		
+		JTextField catToAdd = new JTextField("Click Here to Add a Category");
+		catToAdd.setSize(3000, 5);
+		catToAdd.setBounds(0,0,3000, 5);
+		cfgPanel.add(catToAdd);
+        catToAdd.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                catToAdd.setText("");
+            }
+        });
+		// TODO: Add the ability to create a new category
+		JButton addCat = new JButton("Add");
+		cfgPanel.add(addCat);
+		
+		addCat.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				
+				System.out.println("Add Cat");
+
+			}
+			
+		});	
+		
+		// TODO: Add the ability to remove a category
+		// Use a dropdown
+		JButton removeCat = new JButton("Remove Category");
+		//cfgPanel.add(removeCat);
+		
 		TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
 		// Create a check-box for each category
 		for(String s : cats.keySet()){
 			JCheckBox cfgCheck = new JCheckBox(s);
 			cfgPanel.add(cfgCheck);
 		}
-		
-		// TODO: Add the ability to create a new category
-		JButton addCat = new JButton("Add Category");
-		cfgPanel.add(addCat);
-		
-		// TODO: Add the ability to remove a category
-		JButton removeCat = new JButton("Remove Category");
-		cfgPanel.add(removeCat);
 		
 		
 	}
