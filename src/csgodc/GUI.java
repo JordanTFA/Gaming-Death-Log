@@ -194,7 +194,7 @@ public class GUI {
 		});	
 		
 		// TODO: Add the ability to remove a category
-		// Use a dropdown
+		// Use a drop-down
 		JButton removeCat = new JButton("Remove Category");
 		//cfgPanel.add(removeCat);
 		
