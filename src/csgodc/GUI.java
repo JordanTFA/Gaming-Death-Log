@@ -180,14 +180,24 @@ public class GUI {
                 catToAdd.setText("");
             }
         });
-		// TODO: Add the ability to create a new category
+        
+        TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
+        
+
+        // Add a category. NOTE: This will not update the active treemap used to store the categories
+        // but it will update the text file.
+        // TODO: Make this update the active treemap
 		JButton addCat = new JButton("Add");
 		cfgPanel.add(addCat);
 		
 		addCat.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt){
 				
-				System.out.println("Add Cat");
+				cats.put(catToAdd.getText(), 0.0);
+				Log.updateFile(cats);
+				
+				cfgFrame.dispose();
+				createCfg();
 
 			}
 			
@@ -198,7 +208,7 @@ public class GUI {
 		JButton removeCat = new JButton("Remove Category");
 		//cfgPanel.add(removeCat);
 		
-		TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
+		
 		// Create a check-box for each category
 		for(String s : cats.keySet()){
 			JCheckBox cfgCheck = new JCheckBox(s);
