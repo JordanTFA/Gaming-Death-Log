@@ -19,6 +19,7 @@ import java.util.TreeMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -184,9 +185,9 @@ public class GUI {
         TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
         
 
-        // Add a category. NOTE: This will not update the active treemap used to store the categories
+        // Add a category. NOTE: This will not update the active tree-map used to store the categories
         // but it will update the text file.
-        // TODO: Make this update the active treemap
+        // TODO: Make this update the active tree-map
 		JButton addCat = new JButton("Add");
 		cfgPanel.add(addCat);
 		
@@ -198,22 +199,45 @@ public class GUI {
 				
 				cfgFrame.dispose();
 				createCfg();
+				
+				loadMode();
 
 			}
 			
 		});	
 		
-		// TODO: Add the ability to remove a category
-		// Use a drop-down
-		JButton removeCat = new JButton("Remove Category");
-		//cfgPanel.add(removeCat);
-		
+		JComboBox<String> jcmb = new JComboBox<String>();
 		
 		// Create a check-box for each category
 		for(String s : cats.keySet()){
 			JCheckBox cfgCheck = new JCheckBox(s);
 			cfgPanel.add(cfgCheck);
+			
+			jcmb.addItem(s);
 		}
+		
+		// TODO: Add the ability to remove a category
+		// Use a drop-down
+		JButton removeCat = new JButton("Remove Category");
+		removeCat.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				
+				System.out.println(cats);
+				cats.remove(jcmb.getSelectedItem());
+				System.out.println(cats);
+				Log.updateFile(cats);
+				
+				cfgFrame.dispose();
+				createCfg();
+				
+				loadMode();
+
+			}
+			
+		});	
+		
+		cfgPanel.add(jcmb);
+		cfgPanel.add(removeCat);
 		
 		
 	}
@@ -255,7 +279,6 @@ public class GUI {
 		// Update log with a mode change - the if statement is to prevent "noMode" being picked up. Probably
 		// A better way to deal with this
 		// TODO: Fix maybe?
-		// TODO: Change the font colour to a variable rather than hard-code blue. Easy fix
 		
 		if(currentMode.name.length() > 0){
 			
