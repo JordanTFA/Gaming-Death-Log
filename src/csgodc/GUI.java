@@ -50,6 +50,7 @@ public class GUI {
 	static Double lastChange = null;
 	
 	static Mode currentMode;
+	static TreeMap<String,Double> allCategories;
 
 	// Main Window
 	public static void buildGUI(){
@@ -197,10 +198,21 @@ public class GUI {
 				cats.put(catToAdd.getText(), 0.0);
 				Log.updateFile(cats);
 				
+				allCategories = cats;
+				
 				cfgFrame.dispose();
 				createCfg();
 				
-				loadMode();
+				// TODO: Cut this down
+				if(currentMode.name.length() > 0){
+					
+					String colour = "<font color=\'green\'>";
+					setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</p>" + getLogContent());
+					log.setText("<html><body>" + getLogContent() + "</body></html");
+				}
+				
+				createBackground();
+				createButtons();
 
 			}
 			
@@ -216,8 +228,6 @@ public class GUI {
 			jcmb.addItem(s);
 		}
 		
-		// TODO: Add the ability to remove a category
-		// Use a drop-down
 		JButton removeCat = new JButton("Remove Category");
 		removeCat.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt){
@@ -227,10 +237,21 @@ public class GUI {
 				System.out.println(cats);
 				Log.updateFile(cats);
 				
+				allCategories = cats;
+				
 				cfgFrame.dispose();
 				createCfg();
 				
-				loadMode();
+				// TODO: Cut this down
+				if(currentMode.name.length() > 0){
+					
+					String colour = "<font color=\'red\'>";
+					setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem() + "</p>" + getLogContent());
+					log.setText("<html><body>" + getLogContent() + "</body></html");
+				}
+				
+				createBackground();
+				createButtons();
 
 			}
 			
@@ -268,17 +289,35 @@ public class GUI {
 		
 	}
 	
-	// Load a new mode onto the main window
-	public static void loadMode(){
+	public static void createBackground(){
 		
 		//Clear the old mode screen
 		panel.removeAll();
 		
 		Mode currentMode = getCurrentMode();
 		
-		// Update log with a mode change - the if statement is to prevent "noMode" being picked up. Probably
-		// A better way to deal with this
-		// TODO: Fix maybe?
+			Color BGColour = currentMode.BGColour;
+		
+			Image imgLogo = currentMode.img;
+			ImageIcon imgIcon= new ImageIcon(imgLogo);
+			icon = new JLabel(imgIcon);
+			icon.setBounds(5, 5, 300, 80);
+			icon.setSize(300,80);
+			panel.add(icon);
+		
+			frame.setTitle(currentMode.name + " Death Log");
+			panel.setBackground(BGColour);
+		
+			frame.validate();
+		
+	}
+	
+	// Load a new mode onto the main window
+	public static void loadMode(){
+		
+		//Clear the old mode screen
+		panel.removeAll();
+		createBackground();
 		
 		if(currentMode.name.length() > 0){
 			
@@ -287,26 +326,19 @@ public class GUI {
 			log.setText("<html><body>" + getLogContent() + "</body></html");
 		}
 		
-		Color BGColour = currentMode.BGColour;
+
+		allCategories = currentMode.log;
 		
-		Image imgLogo = currentMode.img;
-		ImageIcon imgIcon= new ImageIcon(imgLogo);
-		icon = new JLabel(imgIcon);
-		icon.setBounds(5, 5, 300, 80);
-		icon.setSize(300,80);
-		panel.add(icon);
-		
-		frame.setTitle(currentMode.name + " Death Log");
-		panel.setBackground(BGColour);
-		
-		frame.validate();
-		
-		createButtons(currentMode.log);
+		// Update log with a mode change - the if statement is to prevent "noMode" being picked up. Probably
+		// A better way to deal with this
+		// TODO: Fix maybe?
+
+		createButtons();
 	}
 	
-	public static void createButtons(TreeMap<String, Double> l){
+	public static void createButtons(){
 				
-		for(String c : l.keySet()){
+		for(String c : allCategories.keySet()){
 			
 			button = new JButton(c);
 			panel.add(button);
@@ -316,10 +348,10 @@ public class GUI {
 					
 					System.out.println("Add one to " + c);
 					
-					l.put(c, l.get(c) + 1);
-					System.out.println(l.get(c));
+					allCategories.put(c, allCategories.get(c) + 1);
+					System.out.println(allCategories.get(c));
 					
-					Log.updateFile(l);
+					Log.updateFile(allCategories);
 					
 					updateLog(c, 1.0);
 				}
@@ -336,15 +368,15 @@ public class GUI {
 					String cat = getLastCat();
 					Double change = getLastChange() * -1;
 					
-					for(String c: l.keySet()){
+					for(String c: allCategories.keySet()){
 						if(c==cat){
-							l.put(c, l.get(c) + change);
+							allCategories.put(c, allCategories.get(c) + change);
 						}
 					}
 					
 					updateLog(cat,change);
 					
-					Log.updateFile(l);
+					Log.updateFile(allCategories);
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Nothing to Undo!");
@@ -363,11 +395,11 @@ public class GUI {
 				int dialogResult = JOptionPane.showConfirmDialog (null, "This will reset all of your stats! Are you sure you want to reset?", "Warning", dialogButton);
 				if(dialogResult == JOptionPane.YES_OPTION){
 					
-					for(String c : l.keySet()){
+					for(String c : allCategories.keySet()){
 
-						l.put(c, 0.0);
+						allCategories.put(c, 0.0);
 					}
-				Log.updateFile(l);
+				Log.updateFile(allCategories);
 				
 				setLogContent("<p>" + "<font color=\"purple\">Stats reset for " + currentMode.name + "</font></p>" + getLogContent());
 				log.setText("<html><body>" + getLogContent() + "</body></html");
@@ -394,7 +426,7 @@ public class GUI {
 				JLabel theStats = new JLabel("<html><body>");
 				statsPanel.add(theStats);
 				
-				Map<String, Double> m = sortMap(l);
+				Map<String, Double> m = sortMap(allCategories);
 				
 				for(Entry<String, Double> entry : m.entrySet()){
 					String key = entry.getKey();

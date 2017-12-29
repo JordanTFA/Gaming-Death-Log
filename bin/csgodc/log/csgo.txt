@@ -1,9 +1,0 @@
-Bad positioning,2.0
-Crept up upon,1.0
-Flashed,0.0
-Got Traded,3.0
-I Traded,4.0
-Outaimed,1.0
-Overwhelmed,2.0
-Peaked an AWP,3.0
-Tried to cheese,2.0
