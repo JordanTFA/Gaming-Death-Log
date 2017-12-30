@@ -1,0 +1,8 @@
+Facechecked Bush,0.0
+Ganked (Blame jg),0.0
+Got Baited,0.0
+Invaded,0.0
+Overextended,0.0
+Team Fight (Favourable),0.0
+Team Fight (Unfavourable),0.0
+Took bad fight,0.0

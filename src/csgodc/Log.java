@@ -77,18 +77,18 @@ public class Log {
 		
 		switch(mode){
 			case "csgo": setDefaultLog("Outaimed,0\n"
-					+ "Crept up upon,0\n"
+					+ "Crept up Upon,0\n"
 					+ "Bad positioning,0\n"
 					+ "Overwhelmed,0\n"
 					+ "Got Traded,0\n"
 					+ "I Traded,0\n"
 					+ "Flashed,0\n"
 					+ "Peaked an AWP,0\n"
-					+ "Tried to cheese,0");
+					+ "Tried to Cheese,0");
 				break;
 			case "lol": setDefaultLog("Overextended,0\n"
 					+ "Facechecked Bush,0\n"
-					+ "Took bad fight,0\n" 
+					+ "Took Bad Fight,0\n" 
 					+ "Team Fight (Favourable),0\n"
 					+ "Team Fight (Unfavourable),0\n"
 					+ "Invaded,0\n"
