@@ -161,104 +161,94 @@ public class GUI {
 	// Creates the configuration panel
 	public static void createCfg(){
 		
-		JFrame cfgFrame = new JFrame("Configuration");
-		cfgFrame.setSize(300, 300);
-		cfgFrame.setVisible(true);
-		cfgFrame.setResizable(false);
-		cfgFrame.setLocationRelativeTo(null);
+		if(currentMode.name.length() > 0){
 		
-		JPanel cfgPanel = new JPanel();
-		cfgFrame.add(cfgPanel);
+			JFrame cfgFrame = new JFrame("Configuration");
+			cfgFrame.setSize(300, 300);
+			cfgFrame.setVisible(true);
+			cfgFrame.setResizable(false);
+			cfgFrame.setLocationRelativeTo(null);
 		
-
+			JPanel cfgPanel = new JPanel();
+			cfgFrame.add(cfgPanel);
 		
-		JTextField catToAdd = new JTextField("Click Here to Add a Category");
-		catToAdd.setSize(3000, 5);
-		catToAdd.setBounds(0,0,3000, 5);
-		cfgPanel.add(catToAdd);
-        catToAdd.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                catToAdd.setText("");
-            }
-        });
+			JTextField catToAdd = new JTextField("Click Here to Add a Category");
+			catToAdd.setSize(3000, 5);
+			catToAdd.setBounds(0,0,3000, 5);
+			cfgPanel.add(catToAdd);
+			catToAdd.addMouseListener(new MouseAdapter(){
+				@Override
+				public void mouseClicked(MouseEvent e){
+					catToAdd.setText("");
+				}
+			});
         
-        TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
-        
-
-        // Add a category. NOTE: This will not update the active tree-map used to store the categories
-        // but it will update the text file.
-        // TODO: Make this update the active tree-map
-		JButton addCat = new JButton("Add");
-		cfgPanel.add(addCat);
+			TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
+			
+			JButton addCat = new JButton("Add");
+			cfgPanel.add(addCat);
 		
-		addCat.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent evt){
+			addCat.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent evt){
 				
-				cats.put(catToAdd.getText(), 0.0);
-				Log.updateFile(cats);
+					cats.put(catToAdd.getText(), 0.0);
+					Log.updateFile(cats);
 				
-				allCategories = cats;
+					allCategories = cats;
 				
-				cfgFrame.dispose();
-				createCfg();
-				
-				// TODO: Cut this down
-				if(currentMode.name.length() > 0){
+					cfgFrame.dispose();
+					createCfg();
 					
 					String colour = "<font color=\'green\'>";
 					setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</p>" + getLogContent());
 					log.setText("<html><body>" + getLogContent() + "</body></html");
-				}
-				
-				createBackground();
-				createButtons();
 
+				
+					createBackground();
+					createButtons();
+
+				}
+			
+			});	
+		
+			JComboBox<String> jcmb = new JComboBox<String>();
+		
+			// Create a check-box for each category
+			for(String s : cats.keySet()){
+				JCheckBox cfgCheck = new JCheckBox(s);
+				cfgPanel.add(cfgCheck);
+			
+				jcmb.addItem(s);
 			}
 			
-		});	
-		
-		JComboBox<String> jcmb = new JComboBox<String>();
-		
-		// Create a check-box for each category
-		for(String s : cats.keySet()){
-			JCheckBox cfgCheck = new JCheckBox(s);
-			cfgPanel.add(cfgCheck);
-			
-			jcmb.addItem(s);
-		}
-		
-		JButton removeCat = new JButton("Remove Category");
-		removeCat.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent evt){
-				
-				System.out.println(cats);
-				cats.remove(jcmb.getSelectedItem());
-				System.out.println(cats);
-				Log.updateFile(cats);
-				
-				allCategories = cats;
-				
-				cfgFrame.dispose();
-				createCfg();
-				
-				// TODO: Cut this down
-				if(currentMode.name.length() > 0){
+			JButton removeCat = new JButton("Remove Category");
+			removeCat.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent evt){
 					
+					cats.remove(jcmb.getSelectedItem());
+					Log.updateFile(cats);
+					
+					allCategories = cats;
+					
+					cfgFrame.dispose();
+					createCfg();
+				
 					String colour = "<font color=\'red\'>";
 					setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem() + "</p>" + getLogContent());
 					log.setText("<html><body>" + getLogContent() + "</body></html");
+					
+					createBackground();
+					createButtons();
 				}
-				
-				createBackground();
-				createButtons();
-
-			}
 			
-		});	
+			});	
 		
-		cfgPanel.add(jcmb);
-		cfgPanel.add(removeCat);
+			cfgPanel.add(jcmb);
+			cfgPanel.add(removeCat);
+			
+		}else{
+			JOptionPane.showMessageDialog(null, "Select a Category to Configure!");
+		}
 		
 		
 	}
