@@ -309,21 +309,17 @@ public class GUI {
 		panel.removeAll();
 		createBackground();
 		
+		allCategories = currentMode.log;
+		
 		if(currentMode.name.length() > 0){
 			
 			String colour = "<font color=\'blue\'>";
 			setLogContent("<p>" + colour + "Changed mode to " + currentMode.name + "</p>" + getLogContent());
 			log.setText("<html><body>" + getLogContent() + "</body></html");
+			
+			createButtons();
 		}
 		
-
-		allCategories = currentMode.log;
-		
-		// Update log with a mode change - the if statement is to prevent "noMode" being picked up. Probably
-		// A better way to deal with this
-		// TODO: Fix maybe?
-
-		createButtons();
 	}
 	
 	public static void createButtons(){
