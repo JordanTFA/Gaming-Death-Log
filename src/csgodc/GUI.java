@@ -93,27 +93,14 @@ public class GUI {
 		
 		ArrayList<Mode> theModes = Mode.getTheModes();
 		
-		//Set default
-		setCurrentMode(theModes.get(0));
-		
-		// Load the current mode, this should be noMode by default
-		loadMode();
-		
-		/*
-		 * These are all menu bar items for each mode
-		 * We remove the index 0 because this is the "no-mode" mode.
-		 */
-		
-		theModes.remove(0);
+		// Load the Default Page
+		createDefaultPage();
 		
 		for(Mode m : theModes){
 			JMenuItem menuitem = new JMenuItem(m.name);
 			
-			if(m.id!="noMode"){
-				jm_mode.add(menuitem);
-			}
-			
-			
+			jm_mode.add(menuitem);
+
 			menuitem.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					setCurrentMode(m);
@@ -161,7 +148,7 @@ public class GUI {
 	// Creates the configuration panel
 	public static void createCfg(){
 		
-		if(currentMode.name.length() > 0){
+		if(getCurrentMode() != null){
 		
 			JFrame cfgFrame = new JFrame("Configuration");
 			cfgFrame.setSize(300, 300);
@@ -276,6 +263,26 @@ public class GUI {
 		setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
 		
 		log.setText("<html><body>" + getLogContent() + "</body></html");
+		
+	}
+	
+	public static void createDefaultPage(){
+		
+		panel.removeAll();
+		
+		Color BGColour = Color.PINK;
+		
+		Image imgLogo = new ImageIcon("src//img//img_nomode.png").getImage();
+		ImageIcon imgIcon= new ImageIcon(imgLogo);
+		icon = new JLabel(imgIcon);
+		icon.setBounds(5, 5, 300, 80);
+		icon.setSize(300,80);
+		panel.add(icon);
+	
+		frame.setTitle("Gaming Death Log");
+		panel.setBackground(BGColour);
+	
+		frame.validate();
 		
 	}
 	
