@@ -130,7 +130,7 @@ public class GUI {
 		logframe.setResizable(true);
 		
 		// Set the log window next to the main window
-		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2)); // TODO: This needs to be configured correctly
+		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); // TODO: This needs to be configured correctly
 		
 		JPanel logpanel = new JPanel();
 		logpanel.setBackground(new Color(220,220,220));
