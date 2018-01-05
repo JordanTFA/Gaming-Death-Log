@@ -2,7 +2,7 @@ Bad Positioning,4.0
 Crept up upon,2.0
 Flashed,0.0
 Got Traded,1.0
-I Traded,1.0
+I Traded,2.0
 Outaimed,0.0
 Overwhelmed,1.0
 Peaked an AWP,1.0

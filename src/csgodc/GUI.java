@@ -158,6 +158,9 @@ public class GUI {
 		
 			JPanel cfgPanel = new JPanel();
 			cfgFrame.add(cfgPanel);
+			
+			JLabel lblCategory = new JLabel(getCurrentMode().name);
+			cfgPanel.add(lblCategory);
 		
 			JTextField catToAdd = new JTextField("Click Here to Add a Category");
 			catToAdd.setSize(3000, 5);
