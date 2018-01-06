@@ -130,7 +130,7 @@ public class GUI {
 		logframe.setResizable(true);
 		
 		// Set the log window next to the main window
-		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); // TODO: This needs to be configured correctly
+		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
 		
 		JPanel logpanel = new JPanel();
 		logpanel.setBackground(new Color(220,220,220));
@@ -157,7 +157,9 @@ public class GUI {
 			cfgFrame.setLocationRelativeTo(null);
 		
 			JPanel cfgPanel = new JPanel();
+			cfgPanel.setBackground(new Color(230,230,250));
 			cfgFrame.add(cfgPanel);
+			
 			
 			JLabel lblCategory = new JLabel(getCurrentMode().name);
 			cfgPanel.add(lblCategory);
@@ -206,6 +208,7 @@ public class GUI {
 			// Create a check-box for each category
 			for(String s : cats.keySet()){
 				JCheckBox cfgCheck = new JCheckBox(s);
+				cfgCheck.setBackground(new Color(230,230,250));
 				cfgPanel.add(cfgCheck);
 			
 				jcmb.addItem(s);
