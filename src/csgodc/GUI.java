@@ -205,14 +205,16 @@ public class GUI {
 		
 			JComboBox<String> jcmb = new JComboBox<String>();
 		
+			JLabel lblCats = new JLabel();
+			cfgPanel.add(lblCats);
 			// Create a check-box for each category
 			for(String s : cats.keySet()){
-				JCheckBox cfgCheck = new JCheckBox(s);
-				cfgCheck.setBackground(new Color(230,230,250));
-				cfgPanel.add(cfgCheck);
+				lblCats.setText( lblCats.getText()  + "<p>" + s + "</p>");
 			
 				jcmb.addItem(s);
 			}
+			
+			lblCats.setText("<html><body>" + lblCats.getText() + "</body></html>");
 			
 			JButton removeCat = new JButton("Remove Category");
 			removeCat.addActionListener(new ActionListener(){
