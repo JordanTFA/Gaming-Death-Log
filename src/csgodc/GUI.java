@@ -3,6 +3,7 @@ import static java.util.stream.Collectors.toMap;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,6 @@ import java.util.TreeMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -132,7 +132,7 @@ public class GUI {
 		// Set the log window next to the main window
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
 		
-		JPanel logpanel = new JPanel();
+		JPanel logpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
 		logpanel.setBackground(new Color(220,220,220));
 		
 		// Design the log using HTML
@@ -155,7 +155,7 @@ public class GUI {
 			cfgFrame.setVisible(true);
 			cfgFrame.setResizable(false);
 			cfgFrame.setLocationRelativeTo(null);
-		
+			
 			JPanel cfgPanel = new JPanel();
 			cfgPanel.setBackground(new Color(230,230,250));
 			cfgFrame.add(cfgPanel);
