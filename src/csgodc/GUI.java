@@ -27,7 +27,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 public class GUI {
 	
@@ -38,7 +40,7 @@ public class GUI {
 	
 	static JFrame logframe;
 	static String logContent = "";
-	static JLabel log;
+	static JTextPane log;
 	
 	public final static int WIDTH = 400;
 	public final static int HEIGHT = 600;
@@ -136,7 +138,8 @@ public class GUI {
 		logpanel.setBackground(new Color(220,220,220));
 		
 		// Design the log using HTML
-		log = new JLabel();
+		log = new JTextPane();
+		log.setBackground(new Color(220,220,220));
 		if(getLogContent() != null){
 			log.setText("<html><body>" + getLogContent() + "</body></html>");
 		}
@@ -268,9 +271,11 @@ public class GUI {
 		}
 		
 		// Create new line
-		setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
+		//setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
+		setLogContent("\n" + cat + " " + symbol + " " +  Math.abs(change.intValue()) + getLogContent());
 		
-		log.setText("<html><body>" + getLogContent() + "</body></html");
+		//log.setText("<html><body>" + getLogContent() + "</body></html");
+		log.setText(getLogContent());
 		
 	}
 	

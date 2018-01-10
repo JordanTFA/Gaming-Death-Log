@@ -1,5 +1,5 @@
-Crept up upon,2.0
-Dived on,2.0
+Crept up upon,3.0
+Dived on,3.0
 I dived (Favourable),0.0
 I dived (Unfavourable),5.0
 Picked off/Sniped,2.0
