@@ -140,6 +140,7 @@ public class GUI {
 		// Design the log using HTML
 		log = new JTextPane();
 		log.setBackground(new Color(220,220,220));
+		log.setContentType("text/html");
 		if(getLogContent() != null){
 			log.setText("<html><body>" + getLogContent() + "</body></html>");
 		}
@@ -195,8 +196,8 @@ public class GUI {
 					createCfg();
 					
 					String colour = "<font color=\'green\'>";
-					setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</p>" + getLogContent());
-					log.setText("<html><body>" + getLogContent() + "</body></html");
+					setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + getLogContent());
+					log.setText("<html><body>" + getLogContent() + "</body></html>");
 
 				
 					createBackground();
@@ -232,7 +233,7 @@ public class GUI {
 					createCfg();
 				
 					String colour = "<font color=\'red\'>";
-					setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem() + "</p>" + getLogContent());
+					setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem()  + "</p>" + getLogContent());
 					log.setText("<html><body>" + getLogContent() + "</body></html");
 					
 					createBackground();
@@ -263,19 +264,17 @@ public class GUI {
 		char symbol;
 		
 		if(change<0){
-			fontColour = "<font color=\"red\">";
+			fontColour = "<font color='red'>";
 			symbol = '-';
 		}else{
-			fontColour = "<font color=\"green\">";
+			fontColour = "<font color='green'>";
 			symbol = '+';
 		}
-		
+				
 		// Create new line
-		//setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
-		setLogContent("\n" + cat + " " + symbol + " " +  Math.abs(change.intValue()) + getLogContent());
+		setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
 		
-		//log.setText("<html><body>" + getLogContent() + "</body></html");
-		log.setText(getLogContent());
+		log.setText("<html><body>" + getLogContent() + "</body></html");
 		
 	}
 	
@@ -334,8 +333,8 @@ public class GUI {
 		if(currentMode.name.length() > 0){
 			
 			String colour = "<font color=\'blue\'>";
-			setLogContent("<p>" + colour + "Changed mode to " + currentMode.name + "</p>" + getLogContent());
-			log.setText("<html><body>" + getLogContent() + "</body></html");
+			setLogContent("<p>" + colour + "Changed mode to " + currentMode.name + "</font></p>" + getLogContent());
+			log.setText(getLogContent());
 			
 			createButtons();
 		}
@@ -407,8 +406,9 @@ public class GUI {
 					}
 				Log.updateFile(allCategories);
 				
-				setLogContent("<p>" + "<font color=\"purple\">Stats reset for " + currentMode.name + "</font></p>" + getLogContent());
-				log.setText("<html><body>" + getLogContent() + "</body></html");
+				String fontColour = "<font color='purple'>";
+				setLogContent("<p>" + fontColour + "Stats reset for " + currentMode.name + "</font></p>" + getLogContent());
+				log.setText(getLogContent());
 			}
 		}});
 		
