@@ -1,6 +1,7 @@
 package csgodc;
 import static java.util.stream.Collectors.toMap;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -27,9 +28,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
 
 public class GUI {
 	
@@ -40,6 +44,8 @@ public class GUI {
 	
 	static JFrame logframe;
 	static String logContent = "";
+	
+	static JScrollPane scrollpane;
 	static JTextPane log;
 	
 	public final static int WIDTH = 400;
@@ -137,16 +143,29 @@ public class GUI {
 		JPanel logpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
 		logpanel.setBackground(new Color(220,220,220));
 		
-		// Design the log using HTML
+		HTMLEditorKit editorKit = new HTMLEditorKit();
+		HTMLDocument document = (HTMLDocument) editorKit.createDefaultDocument();
 		log = new JTextPane();
-		log.setBackground(new Color(220,220,220));
+		JPanel noWrapPanel = new JPanel( new BorderLayout() );
+		noWrapPanel.add( log );
+		JScrollPane scrollPane = new JScrollPane( noWrapPanel );
+		log.setDocument(document);
 		log.setContentType("text/html");
+		
+		StyleSheet sh = editorKit.getStyleSheet();
+		sh.addRule("body {line-height: 50px}");
+		
+		scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		log.setBackground(new Color(220,220,220));
+		log.setEditable(false);
+		log.setHighlighter(null);
+		//log.setMargin(new Insets(10, 5, 10, 5));
 		if(getLogContent() != null){
 			log.setText("<html><body>" + getLogContent() + "</body></html>");
 		}
 
 		logframe.add(logpanel);
-		logpanel.add(log);
+		logframe.add(scrollPane);
 	}
 	
 	// Creates the configuration panel
