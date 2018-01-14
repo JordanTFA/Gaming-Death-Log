@@ -143,29 +143,31 @@ public class GUI {
 		JPanel logpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
 		logpanel.setBackground(new Color(220,220,220));
 		
-		HTMLEditorKit editorKit = new HTMLEditorKit();
-		HTMLDocument document = (HTMLDocument) editorKit.createDefaultDocument();
+		
 		log = new JTextPane();
+		
+		HTMLEditorKit htmlKit = new HTMLEditorKit();
+		HTMLDocument document = (HTMLDocument) htmlKit.createDefaultDocument();
+		StyleSheet sh = htmlKit.getStyleSheet();
+		sh.addRule("body {line-height: 50px}");
+		
 		JPanel noWrapPanel = new JPanel( new BorderLayout() );
 		noWrapPanel.add( log );
 		JScrollPane scrollPane = new JScrollPane( noWrapPanel );
 		log.setDocument(document);
 		log.setContentType("text/html");
 		
-		StyleSheet sh = editorKit.getStyleSheet();
-		sh.addRule("body {line-height: 50px}");
-		
 		scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		log.setBackground(new Color(220,220,220));
 		log.setEditable(false);
 		log.setHighlighter(null);
-		//log.setMargin(new Insets(10, 5, 10, 5));
+		
 		if(getLogContent() != null){
 			log.setText("<html><body>" + getLogContent() + "</body></html>");
 		}
 
 		logframe.add(logpanel);
-		logframe.add(scrollPane);
+		logframe.add(log);
 	}
 	
 	// Creates the configuration panel
