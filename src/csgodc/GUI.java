@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -28,14 +29,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 
-public class GUI {
+public class GUI{
 	
 	static JFrame frame;
 	static JPanel panel;
@@ -45,8 +45,8 @@ public class GUI {
 	static JFrame logframe;
 	static String logContent = "";
 	
-	static JScrollPane scrollpane;
 	static JTextPane log;
+	StyleSheet sh;
 	
 	public final static int WIDTH = 400;
 	public final static int HEIGHT = 600;
@@ -143,24 +143,33 @@ public class GUI {
 		JPanel logpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
 		logpanel.setBackground(new Color(220,220,220));
 		
-		
 		log = new JTextPane();
 		
-		HTMLEditorKit htmlKit = new HTMLEditorKit();
-		HTMLDocument document = (HTMLDocument) htmlKit.createDefaultDocument();
-		StyleSheet sh = htmlKit.getStyleSheet();
-		sh.addRule("body {line-height: 50px}");
-		
-		JPanel noWrapPanel = new JPanel( new BorderLayout() );
-		noWrapPanel.add( log );
-		JScrollPane scrollPane = new JScrollPane( noWrapPanel );
-		log.setDocument(document);
 		log.setContentType("text/html");
-		
-		scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		log.setBackground(new Color(220,220,220));
 		log.setEditable(false);
 		log.setHighlighter(null);
+		
+		StyleSheet styleSheet = new StyleSheet();
+		HTMLDocument htmlDocument;
+		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+		
+		styleSheet.addRule("body {line-height: 50px;");
+		styleSheet.addRule("body {font-family: Dialog; font-size:12; font-weight: bold}");
+		htmlEditorKit.setStyleSheet(styleSheet);
+	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
+	    log.setEditorKit(htmlEditorKit);
+	    log.setDocument(htmlDocument);
+		
+		JPanel noWrapPanel = new JPanel( new BorderLayout() );
+		noWrapPanel.add( log );
+		//JScrollPane scrollPane = new JScrollPane( noWrapPanel );
+		//JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+		
+		Font font = new Font("Dialog",Font.BOLD,12);
+		log.setFont(font);
+		
 		
 		if(getLogContent() != null){
 			log.setText("<html><body>" + getLogContent() + "</body></html>");
