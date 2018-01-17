@@ -29,6 +29,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.html.HTMLDocument;
@@ -154,7 +155,7 @@ public class GUI{
 		HTMLDocument htmlDocument;
 		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
 		
-		styleSheet.addRule("body {line-height: 50px;");
+		styleSheet.addRule("body {line-height: 50px;}");
 		styleSheet.addRule("body {font-family: Dialog; font-size:12; font-weight: bold}");
 		htmlEditorKit.setStyleSheet(styleSheet);
 	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
@@ -163,8 +164,8 @@ public class GUI{
 		
 		JPanel noWrapPanel = new JPanel( new BorderLayout() );
 		noWrapPanel.add( log );
-		//JScrollPane scrollPane = new JScrollPane( noWrapPanel );
-		//JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		
 		Font font = new Font("Dialog",Font.BOLD,12);
@@ -177,6 +178,7 @@ public class GUI{
 
 		logframe.add(logpanel);
 		logframe.add(log);
+		//logframe.add(scrollpane);
 	}
 	
 	// Creates the configuration panel
