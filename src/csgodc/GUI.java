@@ -141,6 +141,7 @@ public class GUI{
 		// Set the log window next to the main window
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
 		
+		// Align text left
 		JPanel logpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
 		logpanel.setBackground(new Color(220,220,220));
 		
@@ -155,26 +156,21 @@ public class GUI{
 		HTMLDocument htmlDocument;
 		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
 		
-		styleSheet.addRule("body {line-height: 50px;}");
-		styleSheet.addRule("body {font-family: Dialog; font-size:12; font-weight: bold}");
+		// All of this creates stylesheet (CSS) rules to apply to the JTextPane
+		styleSheet.addRule("body {line-height: 50px;}");										// Line spacing of 50px
+		styleSheet.addRule("body {font-family: Dialog; font-size:12; font-weight: bold}");	// Font: Dialog, size: 12px, bold
 		htmlEditorKit.setStyleSheet(styleSheet);
 	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
 	    log.setEditorKit(htmlEditorKit);
 	    log.setDocument(htmlDocument);
 		
-		JPanel noWrapPanel = new JPanel( new BorderLayout() );
-		noWrapPanel.add( log );
+	    // Make the text wrap; I don't think this is required
+	    
+		//JPanel noWrapPanel = new JPanel( new BorderLayout() );
+		//noWrapPanel.add( log );
 		
+	    // Currently having an issue with JScrollPanes, they don't seem to want to work
 		JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-		
-		Font font = new Font("Dialog",Font.BOLD,12);
-		log.setFont(font);
-		
-		
-		if(getLogContent() != null){
-			log.setText("<html><body>" + getLogContent() + "</body></html>");
-		}
 
 		logframe.add(logpanel);
 		logframe.add(log);

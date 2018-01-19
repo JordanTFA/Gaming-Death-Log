@@ -1,5 +1,5 @@
 Enemy had better weapon,0.0
 Glitch,0.0
 I had better weapon; still lost,0.0
-Took a Bad Fight,1.0
-Unaware of enemy,2.0
+Took a Bad Fight,0.0
+Unaware of enemy,0.0

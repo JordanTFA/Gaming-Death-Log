@@ -5,4 +5,4 @@ I dived (Unfavourable),5.0
 Picked off/Sniped,2.0
 Separated from team,4.0
 Team Fight (Favourable),2.0
-Team Fight (Unfavourable),1.0
+Team Fight (Unfavourable),2.0

@@ -5,5 +5,5 @@ Got Traded,0.0
 I Traded,0.0
 Outaimed,0.0
 Overwhelmed,0.0
-Peaked an AWP,0.0
+Peaked an AWP,1.0
 Tried to cheese,0.0
