@@ -1,11 +1,9 @@
 package csgodc;
 import static java.util.stream.Collectors.toMap;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -14,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -158,7 +157,7 @@ public class GUI{
 		
 		// All of this creates stylesheet (CSS) rules to apply to the JTextPane
 		styleSheet.addRule("body {line-height: 50px;}");										// Line spacing of 50px
-		styleSheet.addRule("body {font-family: Dialog; font-size:12; font-weight: bold}");	// Font: Dialog, size: 12px, bold
+		styleSheet.addRule("body {font-family: Dialog; font-size:12; font-weight: bold}");		// Font: Dialog, size: 12px, bold
 		htmlEditorKit.setStyleSheet(styleSheet);
 	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
 	    log.setEditorKit(htmlEditorKit);
@@ -174,7 +173,6 @@ public class GUI{
 
 		logframe.add(logpanel);
 		logframe.add(log);
-		//logframe.add(scrollpane);
 	}
 	
 	// Creates the configuration panel
@@ -442,7 +440,6 @@ public class GUI{
 		
 		panel.add(reset);
 
-		
 		JButton stats = new JButton("Show Stats");
 		stats.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt){
@@ -469,6 +466,20 @@ public class GUI{
 			        theStats.setText(theStats.getText() + "<p>" + key + ":     \t" + value.intValue() + "</p>");
 				}
 				
+				JLabel msg = new JLabel();
+				statsPanel.add(msg);
+				
+				ArrayList<String> mostCommonDeaths = new ArrayList<String>();
+				
+				mostCommonDeaths = findMostCommonDeath(m);
+				
+				System.out.println(mostCommonDeaths);
+				
+				msg.setText("Your most common cause of death is " + "<>" + ". Perhaps you could mitigate this by " + "<>" );
+				
+				// Maybe create a new method to find the key with the largest value (can be multiple) and then iterate through that list
+				// Will have to switch away from label as it doesn't wrap.
+				
 				
 				theStats.setText(theStats.getText() + "</html>");
 				
@@ -479,6 +490,28 @@ public class GUI{
 		panel.add(stats);
 		
 		frame.validate();
+	}
+	
+	public static ArrayList<String> findMostCommonDeath(Map<String,Double> theMap){
+		int mostCommon = 0;
+		double highest = 0;
+		
+		for(Entry<String, Double> entry : theMap.entrySet()){
+			if(highest < entry.getValue()){
+				highest = entry.getValue();
+			}
+			
+		}
+		
+		ArrayList<String> mostCommonDeaths = new ArrayList<String>();
+		
+		for(Entry<String,Double> entry : theMap.entrySet()){
+			if(entry.getValue() == highest){
+				mostCommonDeaths.add(entry.getKey());
+			}	
+		}
+		
+		return mostCommonDeaths;
 	}
 	
 	public static Map<String, Double> sortMap(TreeMap<String, Double> old){
@@ -492,7 +525,6 @@ public class GUI{
 		            toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
 		                LinkedHashMap::new));
 		
-
 		return newMap;
 	}
 	

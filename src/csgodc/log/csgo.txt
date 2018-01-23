@@ -1,7 +1,7 @@
-Bad Positioning,7.0
+Bad Positioning,8.0
 Crept up upon,4.0
 Flashed,1.0
-Got Traded,6.0
+Got Traded,8.0
 I Traded,6.0
 Outaimed,1.0
 Overwhelmed,3.0
