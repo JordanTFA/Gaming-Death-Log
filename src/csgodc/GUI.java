@@ -1,6 +1,7 @@
 package csgodc;
 import static java.util.stream.Collectors.toMap;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,6 +29,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.html.HTMLDocument;
@@ -162,8 +163,6 @@ public class GUI{
 	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
 	    log.setEditorKit(htmlEditorKit);
 	    log.setDocument(htmlDocument);
-		
-	    // Make the text wrap; I don't think this is required
 	    
 		//JPanel noWrapPanel = new JPanel( new BorderLayout() );
 		//noWrapPanel.add( log );
@@ -467,21 +466,31 @@ public class GUI{
 				}
 				
 				JLabel msg = new JLabel();
-				statsPanel.add(msg);
 				
 				ArrayList<String> mostCommonDeaths = new ArrayList<String>();
 				
 				mostCommonDeaths = findMostCommonDeath(m);
 				
+				
+				String deaths = "";
+				
+				for(String s : mostCommonDeaths){
+					deaths += s + ", ";
+				}
+				
+				JPanel noWrapPanels = new JPanel( new BorderLayout() );
+				noWrapPanels.add( msg );
+				
 				System.out.println(mostCommonDeaths);
 				
-				msg.setText("Your most common cause of death is " + "<>" + ". Perhaps you could mitigate this by " + "<>" );
+				msg.setText("Your most common cause of death is " + deaths + "perhaps you could mitigate this by " + "<>" );
 				
 				// Maybe create a new method to find the key with the largest value (can be multiple) and then iterate through that list
 				// Will have to switch away from label as it doesn't wrap.
 				
-				
 				theStats.setText(theStats.getText() + "</html>");
+				
+				statsPanel.add(msg);
 				
 				
 			}
