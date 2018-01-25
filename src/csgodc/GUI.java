@@ -465,7 +465,12 @@ public class GUI{
 			        theStats.setText(theStats.getText() + "<p>" + key + ":     \t" + value.intValue() + "</p>");
 				}
 				
-				JLabel msg = new JLabel();
+				JTextArea msg = new JTextArea();
+				msg.setEditable(false);
+				msg.setHighlighter(null);
+				msg.setLineWrap(true); 
+
+				msg.setWrapStyleWord(true); 
 				
 				ArrayList<String> mostCommonDeaths = new ArrayList<String>();
 				
@@ -484,6 +489,7 @@ public class GUI{
 				System.out.println(mostCommonDeaths);
 				
 				msg.setText("Your most common cause of death is " + deaths + "perhaps you could mitigate this by " + "<>" );
+				msg.setBackground(statsPanel.getBackground());
 				
 				// Maybe create a new method to find the key with the largest value (can be multiple) and then iterate through that list
 				// Will have to switch away from label as it doesn't wrap.
@@ -502,7 +508,7 @@ public class GUI{
 	}
 	
 	public static ArrayList<String> findMostCommonDeath(Map<String,Double> theMap){
-		int mostCommon = 0;
+
 		double highest = 0;
 		
 		for(Entry<String, Double> entry : theMap.entrySet()){
