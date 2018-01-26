@@ -454,6 +454,7 @@ public class GUI{
 				showStats.add(statsPanel);
 				
 				JLabel theStats = new JLabel("<html><body>");
+				theStats.setSize(300, 300);
 				statsPanel.add(theStats);
 				
 				Map<String, Double> m = sortMap(allCategories);
@@ -477,19 +478,18 @@ public class GUI{
 				mostCommonDeaths = findMostCommonDeath(m);
 				
 				
-				String deaths = "";
+				String deaths = mostCommonDeaths.get(0);
+				mostCommonDeaths.remove(0);
 				
 				for(String s : mostCommonDeaths){
-					deaths += s + ", ";
+					deaths += ", " + s ;
 				}
 				
-				JPanel noWrapPanels = new JPanel( new BorderLayout() );
-				noWrapPanels.add( msg );
+				deaths += ".";
 				
-				System.out.println(mostCommonDeaths);
-				
-				msg.setText("Your most common cause of death is " + deaths + "perhaps you could mitigate this by " + "<>" );
+				msg.setText("Your most common cause(s) of death:\n" + deaths);
 				msg.setBackground(statsPanel.getBackground());
+				msg.setSize(280,100);
 				
 				// Maybe create a new method to find the key with the largest value (can be multiple) and then iterate through that list
 				// Will have to switch away from label as it doesn't wrap.
