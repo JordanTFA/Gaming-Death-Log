@@ -466,7 +466,10 @@ public class GUI{
 			        theStats.setText(theStats.getText() + "<p>" + key + ":     \t" + value.intValue() + "</p>");
 				}
 				
+				theStats.setText(theStats.getText() + "</html>");
+				
 				JTextArea msg = new JTextArea();
+				statsPanel.add(msg);
 				msg.setEditable(false);
 				msg.setHighlighter(null);
 				msg.setLineWrap(true); 
@@ -491,12 +494,7 @@ public class GUI{
 				msg.setBackground(statsPanel.getBackground());
 				msg.setSize(280,100);
 				
-				// Maybe create a new method to find the key with the largest value (can be multiple) and then iterate through that list
-				// Will have to switch away from label as it doesn't wrap.
 				
-				theStats.setText(theStats.getText() + "</html>");
-				
-				statsPanel.add(msg);
 				
 				
 			}
@@ -511,6 +509,7 @@ public class GUI{
 
 		double highest = 0;
 		
+		// Find the highest value
 		for(Entry<String, Double> entry : theMap.entrySet()){
 			if(highest < entry.getValue()){
 				highest = entry.getValue();
@@ -518,6 +517,7 @@ public class GUI{
 			
 		}
 		
+		// If any other keys have the same value, add them as well
 		ArrayList<String> mostCommonDeaths = new ArrayList<String>();
 		
 		for(Entry<String,Double> entry : theMap.entrySet()){
