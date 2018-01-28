@@ -366,6 +366,7 @@ public class GUI{
 		
 	}
 	
+	// TODO: Replace all of the buttons with Lambda Expressions
 	public static void createButtons(){
 				
 		for(String c : allCategories.keySet()){
@@ -415,6 +416,7 @@ public class GUI{
 			
 		});	
 		panel.add(undo);
+		
 		
 		JButton reset = new JButton("Reset Stats");
 		reset.addActionListener(new ActionListener(){
@@ -480,23 +482,22 @@ public class GUI{
 				
 				mostCommonDeaths = findMostCommonDeath(m);
 				
-				
+				// We remove the first one, so the grammars makes sense.
 				String deaths = mostCommonDeaths.get(0);
 				mostCommonDeaths.remove(0);
 				
+				// Append deaths to the current list
 				for(String s : mostCommonDeaths){
 					deaths += ", " + s ;
 				}
 				
+				// Stick a full stop at the end of the message.
 				deaths += ".";
 				
 				msg.setText("Your most common cause(s) of death:\n" + deaths);
-				msg.setBackground(statsPanel.getBackground());
+				msg.setBackground(statsPanel.getBackground()); // Panel colour
 				msg.setSize(280,100);
-				
-				
-				
-				
+	
 			}
 		});
 		
@@ -517,9 +518,10 @@ public class GUI{
 			
 		}
 		
-		// If any other keys have the same value, add them as well
+		
 		ArrayList<String> mostCommonDeaths = new ArrayList<String>();
 		
+		// If any other keys have the same value, add them as well
 		for(Entry<String,Double> entry : theMap.entrySet()){
 			if(entry.getValue() == highest){
 				mostCommonDeaths.add(entry.getKey());
