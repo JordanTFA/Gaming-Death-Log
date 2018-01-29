@@ -1,14 +1,11 @@
 package csgodc;
 import static java.util.stream.Collectors.toMap;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -94,12 +91,8 @@ public class GUI{
 		createLog();
 		
 		// Make the log visible if it's selected from the menu bar
-		viewlog.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				logframe.setVisible(true);
-			}
-		});
-		
+		viewlog.addActionListener(e -> logframe.setVisible(true));
+	
 		ArrayList<Mode> theModes = Mode.getTheModes();
 		
 		// Load the Default Page
@@ -110,20 +103,15 @@ public class GUI{
 			
 			jm_mode.add(menuitem);
 
-			menuitem.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e){
+			menuitem.addActionListener(e ->{
 					setCurrentMode(m);
 					loadMode();
-				}
 			});
 			
 		}
 		
-		viewcfg.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				createCfg();
-			}
-		});
+		viewcfg.addActionListener(e -> createCfg());
+
 	}
 	
 	// Create log content
@@ -209,27 +197,24 @@ public class GUI{
 			JButton addCat = new JButton("Add");
 			cfgPanel.add(addCat);
 		
-			addCat.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent evt){
+			addCat.addActionListener(e ->{
 				
-					cats.put(catToAdd.getText(), 0.0);
-					Log.updateFile(cats);
+				cats.put(catToAdd.getText(), 0.0);
+				Log.updateFile(cats);
 				
-					allCategories = cats;
+				allCategories = cats;
 				
-					cfgFrame.dispose();
-					createCfg();
+				cfgFrame.dispose();
+				createCfg();
 					
-					String colour = "<font color=\'green\'>";
-					setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + getLogContent());
-					log.setText("<html><body>" + getLogContent() + "</body></html>");
+				String colour = "<font color=\'green\'>";
+				setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + getLogContent());
+				log.setText("<html><body>" + getLogContent() + "</body></html>");
 
 				
-					createBackground();
-					createButtons();
+				createBackground();
+				createButtons();
 
-				}
-			
 			});	
 		
 			JComboBox<String> jcmb = new JComboBox<String>();
@@ -246,25 +231,23 @@ public class GUI{
 			lblCats.setText("<html><body>" + lblCats.getText() + "</body></html>");
 			
 			JButton removeCat = new JButton("Remove Category");
-			removeCat.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent evt){
+			removeCat.addActionListener(e ->{
 					
-					cats.remove(jcmb.getSelectedItem());
-					Log.updateFile(cats);
+				cats.remove(jcmb.getSelectedItem());
+				Log.updateFile(cats);
 					
-					allCategories = cats;
+				allCategories = cats;
 					
-					cfgFrame.dispose();
-					createCfg();
+				cfgFrame.dispose();
+				createCfg();
 				
-					String colour = "<font color=\'red\'>";
-					setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem()  + "</p>" + getLogContent());
-					log.setText("<html><body>" + getLogContent() + "</body></html");
+				String colour = "<font color=\'red\'>";
+				setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem()  + "</p>" + getLogContent());
+				log.setText("<html><body>" + getLogContent() + "</body></html");
 					
-					createBackground();
-					createButtons();
-				}
-			
+				createBackground();
+				createButtons();
+
 			});	
 		
 			cfgPanel.add(jcmb);
@@ -366,7 +349,6 @@ public class GUI{
 		
 	}
 	
-	// TODO: Replace all of the buttons with Lambda Expressions
 	public static void createButtons(){
 				
 		for(String c : allCategories.keySet()){
@@ -374,76 +356,69 @@ public class GUI{
 			button = new JButton(c);
 			panel.add(button);
 			
-			button.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent evt){
+			button.addActionListener(e ->{
 					
-					System.out.println("Add one to " + c);
+				System.out.println("Add one to " + c);
 					
-					allCategories.put(c, allCategories.get(c) + 1);
-					System.out.println(allCategories.get(c));
+				allCategories.put(c, allCategories.get(c) + 1);
+				System.out.println(allCategories.get(c));
 					
-					Log.updateFile(allCategories);
+				Log.updateFile(allCategories);
 					
-					updateLog(c, 1.0);
-				}
-				
+				updateLog(c, 1.0);			
 			});	
 		}
 		
 		JButton undo = new JButton("Undo");
-		undo.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent evt){
-					
-				if(getLastCat() != null && getLastChange() != null){
-					
-					String cat = getLastCat();
-					Double change = getLastChange() * -1;
-					
-					for(String c: allCategories.keySet()){
-						if(c==cat){
-							allCategories.put(c, allCategories.get(c) + change);
-						}
+		undo.addActionListener(e -> {
+			if(getLastCat() != null && getLastChange() != null){
+				
+				String cat = getLastCat();
+				Double change = getLastChange() * -1;
+				
+				for(String c: allCategories.keySet()){
+					if(c==cat){
+						allCategories.put(c, allCategories.get(c) + change);
 					}
-					
-					updateLog(cat,change);
-					
-					Log.updateFile(allCategories);
 				}
-				else{
-					JOptionPane.showMessageDialog(null, "Nothing to Undo!");
-				}			
+				
+				updateLog(cat,change);
+				
+				Log.updateFile(allCategories);
 			}
-			
-		});	
+			else{
+				JOptionPane.showMessageDialog(null, "Nothing to Undo!");
+			}			
+		});
+
 		panel.add(undo);
 		
 		
 		JButton reset = new JButton("Reset Stats");
-		reset.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent evt){
+		reset.addActionListener(e ->{
 				
-				int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogButton = JOptionPane.YES_NO_OPTION;
 				
-				int dialogResult = JOptionPane.showConfirmDialog (null, "This will reset all of your stats! Are you sure you want to reset?", "Warning", dialogButton);
-				if(dialogResult == JOptionPane.YES_OPTION){
+			int dialogResult = JOptionPane.showConfirmDialog (null, "This will reset all of your stats! Are you sure you want to reset?", "Warning", dialogButton);
+			if(dialogResult == JOptionPane.YES_OPTION){
 					
-					for(String c : allCategories.keySet()){
+				for(String c : allCategories.keySet()){
 
-						allCategories.put(c, 0.0);
-					}
-				Log.updateFile(allCategories);
+					allCategories.put(c, 0.0);
+				}
+			Log.updateFile(allCategories);
 				
-				String fontColour = "<font color='purple'>";
-				setLogContent("<p>" + fontColour + "Stats reset for " + currentMode.name + "</font></p>" + getLogContent());
-				log.setText(getLogContent());
+			String fontColour = "<font color='purple'>";
+			setLogContent("<p>" + fontColour + "Stats reset for " + currentMode.name + "</font></p>" + getLogContent());
+			log.setText(getLogContent());
+			
 			}
-		}});
+		});
 		
 		panel.add(reset);
 
 		JButton stats = new JButton("Show Stats");
-		stats.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent evt){
+		stats.addActionListener(e ->{
 				
 				Mode currentMode = getCurrentMode();
 				
@@ -498,7 +473,6 @@ public class GUI{
 				msg.setBackground(statsPanel.getBackground()); // Panel colour
 				msg.setSize(280,100);
 	
-			}
 		});
 		
 		panel.add(stats);
