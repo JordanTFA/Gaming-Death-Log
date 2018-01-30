@@ -286,6 +286,7 @@ public class GUI{
 		
 	}
 	
+	// Default Page, can perhaps add to this
 	public static void createDefaultPage(){
 		
 		panel.removeAll();
@@ -298,9 +299,21 @@ public class GUI{
 		icon.setBounds(5, 5, 300, 80);
 		icon.setSize(300,80);
 		panel.add(icon);
+		
+		// TODO: This. Fill out the text and make it centred
+		JTextArea msg = new JTextArea();
+		panel.add(msg);
+		msg.setEditable(false);
+		msg.setHighlighter(null);
+		msg.setLineWrap(true); 
+		msg.setWrapStyleWord(true);
+		msg.setBackground(panel.getBackground());
+		msg.setSize(WIDTH, HEIGHT);
+		msg.setText("Welcome to the app. Blah blah blah blah");
 	
 		frame.setTitle("Gaming Death Log");
 		panel.setBackground(BGColour);
+		msg.setBackground(panel.getBackground());
 	
 		frame.validate();
 		
