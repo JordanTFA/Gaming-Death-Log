@@ -29,6 +29,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
@@ -301,16 +304,37 @@ public class GUI{
 		panel.add(icon);
 		
 		// TODO: This. Fill out the text and make it centred
-		JTextArea msg = new JTextArea();
+		JTextPane msg = new JTextPane();
 		panel.add(msg);
+		msg.setContentType("text/html");
 		msg.setEditable(false);
 		msg.setHighlighter(null);
-		msg.setLineWrap(true); 
-		msg.setWrapStyleWord(true);
+		//msg.setLineWrap(true); 
+		//msg.setWrapStyleWord(true);
 		msg.setBackground(panel.getBackground());
 		msg.setSize(WIDTH, HEIGHT);
-		msg.setText("Welcome to the app. Blah blah blah blah");
-	
+		
+		// This is uuuuuuuuugly, want to make this a little method if possible
+		
+		StyledDocument doc = msg.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		
+		StyleSheet styleSheet = new StyleSheet();
+		HTMLDocument htmlDocument;
+		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+		
+		// All of this creates stylesheet (CSS) rules to apply to the JTextPane
+		styleSheet.addRule("body {line-height: 50px;}");										// Line spacing of 50px
+		styleSheet.addRule("body {font-family: Dialog; font-size:12; font-weight: bold}");		// Font: Dialog, size: 12px, bold
+		htmlEditorKit.setStyleSheet(styleSheet);
+	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
+	    msg.setEditorKit(htmlEditorKit);
+	    msg.setDocument(htmlDocument);
+	    
+	    msg.setText("Welcome to the app. Blah blah blah blah");
+		
 		frame.setTitle("Gaming Death Log");
 		panel.setBackground(BGColour);
 		msg.setBackground(panel.getBackground());
