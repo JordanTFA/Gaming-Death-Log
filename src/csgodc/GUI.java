@@ -383,7 +383,13 @@ public class GUI{
 			
 			createButtons();
 		}
+	}
+	
+	public JTextPane createTextPane(JTextPane pane, Boolean addCss, String cssContent){
 		
+		//JTextPane pane = new JTextPane();
+		
+		return pane;
 	}
 	
 	public static void createButtons(){
