@@ -138,28 +138,14 @@ public class GUI{
 		
 		log = new JTextPane();
 		
-		log.setContentType("text/html");
+		log = applyCSS(log,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold}");
+		
 		log.setBackground(new Color(220,220,220));
 		log.setEditable(false);
 		log.setHighlighter(null);
 		
-		StyleSheet styleSheet = new StyleSheet();
-		HTMLDocument htmlDocument;
-		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
-		
-		// All of this creates stylesheet (CSS) rules to apply to the JTextPane
-		styleSheet.addRule("body {line-height: 50px;}");										// Line spacing of 50px
-		styleSheet.addRule("body {font-family: Dialog; font-size:12; font-weight: bold}");		// Font: Dialog, size: 12px, bold
-		htmlEditorKit.setStyleSheet(styleSheet);
-	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
-	    log.setEditorKit(htmlEditorKit);
-	    log.setDocument(htmlDocument);
-	    
-		//JPanel noWrapPanel = new JPanel( new BorderLayout() );
-		//noWrapPanel.add( log );
-		
 	    // Currently having an issue with JScrollPanes, they don't seem to want to work
-		JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		//JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		logframe.add(logpanel);
 		logframe.add(log);
@@ -309,29 +295,15 @@ public class GUI{
 		msg.setContentType("text/html");
 		msg.setEditable(false);
 		msg.setHighlighter(null);
-		//msg.setLineWrap(true); 
-		//msg.setWrapStyleWord(true);
 		msg.setBackground(panel.getBackground());
 		msg.setSize(WIDTH, HEIGHT);
 		
-		// This is uuuuuuuuugly, want to make this a little method if possible
+		msg = applyCSS(msg,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold}");
 		
 		StyledDocument doc = msg.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
-		
-		StyleSheet styleSheet = new StyleSheet();
-		HTMLDocument htmlDocument;
-		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
-		
-		// All of this creates stylesheet (CSS) rules to apply to the JTextPane
-		styleSheet.addRule("body {line-height: 50px;}");										// Line spacing of 50px
-		styleSheet.addRule("body {font-family: Dialog; font-size:12; font-weight: bold}");		// Font: Dialog, size: 12px, bold
-		htmlEditorKit.setStyleSheet(styleSheet);
-	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
-	    msg.setEditorKit(htmlEditorKit);
-	    msg.setDocument(htmlDocument);
 	    
 	    msg.setText("Welcome to the app. Blah blah blah blah");
 		
@@ -385,9 +357,20 @@ public class GUI{
 		}
 	}
 	
-	public JTextPane createTextPane(JTextPane pane, Boolean addCss, String cssContent){
+	public static JTextPane applyCSS(JTextPane pane, String cssContent){
 		
-		//JTextPane pane = new JTextPane();
+		pane.setContentType("text/html");
+		
+		StyleSheet styleSheet = new StyleSheet();
+		HTMLDocument htmlDocument;
+		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+		
+		// All of this creates stylesheet (CSS) rules to apply to the JTextPane
+		styleSheet.addRule(cssContent);	
+		htmlEditorKit.setStyleSheet(styleSheet);
+	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
+	    pane.setEditorKit(htmlEditorKit);
+	    pane.setDocument(htmlDocument);
 		
 		return pane;
 	}
