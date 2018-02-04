@@ -1,10 +1,12 @@
 package csgodc;
 import static java.util.stream.Collectors.toMap;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.ScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -129,14 +131,19 @@ public class GUI{
 		logframe.setTitle("Log");
 		logframe.setResizable(true);
 		
+		System.out.println("ref");
 		// Set the log window next to the main window
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
 		
 		// Align text left
 		JPanel logpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
 		logpanel.setBackground(new Color(220,220,220));
-		
+			
 		log = new JTextPane();
+		JPanel noWrapPanel = new JPanel( new BorderLayout() );
+		noWrapPanel.add( log );
+		//JScrollPane scrollPane = new JScrollPane( noWrapPanel );
+		//scrollPane.setViewportView(log); // creates a wrapped scroll pane using the text pane as a viewport.
 		
 		log = applyCSS(log,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold}");
 		
@@ -146,9 +153,13 @@ public class GUI{
 		
 	    // Currently having an issue with JScrollPanes, they don't seem to want to work
 		//JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
+		
+		JButton clear = new JButton("Clear");
+		clear.addActionListener(e -> log.setText(""));
+		
 		logframe.add(logpanel);
-		logframe.add(log);
+		logpanel.add(log);
+		logpanel.add(clear);
 	}
 	
 	// Creates the configuration panel
@@ -365,7 +376,6 @@ public class GUI{
 		HTMLDocument htmlDocument;
 		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
 		
-		// All of this creates stylesheet (CSS) rules to apply to the JTextPane
 		styleSheet.addRule(cssContent);	
 		htmlEditorKit.setStyleSheet(styleSheet);
 	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
