@@ -131,7 +131,6 @@ public class GUI{
 		logframe.setTitle("Log");
 		logframe.setResizable(true);
 		
-		System.out.println("ref");
 		// Set the log window next to the main window
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
 		
@@ -157,9 +156,18 @@ public class GUI{
 		JButton clear = new JButton("Clear");
 		clear.addActionListener(e -> log.setText(""));
 		
+		JButton newgame = new JButton("New Game");
+		newgame.addActionListener(e -> {
+			setLogContent("<p>--------------------</p>" + getLogContent());
+			log.setText("<html><body>" + getLogContent() + "</body></html");
+		});
+		
 		logframe.add(logpanel);
 		logpanel.add(log);
 		logpanel.add(clear);
+		logpanel.add(newgame);
+		
+		logpanel.validate();
 	}
 	
 	// Creates the configuration panel
