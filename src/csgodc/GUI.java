@@ -4,9 +4,9 @@ import static java.util.stream.Collectors.toMap;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.ScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -27,7 +27,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -135,12 +134,13 @@ public class GUI{
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
 		
 		// Align text left
-		JPanel logpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		JPanel logpanel = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 		logpanel.setBackground(new Color(220,220,220));
 			
 		log = new JTextPane();
-		JPanel noWrapPanel = new JPanel( new BorderLayout() );
-		noWrapPanel.add( log );
+		//JPanel noWrapPanel = new JPanel( new BorderLayout() );
+		//noWrapPanel.add( log );
 		//JScrollPane scrollPane = new JScrollPane( noWrapPanel );
 		//scrollPane.setViewportView(log); // creates a wrapped scroll pane using the text pane as a viewport.
 		
@@ -150,11 +150,29 @@ public class GUI{
 		log.setEditable(false);
 		log.setHighlighter(null);
 		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 40;      //make this component tall
+		c.weightx = 0.0;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 0;
+		
+		logpanel.add(log, c);
+		
 	    // Currently having an issue with JScrollPanes, they don't seem to want to work
 		//JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		JButton clear = new JButton("Clear");
-		clear.addActionListener(e -> log.setText(""));
+		clear.addActionListener(e -> {
+			setLogContent("");
+			log.setText(getLogContent());
+		});
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 1;
+		
+		logpanel.add(clear,c);
 		
 		JButton newgame = new JButton("New Game");
 		newgame.addActionListener(e -> {
@@ -162,11 +180,12 @@ public class GUI{
 			log.setText("<html><body>" + getLogContent() + "</body></html");
 		});
 		
-		logframe.add(logpanel);
-		logpanel.add(log);
-		logpanel.add(clear);
-		logpanel.add(newgame);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 1;
 		
+		logpanel.add(newgame,c);	
+		logframe.add(logpanel);		
 		logpanel.validate();
 	}
 	

@@ -1,5 +1,5 @@
-Enemy had better weapon,7.0
-Glitch,0.0
-I had better weapon; still lost,2.0
-Took a Bad Fight,1.0
+Enemy had better weapon,8.0
+Glitch,1.0
+I had better weapon; still lost,4.0
+Took a Bad Fight,2.0
 Unaware of enemy,0.0

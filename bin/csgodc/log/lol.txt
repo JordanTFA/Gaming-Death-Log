@@ -1,9 +1,9 @@
-Didn't Respect Enemy,2.0
-Facechecked Bush,2.0
-Ganked (Blame jg),0.0
-Got Baited,2.0
-Invaded,0.0
-Overextended,1.0
-Team Fight (Favourable),0.0
-Team Fight (Unfavourable),0.0
+Didn't Respect Enemy,4.0
+Facechecked Bush,3.0
+Ganked (Blame jg),3.0
+Got Baited,6.0
+Invaded,1.0
+Overextended,3.0
+Team Fight (Favourable),1.0
+Team Fight (Unfavourable),2.0
 Took bad fight,0.0
