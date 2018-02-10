@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -150,10 +151,10 @@ public class GUI{
 		log.setEditable(false);
 		log.setHighlighter(null);
 		
+		c.insets = new Insets(5,5,5,5);
+		
+		c.gridwidth = 5;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 40;      //make this component tall
-		c.weightx = 0.0;
-		c.gridwidth = 3;
 		c.gridx = 0;
 		c.gridy = 0;
 		
@@ -168,7 +169,7 @@ public class GUI{
 			log.setText(getLogContent());
 		});
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy = 1;
 		
@@ -180,8 +181,7 @@ public class GUI{
 			log.setText("<html><body>" + getLogContent() + "</body></html");
 		});
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
+		c.gridx = 2;
 		c.gridy = 1;
 		
 		logpanel.add(newgame,c);	
