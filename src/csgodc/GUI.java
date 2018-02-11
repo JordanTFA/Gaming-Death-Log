@@ -1,7 +1,6 @@
 package csgodc;
 import static java.util.stream.Collectors.toMap;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -432,6 +431,12 @@ public class GUI{
 			});	
 		}
 		
+		JPanel utilButtons = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		
+		gbc.insets = new Insets(5,5,5,5);
+
+		
 		JButton undo = new JButton("Undo");
 		undo.addActionListener(e -> {
 			if(getLastCat() != null && getLastChange() != null){
@@ -453,7 +458,11 @@ public class GUI{
 				JOptionPane.showMessageDialog(null, "Nothing to Undo!");
 			}			
 		});
+		
+		gbc.gridx=0;
+		gbc.gridy=0;
 
+		//utilButtons.add(undo,gbc);
 		panel.add(undo);
 		
 		
@@ -478,6 +487,10 @@ public class GUI{
 			}
 		});
 		
+		gbc.gridx=1;
+		gbc.gridy=0;
+		
+		//utilButtons.add(reset, gbc);
 		panel.add(reset);
 
 		JButton stats = new JButton("Show Stats");
@@ -538,8 +551,13 @@ public class GUI{
 	
 		});
 		
-		panel.add(stats);
+		gbc.gridx=2;
+		gbc.gridy=0;
 		
+		panel.add(stats);
+		//utilButtons.add(stats,gbc);
+		
+		frame.add(utilButtons);
 		frame.validate();
 	}
 	
