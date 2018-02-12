@@ -199,29 +199,36 @@ public class GUI{
 			cfgFrame.setResizable(false);
 			cfgFrame.setLocationRelativeTo(null);
 			
-			JPanel cfgPanel = new JPanel();
+			JPanel cfgPanel = new JPanel(new GridBagLayout());
+			GridBagConstraints c = new GridBagConstraints();
 			cfgPanel.setBackground(new Color(230,230,250));
 			cfgFrame.add(cfgPanel);
 			
 			
 			JLabel lblCategory = new JLabel(getCurrentMode().name);
-			cfgPanel.add(lblCategory);
+			c.gridx = 0;
+			c.gridy = 0;
+			cfgPanel.add(lblCategory, c);
 		
 			JTextField catToAdd = new JTextField("Click Here to Add a Category");
 			catToAdd.setSize(3000, 5);
 			catToAdd.setBounds(0,0,3000, 5);
-			cfgPanel.add(catToAdd);
+			
 			catToAdd.addMouseListener(new MouseAdapter(){
 				@Override
 				public void mouseClicked(MouseEvent e){
 					catToAdd.setText("");
 				}
 			});
+			
+			c.gridx = 0;
+			c.gridy = 1;
+			cfgPanel.add(catToAdd, c);
         
 			TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
 			
 			JButton addCat = new JButton("Add");
-			cfgPanel.add(addCat);
+			
 		
 			addCat.addActionListener(e ->{
 				
@@ -242,11 +249,15 @@ public class GUI{
 				createButtons();
 
 			});	
+			
+			c.gridx = 1;
+			c.gridy = 1;
+			
+			cfgPanel.add(addCat, c);
 		
 			JComboBox<String> jcmb = new JComboBox<String>();
 		
 			JLabel lblCats = new JLabel();
-			cfgPanel.add(lblCats);
 			// Create a check-box for each category
 			for(String s : cats.keySet()){
 				lblCats.setText( lblCats.getText()  + "<p>" + s + "</p>");
@@ -275,9 +286,18 @@ public class GUI{
 				createButtons();
 
 			});	
+			
+			c.gridx = 0;
+			c.gridy = 2;
+			cfgPanel.add(lblCats, c);
 		
-			cfgPanel.add(jcmb);
-			cfgPanel.add(removeCat);
+			c.gridx = 0;
+			c.gridy = 3;
+			cfgPanel.add(jcmb, c);
+			
+			c.gridx = 1;
+			c.gridy = 3;
+			cfgPanel.add(removeCat, c);
 			
 		}else{
 			JOptionPane.showMessageDialog(null, "Select a Category to Configure!");
