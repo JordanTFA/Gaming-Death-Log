@@ -128,7 +128,7 @@ public class GUI{
 		logframe.setSize(LOG_WIDTH, LOG_HEIGHT);
 		logframe.setVisible(true);
 		logframe.setTitle("Log");
-		logframe.setResizable(true);
+		logframe.setResizable(false);
 		
 		// Set the log window next to the main window
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
@@ -206,7 +206,7 @@ public class GUI{
 			
 			
 			JLabel lblCategory = new JLabel(getCurrentMode().name);
-			c.gridx = 0;
+			c.gridx = 1;
 			c.gridy = 0;
 			cfgPanel.add(lblCategory, c);
 		
@@ -221,6 +221,8 @@ public class GUI{
 				}
 			});
 			
+			c.gridwidth = 2;
+			c.fill = GridBagConstraints.HORIZONTAL;
 			c.gridx = 0;
 			c.gridy = 1;
 			cfgPanel.add(catToAdd, c);
@@ -250,7 +252,9 @@ public class GUI{
 
 			});	
 			
-			c.gridx = 1;
+			c.gridwidth = 1;
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.gridx = 4;
 			c.gridy = 1;
 			
 			cfgPanel.add(addCat, c);
@@ -287,15 +291,21 @@ public class GUI{
 
 			});	
 			
+			c.gridwidth = 5;
+			c.fill = GridBagConstraints.HORIZONTAL;
 			c.gridx = 0;
 			c.gridy = 2;
 			cfgPanel.add(lblCats, c);
 		
+			c.gridwidth = 2;
+			c.fill = GridBagConstraints.HORIZONTAL;
 			c.gridx = 0;
 			c.gridy = 3;
 			cfgPanel.add(jcmb, c);
 			
-			c.gridx = 1;
+			c.gridwidth = 1;
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.gridx = 3;
 			c.gridy = 3;
 			cfgPanel.add(removeCat, c);
 			
