@@ -68,7 +68,7 @@ public class GUI{
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle("Death Log");
 		frame.setVisible(true);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -170,7 +170,7 @@ public class GUI{
 		
 		c.gridwidth = 1;
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 20;
 		
 		logpanel.add(clear,c);
 		
@@ -181,7 +181,7 @@ public class GUI{
 		});
 		
 		c.gridx = 2;
-		c.gridy = 1;
+		c.gridy = 20;
 		
 		logpanel.add(newgame,c);	
 		logframe.add(logpanel);		
@@ -401,7 +401,9 @@ public class GUI{
 			frame.setTitle(currentMode.name + " Death Log");
 			panel.setBackground(BGColour);
 		
+			System.out.println("rgr");
 			frame.validate();
+			panel.validate();
 		
 	}
 	
