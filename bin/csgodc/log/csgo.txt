@@ -1,4 +1,4 @@
-Bad Positioning,2.0
+Bad Positioning,0.0
 Crept up upon,3.0
 Flashed,3.0
 Got Traded,3.0

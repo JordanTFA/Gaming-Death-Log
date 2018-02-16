@@ -196,7 +196,7 @@ public class GUI{
 			JFrame cfgFrame = new JFrame("Configuration");
 			cfgFrame.setSize(300, 300);
 			cfgFrame.setVisible(true);
-			cfgFrame.setResizable(false);
+			cfgFrame.setResizable(true);
 			cfgFrame.setLocationRelativeTo(null);
 			
 			JPanel cfgPanel = new JPanel(new GridBagLayout());
@@ -223,7 +223,7 @@ public class GUI{
 			
 			c.gridwidth = 2;
 			c.fill = GridBagConstraints.HORIZONTAL;
-			c.gridx = 0;
+			c.gridx = 1;
 			c.gridy = 1;
 			cfgPanel.add(catToAdd, c);
         
@@ -293,7 +293,7 @@ public class GUI{
 			
 			c.gridwidth = 5;
 			c.fill = GridBagConstraints.HORIZONTAL;
-			c.gridx = 0;
+			c.gridx = 2;
 			c.gridy = 2;
 			cfgPanel.add(lblCats, c);
 		
