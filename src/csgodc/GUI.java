@@ -231,25 +231,31 @@ public class GUI{
 			
 			JButton addCat = new JButton("Add");
 			
+			int numberOfCategories = 20;
 		
 			addCat.addActionListener(e ->{
 				
-				cats.put(catToAdd.getText(), 0.0);
-				Log.updateFile(cats);
+				System.out.println(numberOfCategories);
 				
-				allCategories = cats;
-				
-				cfgFrame.dispose();
-				createCfg();
+				if(numberOfCategories >= 20){
+					System.out.println("No.");
+				}else{
+					cats.put(catToAdd.getText(), 0.0);
+					Log.updateFile(cats);
 					
-				String colour = "<font color=\'green\'>";
-				setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + getLogContent());
-				log.setText("<html><body>" + getLogContent() + "</body></html>");
+					allCategories = cats;
+					
+					cfgFrame.dispose();
+					createCfg();
+						
+					String colour = "<font color=\'green\'>";
+					setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + getLogContent());
+					log.setText("<html><body>" + getLogContent() + "</body></html>");
 
-				
-				createBackground();
-				createButtons();
-
+					
+					createBackground();
+					createButtons();
+				}
 			});	
 			
 			c.gridwidth = 1;
@@ -261,12 +267,14 @@ public class GUI{
 		
 			JComboBox<String> jcmb = new JComboBox<String>();
 		
+			
 			JLabel lblCats = new JLabel();
 			// Create a check-box for each category
 			for(String s : cats.keySet()){
 				lblCats.setText( lblCats.getText()  + "<p>" + s + "</p>");
 			
 				jcmb.addItem(s);
+				//numberOfCategories++;
 			}
 			
 			lblCats.setText("<html><body>" + lblCats.getText() + "</body></html>");
