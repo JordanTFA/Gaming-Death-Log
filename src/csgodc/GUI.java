@@ -61,6 +61,8 @@ public class GUI{
 	
 	static Mode currentMode;
 	static TreeMap<String,Double> allCategories;
+	
+	static int numberOfCategories;
 
 	// Main Window
 	public static void buildGUI(){
@@ -230,14 +232,12 @@ public class GUI{
 			TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
 			
 			JButton addCat = new JButton("Add");
-			
-			int numberOfCategories = 20;
 		
 			addCat.addActionListener(e ->{
 				
 				System.out.println(numberOfCategories);
 				
-				if(numberOfCategories >= 20){
+				if(getNumberOfCategories() >= 20){
 					System.out.println("No.");
 				}else{
 					cats.put(catToAdd.getText(), 0.0);
@@ -267,15 +267,18 @@ public class GUI{
 		
 			JComboBox<String> jcmb = new JComboBox<String>();
 		
-			
+			int noc = 0;
 			JLabel lblCats = new JLabel();
 			// Create a check-box for each category
 			for(String s : cats.keySet()){
 				lblCats.setText( lblCats.getText()  + "<p>" + s + "</p>");
 			
 				jcmb.addItem(s);
-				//numberOfCategories++;
+				noc++;
+				
 			}
+			
+			setNumberOfCategories(noc);
 			
 			lblCats.setText("<html><body>" + lblCats.getText() + "</body></html>");
 			
@@ -409,7 +412,6 @@ public class GUI{
 			frame.setTitle(currentMode.name + " Death Log");
 			panel.setBackground(BGColour);
 		
-			System.out.println("rgr");
 			frame.validate();
 			panel.validate();
 		
@@ -452,6 +454,8 @@ public class GUI{
 	}
 	
 	public static void createButtons(){
+		
+		setNumberOfCategories(0);
 				
 		for(String c : allCategories.keySet()){
 			
@@ -670,6 +674,14 @@ public class GUI{
 
 	public static void setCurrentMode(Mode currentMode) {
 		GUI.currentMode = currentMode;
+	}
+	
+	public static int getNumberOfCategories() {
+		return numberOfCategories;
+	}
+
+	public static void setNumberOfCategories(int numberOfCategories) {
+		GUI.numberOfCategories = numberOfCategories;
 	}
 
 }
