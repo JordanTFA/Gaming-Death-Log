@@ -3,6 +3,7 @@ import static java.util.stream.Collectors.toMap;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -201,16 +202,18 @@ public class GUI{
 			cfgFrame.setResizable(true);
 			cfgFrame.setLocationRelativeTo(null);
 			
-			JPanel cfgPanel = new JPanel(new GridBagLayout());
-			GridBagConstraints c = new GridBagConstraints();
+			JPanel cfgPanel = new JPanel(new FlowLayout());
+			//GridBagConstraints c = new GridBagConstraints();
 			cfgPanel.setBackground(new Color(230,230,250));
 			cfgFrame.add(cfgPanel);
 			
 			
 			JLabel lblCategory = new JLabel(getCurrentMode().name);
-			c.gridx = 1;
-			c.gridy = 0;
-			cfgPanel.add(lblCategory, c);
+			//c.gridx = 1;
+			//c.gridy = 0;
+			lblCategory.setBounds(0, 0, 150, 15);
+			lblCategory.setForeground(Color.RED);
+			cfgPanel.add(lblCategory);
 		
 			JTextField catToAdd = new JTextField("Click Here to Add a Category");
 			catToAdd.setSize(3000, 5);
@@ -223,11 +226,11 @@ public class GUI{
 				}
 			});
 			
-			c.gridwidth = 2;
-			c.fill = GridBagConstraints.HORIZONTAL;
-			c.gridx = 1;
-			c.gridy = 1;
-			cfgPanel.add(catToAdd, c);
+			//c.gridwidth = 2;
+			//c.fill = GridBagConstraints.HORIZONTAL;
+			//c.gridx = 1;
+			//c.gridy = 1;
+			cfgPanel.add(catToAdd);
         
 			TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
 			
@@ -258,12 +261,12 @@ public class GUI{
 				}
 			});	
 			
-			c.gridwidth = 1;
-			c.fill = GridBagConstraints.HORIZONTAL;
-			c.gridx = 4;
-			c.gridy = 1;
+			//c.gridwidth = 1;
+			//c.fill = GridBagConstraints.HORIZONTAL;
+			//c.gridx = 4;
+			//c.gridy = 1;
 			
-			cfgPanel.add(addCat, c);
+			cfgPanel.add(addCat);
 		
 			JComboBox<String> jcmb = new JComboBox<String>();
 		
@@ -302,23 +305,25 @@ public class GUI{
 
 			});	
 			
-			c.gridwidth = 5;
-			c.fill = GridBagConstraints.HORIZONTAL;
-			c.gridx = 2;
-			c.gridy = 2;
-			cfgPanel.add(lblCats, c);
-		
-			c.gridwidth = 2;
-			c.fill = GridBagConstraints.HORIZONTAL;
-			c.gridx = 0;
-			c.gridy = 3;
-			cfgPanel.add(jcmb, c);
 			
-			c.gridwidth = 1;
-			c.fill = GridBagConstraints.HORIZONTAL;
-			c.gridx = 3;
-			c.gridy = 3;
-			cfgPanel.add(removeCat, c);
+			
+			//c.gridwidth = 5;
+			//c.fill = GridBagConstraints.HORIZONTAL;
+			//c.gridx = 2;
+			//c.gridy = 2;
+			cfgPanel.add(lblCats);
+		
+			//c.gridwidth = 2;
+			//c.fill = GridBagConstraints.HORIZONTAL;
+			//c.gridx = 0;
+			//c.gridy = 3;
+			cfgPanel.add(jcmb);
+			
+			//c.gridwidth = 1;
+			//c.fill = GridBagConstraints.HORIZONTAL;
+			//c.gridx = 3;
+			//c.gridy = 3;
+			cfgPanel.add(removeCat);
 			
 		}else{
 			JOptionPane.showMessageDialog(null, "Select a Category to Configure!");
