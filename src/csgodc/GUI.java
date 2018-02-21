@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.toMap;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -202,7 +203,10 @@ public class GUI{
 			cfgFrame.setResizable(true);
 			cfgFrame.setLocationRelativeTo(null);
 			
-			JPanel cfgPanel = new JPanel(new FlowLayout());
+			JPanel cfgPanel = new JPanel();
+			cfgFrame.getContentPane().setLayout(null);
+			cfgPanel.setBounds(0,0,300,300);
+			cfgPanel.setLayout(null);
 			//GridBagConstraints c = new GridBagConstraints();
 			cfgPanel.setBackground(new Color(230,230,250));
 			cfgFrame.add(cfgPanel);
@@ -211,8 +215,7 @@ public class GUI{
 			JLabel lblCategory = new JLabel(getCurrentMode().name);
 			//c.gridx = 1;
 			//c.gridy = 0;
-			lblCategory.setBounds(0, 0, 150, 15);
-			lblCategory.setForeground(Color.RED);
+			lblCategory.setBounds(60, 10, 200, 15);
 			cfgPanel.add(lblCategory);
 		
 			JTextField catToAdd = new JTextField("Click Here to Add a Category");
