@@ -118,6 +118,7 @@ public class GUI{
 			
 		}
 		
+		setNumberOfCategories(0);
 		viewcfg.addActionListener(e -> createCfg());
 
 	}
@@ -195,17 +196,21 @@ public class GUI{
 	// Creates the configuration panel
 	public static void createCfg(){
 		
+		int cfgWidth = 300;
+		int cfgHeight = 350;
+		
+		
 		if(getCurrentMode() != null){
 		
 			JFrame cfgFrame = new JFrame("Configuration");
-			cfgFrame.setSize(300, 300);
+			cfgFrame.setSize(cfgHeight, cfgWidth);
 			cfgFrame.setVisible(true);
 			cfgFrame.setResizable(true);
 			cfgFrame.setLocationRelativeTo(null);
 			
 			JPanel cfgPanel = new JPanel();
 			cfgFrame.getContentPane().setLayout(null);
-			cfgPanel.setBounds(0,0,300,300);
+			cfgPanel.setBounds(0, 0, cfgHeight, cfgWidth);
 			cfgPanel.setLayout(null);
 			//GridBagConstraints c = new GridBagConstraints();
 			cfgPanel.setBackground(new Color(230,230,250));
@@ -215,12 +220,12 @@ public class GUI{
 			JLabel lblCategory = new JLabel(getCurrentMode().name);
 			//c.gridx = 1;
 			//c.gridy = 0;
-			lblCategory.setBounds(60, 10, 200, 15);
+			lblCategory.setBounds(60, 5, 200, 15);
 			cfgPanel.add(lblCategory);
 		
 			JTextField catToAdd = new JTextField("Click Here to Add a Category");
 			catToAdd.setSize(3000, 5);
-			catToAdd.setBounds(0,0,3000, 5);
+			catToAdd.setBounds(30,25,170, 25);
 			
 			catToAdd.addMouseListener(new MouseAdapter(){
 				@Override
@@ -238,12 +243,13 @@ public class GUI{
 			TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
 			
 			JButton addCat = new JButton("Add");
+			addCat.setBounds(210, 25, 60, 25);
 		
 			addCat.addActionListener(e ->{
 				
 				System.out.println(numberOfCategories);
 				
-				if(getNumberOfCategories() >= 20){
+				if(getNumberOfCategories() >= 18){
 					System.out.println("No.");
 				}else{
 					cats.put(catToAdd.getText(), 0.0);
@@ -270,25 +276,33 @@ public class GUI{
 			//c.gridy = 1;
 			
 			cfgPanel.add(addCat);
-		
+			
 			JComboBox<String> jcmb = new JComboBox<String>();
-		
-			int noc = 0;
+			
+			jcmb.setBounds(15, 220, 130, 25);
+			
 			JLabel lblCats = new JLabel();
+			JLabel lblCats2 = new JLabel();
 			// Create a check-box for each category
 			for(String s : cats.keySet()){
-				lblCats.setText( lblCats.getText()  + "<p>" + s + "</p>");
-			
+				
+				if(getNumberOfCategories() < 9){
+					lblCats.setText( lblCats.getText()  + "<p>" + s + "</p>");
+				}else{
+					lblCats2.setText( lblCats2.getText()  + "<p>" + s + "</p>");
+				}
 				jcmb.addItem(s);
-				noc++;
+				setNumberOfCategories(getNumberOfCategories() + 1);
 				
 			}
 			
-			setNumberOfCategories(noc);
-			
 			lblCats.setText("<html><body>" + lblCats.getText() + "</body></html>");
+			lblCats2.setText("<html><body>" + lblCats2.getText() + "</body></html>");
+			lblCats.setBounds(30, 35, 150, 200);
+			lblCats2.setBounds(180, 35, 150, 200);
 			
 			JButton removeCat = new JButton("Remove Category");
+			removeCat.setBounds(155, 220, 140,25);
 			removeCat.addActionListener(e ->{
 					
 				cats.remove(jcmb.getSelectedItem());
@@ -315,6 +329,7 @@ public class GUI{
 			//c.gridx = 2;
 			//c.gridy = 2;
 			cfgPanel.add(lblCats);
+			cfgPanel.add(lblCats2);
 		
 			//c.gridwidth = 2;
 			//c.fill = GridBagConstraints.HORIZONTAL;
