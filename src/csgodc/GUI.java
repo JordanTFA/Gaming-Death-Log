@@ -3,8 +3,6 @@ import static java.util.stream.Collectors.toMap;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -220,7 +218,7 @@ public class GUI{
 			JLabel lblCategory = new JLabel(getCurrentMode().name);
 			//c.gridx = 1;
 			//c.gridy = 0;
-			lblCategory.setBounds(60, 5, 200, 15);
+			lblCategory.setBounds(70, 5, 200, 15);
 			cfgPanel.add(lblCategory);
 		
 			JTextField catToAdd = new JTextField("Click Here to Add a Category");
@@ -243,7 +241,7 @@ public class GUI{
 			TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
 			
 			JButton addCat = new JButton("Add");
-			addCat.setBounds(210, 25, 60, 25);
+			addCat.setBounds(220, 25, 60, 25);
 		
 			addCat.addActionListener(e ->{
 				
@@ -502,6 +500,8 @@ public class GUI{
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		gbc.insets = new Insets(5,5,5,5);
+		
+		frame.getContentPane().setLayout(null);
 
 		
 		JButton undo = new JButton("Undo");
@@ -525,11 +525,7 @@ public class GUI{
 				JOptionPane.showMessageDialog(null, "Nothing to Undo!");
 			}			
 		});
-		
-		gbc.gridx=0;
-		gbc.gridy=0;
 
-		//utilButtons.add(undo,gbc);
 		panel.add(undo);
 		
 		
@@ -553,11 +549,7 @@ public class GUI{
 			
 			}
 		});
-		
-		gbc.gridx=1;
-		gbc.gridy=0;
-		
-		//utilButtons.add(reset, gbc);
+
 		panel.add(reset);
 
 		JButton stats = new JButton("Show Stats");
@@ -617,12 +609,9 @@ public class GUI{
 				msg.setSize(280,100);
 	
 		});
-		
-		gbc.gridx=2;
-		gbc.gridy=0;
+
 		
 		panel.add(stats);
-		//utilButtons.add(stats,gbc);
 		
 		frame.add(utilButtons);
 		frame.validate();

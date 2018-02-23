@@ -1,5 +1,5 @@
-Bad Positioning,0.0
-Crept up upon,4.0
+Bad Positioning,1.0
+Crept up upon,5.0
 Flashed,4.0
 Got Traded,3.0
 I Traded,5.0
