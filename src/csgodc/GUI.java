@@ -462,7 +462,7 @@ public class GUI{
 		
 		setNumberOfCategories(0);
 
-				
+		
 		for(String c : allCategories.keySet()){
 			
 			button = new JButton(c);
