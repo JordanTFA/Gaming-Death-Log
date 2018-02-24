@@ -3,6 +3,7 @@ import static java.util.stream.Collectors.toMap;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -70,7 +71,7 @@ public class GUI{
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle("Death Log");
 		frame.setVisible(true);
-		frame.setResizable(true);
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -210,7 +211,6 @@ public class GUI{
 			cfgFrame.getContentPane().setLayout(null);
 			cfgPanel.setBounds(0, 0, cfgHeight, cfgWidth);
 			cfgPanel.setLayout(null);
-			//GridBagConstraints c = new GridBagConstraints();
 			cfgPanel.setBackground(new Color(230,230,250));
 			cfgFrame.add(cfgPanel);
 			
@@ -320,25 +320,9 @@ public class GUI{
 
 			});	
 			
-			
-			
-			//c.gridwidth = 5;
-			//c.fill = GridBagConstraints.HORIZONTAL;
-			//c.gridx = 2;
-			//c.gridy = 2;
 			cfgPanel.add(lblCats);
 			cfgPanel.add(lblCats2);
-		
-			//c.gridwidth = 2;
-			//c.fill = GridBagConstraints.HORIZONTAL;
-			//c.gridx = 0;
-			//c.gridy = 3;
 			cfgPanel.add(jcmb);
-			
-			//c.gridwidth = 1;
-			//c.fill = GridBagConstraints.HORIZONTAL;
-			//c.gridx = 3;
-			//c.gridy = 3;
 			cfgPanel.add(removeCat);
 			
 		}else{
@@ -477,6 +461,7 @@ public class GUI{
 	public static void createButtons(){
 		
 		setNumberOfCategories(0);
+
 				
 		for(String c : allCategories.keySet()){
 			
@@ -495,14 +480,11 @@ public class GUI{
 				updateLog(c, 1.0);			
 			});	
 		}
-		
-		JPanel utilButtons = new JPanel(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-		
-		gbc.insets = new Insets(5,5,5,5);
-		
-		frame.getContentPane().setLayout(null);
 
+		JPanel utilButtons = new JPanel();
+		utilButtons.setBounds(0, HEIGHT-200, WIDTH, HEIGHT + 200);
+		utilButtons.setLayout(null);
+		frame.add(utilButtons);
 		
 		JButton undo = new JButton("Undo");
 		undo.addActionListener(e -> {
@@ -526,7 +508,8 @@ public class GUI{
 			}			
 		});
 
-		panel.add(undo);
+		undo.setBounds(40,HEIGHT-100, 80, 30);
+		utilButtons.add(undo);
 		
 		
 		JButton reset = new JButton("Reset Stats");
@@ -550,7 +533,8 @@ public class GUI{
 			}
 		});
 
-		panel.add(reset);
+		reset.setBounds(130,HEIGHT-100, 100, 30);
+		utilButtons.add(reset);
 
 		JButton stats = new JButton("Show Stats");
 		stats.addActionListener(e ->{
@@ -610,10 +594,10 @@ public class GUI{
 	
 		});
 
+		stats.setBounds(240,HEIGHT-100, 120, 30);
+		utilButtons.add(stats);
 		
-		panel.add(stats);
-		
-		frame.add(utilButtons);
+		//utilButtons.validate();
 		frame.validate();
 	}
 	
