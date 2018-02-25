@@ -1,4 +1,4 @@
-Enemy had better weapon,10.0
+Enemy had better weapon,11.0
 Glitch,3.0
 I had better weapon; still lost,9.0
 Took a Bad Fight,3.0

@@ -76,6 +76,7 @@ public class GUI{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panel = new JPanel();
+		panel.setBounds(0, 0, WIDTH, HEIGHT-100);
 		frame.add(panel);
 		
 		JMenuBar jmb = new JMenuBar();
@@ -138,8 +139,9 @@ public class GUI{
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
 		
 		// Align text left
-		JPanel logpanel = new JPanel(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		JPanel logpanel = new JPanel(/*new GridBagLayout()*/);
+		//GridBagConstraints c = new GridBagConstraints();
+		logpanel.setLayout(null);
 		logpanel.setBackground(new Color(220,220,220));
 			
 		log = new JTextPane();
@@ -150,18 +152,19 @@ public class GUI{
 		
 		log = applyCSS(log,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold}");
 		
+		log.setBounds(10, 10, LOG_WIDTH - 20, LOG_HEIGHT-100);
 		log.setBackground(new Color(220,220,220));
 		log.setEditable(false);
 		log.setHighlighter(null);
 		
-		c.insets = new Insets(5,5,5,5);
+		/*c.insets = new Insets(5,5,5,5);
 		
 		c.gridwidth = 5;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
-		c.gridy = 0;
+		c.gridy = 0;*/
 		
-		logpanel.add(log, c);
+		logpanel.add(log);
 		
 	    // Currently having an issue with JScrollPanes, they don't seem to want to work
 		//JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -172,11 +175,13 @@ public class GUI{
 			log.setText(getLogContent());
 		});
 		
-		c.gridwidth = 1;
+		/*c.gridwidth = 1;
 		c.gridx = 0;
-		c.gridy = 20;
+		c.gridy = 20;*/
 		
-		logpanel.add(clear,c);
+		clear.setBounds(30, LOG_HEIGHT-70, 80, 30);
+		
+		logpanel.add(clear);
 		
 		JButton newgame = new JButton("New Game");
 		newgame.addActionListener(e -> {
@@ -184,10 +189,11 @@ public class GUI{
 			log.setText("<html><body>" + getLogContent() + "</body></html");
 		});
 		
-		c.gridx = 2;
-		c.gridy = 20;
+		newgame.setBounds(120, HEIGHT-70, 120, 30);
+		//c.gridx = 2;
+		//c.gridy = 20;
 		
-		logpanel.add(newgame,c);	
+		logpanel.add(newgame);	
 		logframe.add(logpanel);		
 		logpanel.validate();
 	}
@@ -426,7 +432,6 @@ public class GUI{
 	public static void loadMode(){
 		
 		//Clear the old mode screen
-		panel.removeAll();
 		createBackground();
 		
 		allCategories = currentMode.log;
