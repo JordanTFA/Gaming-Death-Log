@@ -6,4 +6,4 @@ I Traded,3.0
 Outaimed,1.0
 Overwhelmed,0.0
 Peaked an AWP,1.0
-Tried to cheese,0.0
+Tried to Cheese,0.0

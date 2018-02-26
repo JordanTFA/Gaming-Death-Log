@@ -3,16 +3,13 @@ import static java.util.stream.Collectors.toMap;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -117,8 +114,6 @@ public class GUI{
 			});
 			
 		}
-		
-		setNumberOfCategories(0);
 		viewcfg.addActionListener(e -> createCfg());
 
 	}
@@ -139,8 +134,7 @@ public class GUI{
 		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
 		
 		// Align text left
-		JPanel logpanel = new JPanel(/*new GridBagLayout()*/);
-		//GridBagConstraints c = new GridBagConstraints();
+		JPanel logpanel = new JPanel();
 		logpanel.setLayout(null);
 		logpanel.setBackground(new Color(220,220,220));
 			
@@ -157,13 +151,6 @@ public class GUI{
 		log.setEditable(false);
 		log.setHighlighter(null);
 		
-		/*c.insets = new Insets(5,5,5,5);
-		
-		c.gridwidth = 5;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 0;*/
-		
 		logpanel.add(log);
 		
 	    // Currently having an issue with JScrollPanes, they don't seem to want to work
@@ -174,10 +161,6 @@ public class GUI{
 			setLogContent("");
 			log.setText(getLogContent());
 		});
-		
-		/*c.gridwidth = 1;
-		c.gridx = 0;
-		c.gridy = 20;*/
 		
 		clear.setBounds(30, LOG_HEIGHT-70, 80, 30);
 		
@@ -190,8 +173,6 @@ public class GUI{
 		});
 		
 		newgame.setBounds(120, HEIGHT-70, 120, 30);
-		//c.gridx = 2;
-		//c.gridy = 20;
 		
 		logpanel.add(newgame);	
 		logframe.add(logpanel);		
@@ -201,29 +182,26 @@ public class GUI{
 	// Creates the configuration panel
 	public static void createCfg(){
 		
-		int cfgWidth = 300;
-		int cfgHeight = 350;
-		
-		
+		final int CFG_WIDTH = 300;
+		final int CFG_HEIGHT = 350;
+				
 		if(getCurrentMode() != null){
 		
 			JFrame cfgFrame = new JFrame("Configuration");
-			cfgFrame.setSize(cfgHeight, cfgWidth);
+			cfgFrame.setSize(CFG_HEIGHT, CFG_WIDTH);
 			cfgFrame.setVisible(true);
 			cfgFrame.setResizable(true);
 			cfgFrame.setLocationRelativeTo(null);
 			
 			JPanel cfgPanel = new JPanel();
 			cfgFrame.getContentPane().setLayout(null);
-			cfgPanel.setBounds(0, 0, cfgHeight, cfgWidth);
+			cfgPanel.setBounds(0, 0, CFG_HEIGHT, CFG_WIDTH);
 			cfgPanel.setLayout(null);
 			cfgPanel.setBackground(new Color(230,230,250));
 			cfgFrame.add(cfgPanel);
 			
 			
 			JLabel lblCategory = new JLabel(getCurrentMode().name);
-			//c.gridx = 1;
-			//c.gridy = 0;
 			lblCategory.setBounds(70, 5, 200, 15);
 			cfgPanel.add(lblCategory);
 		
@@ -238,10 +216,6 @@ public class GUI{
 				}
 			});
 			
-			//c.gridwidth = 2;
-			//c.fill = GridBagConstraints.HORIZONTAL;
-			//c.gridx = 1;
-			//c.gridy = 1;
 			cfgPanel.add(catToAdd);
         
 			TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
@@ -251,10 +225,8 @@ public class GUI{
 		
 			addCat.addActionListener(e ->{
 				
-				System.out.println(numberOfCategories);
-				
 				if(getNumberOfCategories() >= 18){
-					System.out.println("No.");
+					JOptionPane.showMessageDialog(null, "Reached max number of categorie! (18)");
 				}else{
 					cats.put(catToAdd.getText(), 0.0);
 					Log.updateFile(cats);
@@ -274,11 +246,6 @@ public class GUI{
 				}
 			});	
 			
-			//c.gridwidth = 1;
-			//c.fill = GridBagConstraints.HORIZONTAL;
-			//c.gridx = 4;
-			//c.gridy = 1;
-			
 			cfgPanel.add(addCat);
 			
 			JComboBox<String> jcmb = new JComboBox<String>();
@@ -286,17 +253,25 @@ public class GUI{
 			jcmb.setBounds(15, 220, 130, 25);
 			
 			JLabel lblCats = new JLabel();
+			lblCats.setForeground(Color.BLUE);
 			JLabel lblCats2 = new JLabel();
-			// Create a check-box for each category
+			lblCats2.setForeground(Color.RED);		
+
+			int counter = 0;
+			
+			// Create a label for each category
 			for(String s : cats.keySet()){
 				
-				if(getNumberOfCategories() < 9){
+				if(counter < 9){
 					lblCats.setText( lblCats.getText()  + "<p>" + s + "</p>");
+					
 				}else{
 					lblCats2.setText( lblCats2.getText()  + "<p>" + s + "</p>");
 				}
 				jcmb.addItem(s);
-				setNumberOfCategories(getNumberOfCategories() + 1);
+				setNumberOfCategories(cats.size());
+				
+				counter++;
 				
 			}
 			
@@ -465,9 +440,8 @@ public class GUI{
 	
 	public static void createButtons(){
 		
-		setNumberOfCategories(0);
-
-				
+		//setNumberOfCategories(allCategories.size());
+			
 		for(String c : allCategories.keySet()){
 			
 			button = new JButton(c);
