@@ -9,7 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -202,7 +201,7 @@ public class GUI{
 			
 			
 			JLabel lblCategory = new JLabel(getCurrentMode().name);
-			lblCategory.setBounds(70, 5, 200, 15);
+			lblCategory.setBounds(70, 5, 230, 15);
 			cfgPanel.add(lblCategory);
 		
 			JTextField catToAdd = new JTextField("Click Here to Add a Category");
@@ -228,19 +227,25 @@ public class GUI{
 				if(getNumberOfCategories() >= 18){
 					JOptionPane.showMessageDialog(null, "Reached max number of categorie! (18)");
 				}else{
-					cats.put(catToAdd.getText(), 0.0);
-					Log.updateFile(cats);
 					
-					allCategories = cats;
+					String content = catToAdd.getText();
 					
-					cfgFrame.dispose();
-					createCfg();
+					if(content.length() > 30){
+						JOptionPane.showMessageDialog(null, "Too Long!");
+					}else{
+						cats.put(content, 0.0);
+						Log.updateFile(cats);
 						
-					String colour = "<font color=\'green\'>";
-					setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + getLogContent());
-					log.setText("<html><body>" + getLogContent() + "</body></html>");
+						allCategories = cats;
+						
+						cfgFrame.dispose();
+						createCfg();
+							
+						String colour = "<font color=\'green\'>";
+						setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + getLogContent());
+						log.setText("<html><body>" + getLogContent() + "</body></html>");
+					}
 
-					
 					createBackground();
 					createButtons();
 				}
