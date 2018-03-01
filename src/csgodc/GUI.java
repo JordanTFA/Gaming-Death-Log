@@ -181,141 +181,8 @@ public class GUI{
 	// Creates the configuration panel
 	public static void createCfg(){
 		
-		final int CFG_WIDTH = 300;
-		final int CFG_HEIGHT = 350;
-				
-		if(getCurrentMode() != null){
-		
-			JFrame cfgFrame = new JFrame("Configuration");
-			cfgFrame.setSize(CFG_HEIGHT, CFG_WIDTH);
-			cfgFrame.setVisible(true);
-			cfgFrame.setResizable(true);
-			cfgFrame.setLocationRelativeTo(null);
-			
-			JPanel cfgPanel = new JPanel();
-			cfgFrame.getContentPane().setLayout(null);
-			cfgPanel.setBounds(0, 0, CFG_HEIGHT, CFG_WIDTH);
-			cfgPanel.setLayout(null);
-			cfgPanel.setBackground(new Color(230,230,250));
-			cfgFrame.add(cfgPanel);
-			
-			
-			JLabel lblCategory = new JLabel(getCurrentMode().name);
-			lblCategory.setBounds(70, 5, 230, 15);
-			cfgPanel.add(lblCategory);
-		
-			JTextField catToAdd = new JTextField("Click Here to Add a Category");
-			catToAdd.setSize(3000, 5);
-			catToAdd.setBounds(30,25,170, 25);
-			
-			catToAdd.addMouseListener(new MouseAdapter(){
-				@Override
-				public void mouseClicked(MouseEvent e){
-					catToAdd.setText("");
-				}
-			});
-			
-			cfgPanel.add(catToAdd);
-        
-			TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
-			
-			JButton addCat = new JButton("Add");
-			addCat.setBounds(220, 25, 60, 25);
-		
-			addCat.addActionListener(e ->{
-				
-				if(getNumberOfCategories() >= 18){
-					JOptionPane.showMessageDialog(null, "Reached max number of categorie! (18)");
-				}else{
-					
-					String content = catToAdd.getText();
-					
-					if(content.length() > 30){
-						JOptionPane.showMessageDialog(null, "Too Long!");
-					}else{
-						cats.put(content, 0.0);
-						Log.updateFile(cats);
-						
-						allCategories = cats;
-						
-						cfgFrame.dispose();
-						createCfg();
-							
-						String colour = "<font color=\'green\'>";
-						setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + getLogContent());
-						log.setText("<html><body>" + getLogContent() + "</body></html>");
-					}
-
-					createBackground();
-					createButtons();
-				}
-			});	
-			
-			cfgPanel.add(addCat);
-			
-			JComboBox<String> jcmb = new JComboBox<String>();
-			
-			jcmb.setBounds(15, 220, 130, 25);
-			
-			JLabel lblCats = new JLabel();
-			lblCats.setForeground(Color.BLUE);
-			JLabel lblCats2 = new JLabel();
-			lblCats2.setForeground(Color.RED);		
-
-			int counter = 0;
-			
-			// Create a label for each category
-			for(String s : cats.keySet()){
-				
-				if(counter < 9){
-					lblCats.setText( lblCats.getText()  + "<p>" + s + "</p>");
-					
-				}else{
-					lblCats2.setText( lblCats2.getText()  + "<p>" + s + "</p>");
-				}
-				jcmb.addItem(s);
-				setNumberOfCategories(cats.size());
-				
-				counter++;
-				
-			}
-			
-			lblCats.setText("<html><body>" + lblCats.getText() + "</body></html>");
-			lblCats2.setText("<html><body>" + lblCats2.getText() + "</body></html>");
-			lblCats.setBounds(30, 35, 150, 200);
-			lblCats2.setBounds(180, 35, 150, 200);
-			
-			JButton removeCat = new JButton("Remove Category");
-			removeCat.setBounds(155, 220, 140,25);
-			removeCat.addActionListener(e ->{
-					
-				cats.remove(jcmb.getSelectedItem());
-				Log.updateFile(cats);
-					
-				allCategories = cats;
-					
-				cfgFrame.dispose();
-				createCfg();
-				
-				String colour = "<font color=\'red\'>";
-				setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem()  + "</p>" + getLogContent());
-				log.setText("<html><body>" + getLogContent() + "</body></html");
-					
-				createBackground();
-				createButtons();
-
-			});	
-			
-			cfgPanel.add(lblCats);
-			cfgPanel.add(lblCats2);
-			cfgPanel.add(jcmb);
-			cfgPanel.add(removeCat);
-			
-		}else{
-			JOptionPane.showMessageDialog(null, "Select a Category to Configure!");
-		}
-		
-		
+		Config cfg = new Config(getCurrentMode());
+		cfg.createCfg();
 	}
 	
 	// Update the log whenever it receives a new entry
@@ -654,14 +521,6 @@ public class GUI{
 
 	public static void setCurrentMode(Mode currentMode) {
 		GUI.currentMode = currentMode;
-	}
-	
-	public static int getNumberOfCategories() {
-		return numberOfCategories;
-	}
-
-	public static void setNumberOfCategories(int numberOfCategories) {
-		GUI.numberOfCategories = numberOfCategories;
 	}
 
 }

@@ -1,8 +1,8 @@
-Crept up upon,-1.0
-Dived on,0.0
+Crept up upon,0.0
+Dived on,1.0
 I dived (Favourable),0.0
-I dived (Unfavourable),0.0
-Picked off/Sniped,0.0
-Separated from team,0.0
+I dived (Unfavourable),1.0
+Picked off/Sniped,1.0
+Separated from team,1.0
 Team Fight (Favourable),0.0
 Team Fight (Unfavourable),0.0
