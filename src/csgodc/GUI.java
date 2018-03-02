@@ -2,11 +2,7 @@ package csgodc;
 import static java.util.stream.Collectors.toMap;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -16,7 +12,6 @@ import java.util.TreeMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -25,14 +20,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.StyleSheet;
 
 public class GUI{
 	
@@ -40,26 +31,18 @@ public class GUI{
 	static JPanel panel;
 	static JLabel icon;
 	static JButton button;
-	
-	static JFrame logframe;
-	static String logContent = "";
-	
-	static JTextPane log;
-	StyleSheet sh;
+
 	
 	public final static int WIDTH = 400;
 	public final static int HEIGHT = 600;
-	
-	public final static int LOG_WIDTH = 300;
-	public final static int LOG_HEIGHT = 600;
 	
 	static String lastCat = null;
 	static Double lastChange = null;
 	
 	static Mode currentMode;
-	static TreeMap<String,Double> allCategories;
-	
 	static int numberOfCategories;
+	
+	static TreeMap<String,Double> allCategories;
 
 	// Main Window
 	public static void buildGUI(){
@@ -92,10 +75,10 @@ public class GUI{
 		jm_log.add(viewlog);
 		
 		// Create the log window
-		createLog();
+		Log.createLog();
 		
 		// Make the log visible if it's selected from the menu bar
-		viewlog.addActionListener(e -> logframe.setVisible(true));
+		viewlog.addActionListener(e -> Log.makeLogVisible());
 	
 		ArrayList<Mode> theModes = Mode.getTheModes();
 		
@@ -113,102 +96,13 @@ public class GUI{
 			});
 			
 		}
-		viewcfg.addActionListener(e -> createCfg());
-
-	}
-	
-	// Create log content
-	public static void createLog(){
-		
-	    Toolkit tk = Toolkit.getDefaultToolkit();
-	    Dimension screenSize = tk.getScreenSize();
-		
-		logframe = new JFrame();
-		logframe.setSize(LOG_WIDTH, LOG_HEIGHT);
-		logframe.setVisible(true);
-		logframe.setTitle("Log");
-		logframe.setResizable(false);
-		
-		// Set the log window next to the main window
-		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
-		
-		// Align text left
-		JPanel logpanel = new JPanel();
-		logpanel.setLayout(null);
-		logpanel.setBackground(new Color(220,220,220));
+		viewcfg.addActionListener(e -> {
 			
-		log = new JTextPane();
-		//JPanel noWrapPanel = new JPanel( new BorderLayout() );
-		//noWrapPanel.add( log );
-		//JScrollPane scrollPane = new JScrollPane( noWrapPanel );
-		//scrollPane.setViewportView(log); // creates a wrapped scroll pane using the text pane as a viewport.
-		
-		log = applyCSS(log,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold}");
-		
-		log.setBounds(10, 10, LOG_WIDTH - 20, LOG_HEIGHT-100);
-		log.setBackground(new Color(220,220,220));
-		log.setEditable(false);
-		log.setHighlighter(null);
-		
-		logpanel.add(log);
-		
-	    // Currently having an issue with JScrollPanes, they don't seem to want to work
-		//JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		
-		JButton clear = new JButton("Clear");
-		clear.addActionListener(e -> {
-			setLogContent("");
-			log.setText(getLogContent());
+			Config.setCurrentMode(currentMode);
+			Config.createCfg();
+			
 		});
-		
-		clear.setBounds(30, LOG_HEIGHT-70, 80, 30);
-		
-		logpanel.add(clear);
-		
-		JButton newgame = new JButton("New Game");
-		newgame.addActionListener(e -> {
-			setLogContent("<p>--------------------</p>" + getLogContent());
-			log.setText("<html><body>" + getLogContent() + "</body></html");
-		});
-		
-		newgame.setBounds(120, HEIGHT-70, 120, 30);
-		
-		logpanel.add(newgame);	
-		logframe.add(logpanel);		
-		logpanel.validate();
-	}
-	
-	// Creates the configuration panel
-	public static void createCfg(){
-		
-		Config cfg = new Config(getCurrentMode());
-		cfg.createCfg();
-	}
-	
-	// Update the log whenever it receives a new entry
-	public static void updateLog(String cat, Double change){
-		
-		// TODO: Make the log scroll instead of going off-screen
-		
-		setLastCat(cat);
-		setLastChange(change);
-		
-		String fontColour;
-		char symbol;
-		
-		if(change<0){
-			fontColour = "<font color='red'>";
-			symbol = '-';
-		}else{
-			fontColour = "<font color='green'>";
-			symbol = '+';
-		}
-				
-		// Create new line
-		setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
-		
-		log.setText("<html><body>" + getLogContent() + "</body></html");
-		
+
 	}
 	
 	// Default Page, can perhaps add to this
@@ -234,7 +128,7 @@ public class GUI{
 		msg.setBackground(panel.getBackground());
 		msg.setSize(WIDTH, HEIGHT);
 		
-		msg = applyCSS(msg,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold}");
+		msg = Log.applyCSS(msg,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold}");
 		
 		StyledDocument doc = msg.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
@@ -286,28 +180,11 @@ public class GUI{
 		if(currentMode.name.length() > 0){
 			
 			String colour = "<font color=\'blue\'>";
-			setLogContent("<p>" + colour + "Changed mode to " + currentMode.name + "</font></p>" + getLogContent());
-			log.setText(getLogContent());
+			Log.setLogContent("<p>" + colour + "Changed mode to " + currentMode.name + "</font></p>" + Log.getLogContent());
+			Log.addToLog();
 			
 			createButtons();
 		}
-	}
-	
-	public static JTextPane applyCSS(JTextPane pane, String cssContent){
-		
-		pane.setContentType("text/html");
-		
-		StyleSheet styleSheet = new StyleSheet();
-		HTMLDocument htmlDocument;
-		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
-		
-		styleSheet.addRule(cssContent);	
-		htmlEditorKit.setStyleSheet(styleSheet);
-	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
-	    pane.setEditorKit(htmlEditorKit);
-	    pane.setDocument(htmlDocument);
-		
-		return pane;
 	}
 	
 	public static void createButtons(){
@@ -326,9 +203,9 @@ public class GUI{
 				allCategories.put(c, allCategories.get(c) + 1);
 				System.out.println(allCategories.get(c));
 					
-				Log.updateFile(allCategories);
+				FileSystem.updateFile(allCategories);
 					
-				updateLog(c, 1.0);			
+				Log.updateLog(c, 1.0);			
 			});	
 		}
 
@@ -339,10 +216,10 @@ public class GUI{
 		
 		JButton undo = new JButton("Undo");
 		undo.addActionListener(e -> {
-			if(getLastCat() != null && getLastChange() != null){
+			if(Log.getLastCat() != null && Log.getLastChange() != null){
 				
-				String cat = getLastCat();
-				Double change = getLastChange() * -1;
+				String cat = Log.getLastCat();
+				Double change = Log.getLastChange() * -1;
 				
 				for(String c: allCategories.keySet()){
 					if(c==cat){
@@ -350,9 +227,9 @@ public class GUI{
 					}
 				}
 				
-				updateLog(cat,change);
+				Log.updateLog(cat,change);
 				
-				Log.updateFile(allCategories);
+				FileSystem.updateFile(allCategories);
 			}
 			else{
 				JOptionPane.showMessageDialog(null, "Nothing to Undo!");
@@ -375,11 +252,11 @@ public class GUI{
 
 					allCategories.put(c, 0.0);
 				}
-			Log.updateFile(allCategories);
+			FileSystem.updateFile(allCategories);
 				
 			String fontColour = "<font color='purple'>";
-			setLogContent("<p>" + fontColour + "Stats reset for " + currentMode.name + "</font></p>" + getLogContent());
-			log.setText(getLogContent());
+			Log.setLogContent("<p>" + fontColour + "Stats reset for " + currentMode.name + "</font></p>" + Log.getLogContent());
+			Log.addToLog();
 			
 			}
 		});
@@ -489,30 +366,6 @@ public class GUI{
 		                LinkedHashMap::new));
 		
 		return newMap;
-	}
-	
-	public static String getLastCat() {
-		return lastCat;
-	}
-
-	public static void setLastCat(String lastCat) {
-		GUI.lastCat = lastCat;
-	}
-
-	public static Double getLastChange() {
-		return lastChange;
-	}
-
-	public static void setLastChange(Double lastChange) {
-		GUI.lastChange = lastChange;
-	}
-	
-	public static String getLogContent() {
-		return logContent;
-	}
-
-	public static void setLogContent(String logContent) {
-		GUI.logContent = logContent;
 	}
 	
 	public static Mode getCurrentMode() {

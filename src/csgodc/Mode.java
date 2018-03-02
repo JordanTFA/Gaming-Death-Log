@@ -30,16 +30,16 @@ public class Mode {
 		
 		TreeMap<String,Double> h = new TreeMap<String, Double>();
 		
-		h = Log.generateCategories("csgo");
+		h = FileSystem.generateCategories("csgo");
 		Mode csgo = new Mode("csgo", "Counter-Strike: Global Offensive", Color.GRAY, new ImageIcon("src//img//img_csgo.png").getImage() , h);
 		
-		h = Log.generateCategories("lol");
+		h = FileSystem.generateCategories("lol");
 		Mode lol = new Mode("lol", "League of Legends", Color.CYAN, new ImageIcon("src//img//img_lol.png").getImage(), h);
 		
-		h = Log.generateCategories("ow");
+		h = FileSystem.generateCategories("ow");
 		Mode ow = new Mode("ow", "Overwatch", Color.WHITE, new ImageIcon("src//img//img_ow.png").getImage(), h);
 
-		h = Log.generateCategories("pubg");
+		h = FileSystem.generateCategories("pubg");
 		Mode pubg = new Mode("pubg", "PLAYERUNKNOWN'S BATTLEGROUNDS", Color.ORANGE, new ImageIcon("src//img//img_pubg.png").getImage(),h);
 		
 		theModes.add(csgo);

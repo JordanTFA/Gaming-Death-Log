@@ -1,145 +1,168 @@
 package csgodc;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.TreeMap;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
 
 public class Log {
 	
-	public static String path;
-	public static FileReader fr;
-	public static BufferedReader br;
-	public static String defaultLog;
-
-	public static TreeMap<String, Double> generateCategories(String modeid){
-			
-		path = "src/csgodc/log/" + modeid + ".txt";
-		TreeMap<String, Double> theCategories = new TreeMap<String, Double>();
-		String line = null;
+	public final static int LOG_WIDTH = 300;
+	public final static int LOG_HEIGHT = 600;
+	
+	public final static int WIDTH = 400;
+	public final static int HEIGHT = 600;
 		
-		try {
+	static JFrame logframe;
+	static String logContent = "";
+	
+	static JTextPane log;
+	StyleSheet sh;
+	
+	static String lastCat = null;
+	static Double lastChange = null;
 
-			fr = new FileReader(path);
-			br = new BufferedReader(fr);
-			
-            while((line = br.readLine()) != null) {
-            	String array[] = line.split(",");
-            	theCategories.put(array[0],Double.parseDouble(array[1]));
-            }   
-
-            // Always close files.
-            br.close();
-			
-			
-		} catch (FileNotFoundException e) {
-			System.out.println("Unable to open file '" + path + "'. Creating new file...");
-			createFile(modeid);
-			generateCategories(modeid);
-
-		} catch(IOException ex){
-			ex.printStackTrace();
-		}
+	public Log(){
 		
-		return theCategories;
 	}
 	
-	public static void createFile(String mode){
-
-		path = "src/csgodc/log/" + mode + ".txt";
+	public static void createLog(){
+	    Toolkit tk = Toolkit.getDefaultToolkit();
+	    Dimension screenSize = tk.getScreenSize();
 		
-		fillDefault(mode);
+		logframe = new JFrame();
+		logframe.setSize(LOG_WIDTH, LOG_HEIGHT);
+		logframe.setVisible(true);
+		logframe.setTitle("Log");
+		logframe.setResizable(false);
+		
+		// Set the log window next to the main window
+		logframe.setLocation((screenSize.width / 2) + (WIDTH/2),(screenSize.height / 2) -  (HEIGHT/2) - 20); 
+		
+		// Align text left
+		JPanel logpanel = new JPanel();
+		logpanel.setLayout(null);
+		logpanel.setBackground(new Color(220,220,220));
 			
-		try{
-			
-			File file = new File(path);
-			file.createNewFile();
-			
-			if (!file.exists()) {
+		log = new JTextPane();
+		//JPanel noWrapPanel = new JPanel( new BorderLayout() );
+		//noWrapPanel.add( log );
+		//JScrollPane scrollPane = new JScrollPane( noWrapPanel );
+		//scrollPane.setViewportView(log); // creates a wrapped scroll pane using the text pane as a viewport.
+		
+		log = applyCSS(log,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold}");
+		
+		log.setBounds(10, 10, LOG_WIDTH - 20, LOG_HEIGHT-100);
+		log.setBackground(new Color(220,220,220));
+		log.setEditable(false);
+		log.setHighlighter(null);
+		
+		logpanel.add(log);
+		
+	    // Currently having an issue with JScrollPanes, they don't seem to want to work
+		//JScrollPane scrollpane = new JScrollPane(log,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		JButton clear = new JButton("Clear");
+		clear.addActionListener(e -> {
+			setLogContent("");
+			log.setText(getLogContent());
+		});
+		
+		clear.setBounds(30, LOG_HEIGHT-70, 80, 30);
+		
+		logpanel.add(clear);
+		
+		JButton newgame = new JButton("New Game");
+		newgame.addActionListener(e -> {
+			setLogContent("<p>--------------------</p>" + getLogContent());
+			log.setText("<html><body>" + getLogContent() + "</body></html");
+		});
+		
+		newgame.setBounds(120, HEIGHT-70, 120, 30);
+		
+		logpanel.add(newgame);	
+		logframe.add(logpanel);		
+		logpanel.validate();
+	}
+	
+	// Update the log whenever it receives a new entry
+	public static void updateLog(String cat, Double change){
+		
+		// TODO: Make the log scroll instead of going off-screen
+		
+		setLastCat(cat);
+		setLastChange(change);
+		
+		String fontColour;
+		char symbol;
+		
+		if(change<0){
+			fontColour = "<font color='red'>";
+			symbol = '-';
+		}else{
+			fontColour = "<font color='green'>";
+			symbol = '+';
+		}
 				
-	            file.createNewFile();
-	        } else {
-	        	
-	            FileOutputStream writer = new FileOutputStream(path);
-	            writer.write((getDefaultLog()).getBytes());
-	            writer.close();
-	        }
-		 }catch (IOException e) {
-	        e.printStackTrace();
-	    }
+		// Create new line
+		setLogContent("<p>" + cat + " " + symbol + " " + fontColour + Math.abs(change.intValue()) + "</font></p>" + getLogContent());
+		addToLog();
+		
 	}
 	
-	public static void fillDefault(String mode){
-		path = "src/csgodc/log/" + mode + ".txt";
-		
-		switch(mode){
-			case "csgo": setDefaultLog("Outaimed,0\n"
-					+ "Crept up Upon,0\n"
-					+ "Bad positioning,0\n"
-					+ "Overwhelmed,0\n"
-					+ "Got Traded,0\n"
-					+ "I Traded,0\n"
-					+ "Flashed,0\n"
-					+ "Peaked an AWP,0\n"
-					+ "Tried to Cheese,0");
-				break;
-			case "lol": setDefaultLog("Overextended,0\n"
-					+ "Facechecked Bush,0\n"
-					+ "Took Bad Fight,0\n" 
-					+ "Team Fight (Favourable),0\n"
-					+ "Team Fight (Unfavourable),0\n"
-					+ "Invaded,0\n"
-					+ "Ganked (Blame jg),0\n"
-					+ "Got Baited,0\n"
-					+ "Held Summoner Spells,0");
-				break;
-			case "ow": setDefaultLog("Separated from team,0\n"
-					+ "Picked off/Sniped,0\n"
-					+ "Crept up upon,0\n"
-					+ "Team Fight (Favourable),0\n"
-					+ "Team Fight (Unfavourable),0\n"
-					+ "Dived on,0\n"
-					+ "I dived (Favourable),0\n"
-					+ "I dived (Unfavourable),0");
-				break;
-			case "pubg": setDefaultLog("Unaware of enemy,0\n"
-					+ "Poor Engagement,0\n"
-					+ ""
-					);
-				break;		
-		}
+	public static void addToLog(){
+		log.setText("<html><body>" + getLogContent() + "</body></html");
 	}
 	
-	public static void updateFile(TreeMap<String, Double> l){
-		
-		path = "src/csgodc/log/" + GUI.getCurrentMode().id + ".txt";
-		
-		try {
-
-			FileOutputStream fow = new FileOutputStream(path);
-			
-			for(String s : l.keySet()){
-				
-				fow.write((s + "," + l.get(s) + "\n").getBytes());	
-			}
-			
-			fow.close();
-			
-		} catch (IOException e) {
-			System.out.println("Couldn't find file...");
-
-			e.printStackTrace();
-		}
+	public static void makeLogVisible(){
+		logframe.setVisible(true);
 	}
 	
-	public static String getDefaultLog() {
-		return defaultLog;
+	public static JTextPane applyCSS(JTextPane pane, String cssContent){
+		
+		pane.setContentType("text/html");
+		
+		StyleSheet styleSheet = new StyleSheet();
+		HTMLDocument htmlDocument;
+		HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+		
+		styleSheet.addRule(cssContent);	
+		htmlEditorKit.setStyleSheet(styleSheet);
+	    htmlDocument = (HTMLDocument) htmlEditorKit.createDefaultDocument();
+	    pane.setEditorKit(htmlEditorKit);
+	    pane.setDocument(htmlDocument);
+		
+		return pane;
+	}
+	
+	public static String getLogContent() {
+		return logContent;
 	}
 
-	public static void setDefaultLog(String defaultLog) {
-		Log.defaultLog = defaultLog;
+	public static void setLogContent(String logContent) {
+		Log.logContent = logContent;
+	}
+	
+	public static String getLastCat() {
+		return lastCat;
+	}
+
+	public static void setLastCat(String lastCat) {
+		Log.lastCat = lastCat;
+	}
+
+	public static Double getLastChange() {
+		return lastChange;
+	}
+
+	public static void setLastChange(Double lastChange) {
+		Log.lastChange = lastChange;
 	}
 }

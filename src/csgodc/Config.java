@@ -15,21 +15,23 @@ import javax.swing.JTextField;
 
 public class Config {
 	
-	Mode mode;
+	static Mode mode;
 	
 	final static int CFG_WIDTH = 300;
 	final static int CFG_HEIGHT = 350;
 	
 	static int numberOfCategories;
+	static TreeMap<String,Double> allCategories;
 	
+	static Mode currentMode;
+
 	public Config(Mode mode){
 		
-		this.mode = mode;
+		Config.mode = mode;
 		
 	}
 	
 	public static void createCfg(){
-
 				
 		if(GUI.getCurrentMode() != null){
 		
@@ -63,8 +65,8 @@ public class Config {
 			});
 			
 			cfgPanel.add(catToAdd);
-        
-			TreeMap<String,Double> cats = Log.generateCategories(currentMode.id);
+
+			TreeMap<String,Double> cats = FileSystem.generateCategories(getCurrentMode().id);
 			
 			JButton addCat = new JButton("Add");
 			addCat.setBounds(220, 25, 60, 25);
@@ -81,7 +83,7 @@ public class Config {
 						JOptionPane.showMessageDialog(null, "Too Long!");
 					}else{
 						cats.put(content, 0.0);
-						Log.updateFile(cats);
+						FileSystem.updateFile(cats);
 						
 						allCategories = cats;
 						
@@ -89,8 +91,8 @@ public class Config {
 						createCfg();
 							
 						String colour = "<font color=\'green\'>";
-						setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + getLogContent());
-						log.setText("<html><body>" + getLogContent() + "</body></html>");
+						Log.setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + Log.getLogContent());
+						Log.addToLog();
 					}
 
 					GUI.createBackground();
@@ -137,7 +139,7 @@ public class Config {
 			removeCat.addActionListener(e ->{
 					
 				cats.remove(jcmb.getSelectedItem());
-				Log.updateFile(cats);
+				FileSystem.updateFile(cats);
 					
 				allCategories = cats;
 					
@@ -145,11 +147,11 @@ public class Config {
 				createCfg();
 				
 				String colour = "<font color=\'red\'>";
-				setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem()  + "</p>" + getLogContent());
-				log.setText("<html><body>" + getLogContent() + "</body></html");
+				Log.setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem()  + "</p>" + Log.getLogContent());
+				Log.addToLog();
 					
-				createBackground();
-				createButtons();
+				GUI.createBackground();
+				GUI.createButtons();
 
 			});	
 			
@@ -169,6 +171,14 @@ public class Config {
 
 	public static void setNumberOfCategories(int numberOfCategories) {
 		GUI.numberOfCategories = numberOfCategories;
+	}
+	
+	public static Mode getCurrentMode() {
+		return currentMode;
+	}
+
+	public static void setCurrentMode(Mode currentMode) {
+		Config.currentMode = currentMode;
 	}
 
 }
