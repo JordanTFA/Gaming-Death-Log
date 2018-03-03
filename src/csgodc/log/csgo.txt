@@ -1,6 +1,6 @@
-Bad Positioning,4.0
-Crept up upon,0.0
-Flashed,0.0
+Bad Positioning,5.0
+Crept up upon,2.0
+Flashed,1.0
 Got Traded,4.0
 I Traded,4.0
 Outaimed,1.0

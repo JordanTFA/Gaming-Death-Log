@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import csgodc.TextPrompt.Show;
+
 public class Config {
 	
 	static Mode mode;
@@ -53,7 +55,10 @@ public class Config {
 			lblCategory.setBounds(70, 5, 230, 15);
 			cfgPanel.add(lblCategory);
 		
-			JTextField catToAdd = new JTextField("Click Here to Add a Category");
+			JTextField catToAdd = new JTextField();	
+			TextPrompt tp = new TextPrompt("Click Here to Add a Category", catToAdd);
+			tp.setShow(Show.FOCUS_LOST);
+			tp.changeAlpha(0.5f);
 			catToAdd.setSize(3000, 5);
 			catToAdd.setBounds(30,25,170, 25);
 			
