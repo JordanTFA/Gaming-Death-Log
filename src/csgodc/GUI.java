@@ -31,7 +31,6 @@ public class GUI{
 	static JPanel panel;
 	static JLabel icon;
 	static JButton button;
-
 	
 	public final static int WIDTH = 400;
 	public final static int HEIGHT = 600;
@@ -40,7 +39,6 @@ public class GUI{
 	static Double lastChange = null;
 	
 	static Mode currentMode;
-	static int numberOfCategories;
 	
 	static TreeMap<String,Double> allCategories;
 
@@ -188,10 +186,8 @@ public class GUI{
 	}
 	
 	public static void createButtons(){
-		
-		//setNumberOfCategories(allCategories.size());
 			
-		for(String c : allCategories.keySet()){
+		for(String c : getAllCategories().keySet()){
 			
 			button = new JButton(c);
 			panel.add(button);
@@ -374,6 +370,14 @@ public class GUI{
 
 	public static void setCurrentMode(Mode currentMode) {
 		GUI.currentMode = currentMode;
+	}
+	
+	public static TreeMap<String, Double> getAllCategories() {
+		return allCategories;
+	}
+
+	public static void setAllCategories(TreeMap<String, Double> allCategories) {
+		GUI.allCategories = allCategories;
 	}
 
 }

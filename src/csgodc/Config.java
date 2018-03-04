@@ -99,6 +99,8 @@ public class Config {
 						Log.setLogContent("<p>" + colour + "Added " + catToAdd.getText() + "</font></p>" + Log.getLogContent());
 						Log.addToLog();
 					}
+					
+					GUI.setAllCategories(allCategories);
 
 					GUI.createBackground();
 					GUI.createButtons();
@@ -155,6 +157,8 @@ public class Config {
 				Log.setLogContent("<p>" + colour + "Removed " + jcmb.getSelectedItem()  + "</p>" + Log.getLogContent());
 				Log.addToLog();
 					
+				GUI.setAllCategories(allCategories);
+				
 				GUI.createBackground();
 				GUI.createButtons();
 
@@ -175,7 +179,7 @@ public class Config {
 	}
 
 	public static void setNumberOfCategories(int numberOfCategories) {
-		GUI.numberOfCategories = numberOfCategories;
+		Config.numberOfCategories = numberOfCategories;
 	}
 	
 	public static Mode getCurrentMode() {
