@@ -126,14 +126,19 @@ public class GUI{
 		msg.setBackground(panel.getBackground());
 		msg.setSize(WIDTH, HEIGHT);
 		
-		msg = Log.applyCSS(msg,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold}");
+		msg = Log.applyCSS(msg,"body {line-height: 50px; font-family: Dialog; font-size:12; font-weight: bold; text-align: center;}");
 		
 		StyledDocument doc = msg.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
 	    
-	    msg.setText("Welcome to the app. Blah blah blah blah");
+	    msg.setText("<html><body>"
+	    		+ "<p>Welcome to the death log. You can use this app to track</p>"
+	    		+ "<p>your deaths across multiple games, so you can learn to die less.</p>"
+	    		+ "<p></p>"
+	    		+ "<p>You moron.</p>"
+	    		+ "</body></html>");
 		
 		frame.setTitle("Gaming Death Log");
 		panel.setBackground(BGColour);
