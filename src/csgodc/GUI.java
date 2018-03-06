@@ -2,7 +2,9 @@ package csgodc;
 import static java.util.stream.Collectors.toMap;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Image;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -139,6 +141,8 @@ public class GUI{
 	    		+ "<p></p>"
 	    		+ "<p>You moron.</p>"
 	    		+ "</body></html>");
+	    
+	    createDefaultButtons();
 		
 		frame.setTitle("Gaming Death Log");
 		panel.setBackground(BGColour);
@@ -146,6 +150,30 @@ public class GUI{
 	
 		frame.validate();
 		
+	}
+	
+	public static void createDefaultButtons(){
+		
+		ImageIcon img;
+		JButton btn;
+		
+		img = new ImageIcon("src//img//img_git.png");
+		btn = new JButton(img);
+		
+		btn.addActionListener(	e-> openWebPage("https://github.com/JordanTFA/Gaming-Death-Log")	);
+		panel.add(btn);
+		
+		img = new ImageIcon("src//img//img_twitter.png");
+		btn = new JButton(img);
+		
+		btn.addActionListener(	e-> openWebPage("https://twitter.com/")	);
+		panel.add(btn);
+		
+		img = new ImageIcon("src//img//img_twitter.png");
+		btn = new JButton(img);
+		
+		btn.addActionListener(	e-> openWebPage("https://discord.gg/q6fUT")	);
+		panel.add(btn);
 	}
 	
 	public static void createBackground(){
@@ -354,6 +382,15 @@ public class GUI{
 		
 		return mostCommonDeaths;
 	}
+	
+	public static void openWebPage(String url){
+		   try {         
+		     java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+		   }
+		   catch (java.io.IOException e) {
+		       System.out.println(e.getMessage());
+		   }
+		}
 	
 	public static Map<String, Double> sortMap(TreeMap<String, Double> old){
 
