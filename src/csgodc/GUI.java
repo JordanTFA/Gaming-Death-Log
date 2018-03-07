@@ -2,9 +2,7 @@ package csgodc;
 import static java.util.stream.Collectors.toMap;
 
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Image;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -157,23 +155,36 @@ public class GUI{
 		ImageIcon img;
 		JButton btn;
 		
-		img = new ImageIcon("src//img//img_git.png");
+		img = new ImageIcon("src//img//links//img_git.png");
+		img = resizeImg(img);
 		btn = new JButton(img);
 		
 		btn.addActionListener(	e-> openWebPage("https://github.com/JordanTFA/Gaming-Death-Log")	);
 		panel.add(btn);
 		
-		img = new ImageIcon("src//img//img_twitter.png");
+		img = new ImageIcon("src//img//links//img_twitter.png");
+		img = resizeImg(img);
 		btn = new JButton(img);
 		
 		btn.addActionListener(	e-> openWebPage("https://twitter.com/")	);
 		panel.add(btn);
 		
-		img = new ImageIcon("src//img//img_twitter.png");
+		img = new ImageIcon("src//img//links//img_discord.png");
+		img = resizeImg(img);
 		btn = new JButton(img);
-		
+				
 		btn.addActionListener(	e-> openWebPage("https://discord.gg/q6fUT")	);
 		panel.add(btn);
+	}
+	
+	public static ImageIcon resizeImg(ImageIcon img){
+		
+		Image image = img.getImage(); // transform it 
+		Image newImg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		img = new ImageIcon(newImg);  // transform it back
+		
+		return img;
+		
 	}
 	
 	public static void createBackground(){
