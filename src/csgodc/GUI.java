@@ -160,6 +160,9 @@ public class GUI{
 		btn = new JButton(img);
 		
 		btn.addActionListener(	e-> openWebPage("https://github.com/JordanTFA/Gaming-Death-Log")	);
+	    btn.setBorderPainted(false); 
+	    btn.setContentAreaFilled(false);
+	    
 		panel.add(btn);
 		
 		img = new ImageIcon("src//img//links//img_twitter.png");
@@ -167,6 +170,9 @@ public class GUI{
 		btn = new JButton(img);
 		
 		btn.addActionListener(	e-> openWebPage("https://twitter.com/")	);
+	    btn.setBorderPainted(false); 
+	    btn.setContentAreaFilled(false);
+
 		panel.add(btn);
 		
 		img = new ImageIcon("src//img//links//img_discord.png");
@@ -174,13 +180,16 @@ public class GUI{
 		btn = new JButton(img);
 				
 		btn.addActionListener(	e-> openWebPage("https://discord.gg/q6fUT")	);
+	    btn.setBorderPainted(false); 
+	    btn.setContentAreaFilled(false);
+
 		panel.add(btn);
 	}
 	
 	public static ImageIcon resizeImg(ImageIcon img){
 		
 		Image image = img.getImage(); // transform it 
-		Image newImg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		Image newImg = image.getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		img = new ImageIcon(newImg);  // transform it back
 		
 		return img;
