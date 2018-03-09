@@ -5,7 +5,7 @@ Log that allows you to track your deaths in video games, and highlights your wea
 
 Currently compatible games:
 
-CounterStrike: Global Offensive
-League of Legends
-Overwatch
-PlayerUnknown's Battlegrounds
+<p>CounterStrike: Global Offensive</p>
+<p>League of Legends</p>
+<p>Overwatch</p>
+<p>PlayerUnknown's Battlegrounds</p>
