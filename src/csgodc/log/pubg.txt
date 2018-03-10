@@ -1,5 +1,10 @@
+Car Accident,1.0
+Couldn't find vehicle,0.0
 Enemy had better weapon,12.0
 Glitch,3.0
 I had better weapon; still lost,9.0
+Lost track of time,0.0
+Red Zone,0.0
 Took a Bad Fight,3.0
 Unaware of enemy,1.0
+Unlucky Circle(s),0.0

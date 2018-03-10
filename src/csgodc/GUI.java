@@ -179,7 +179,7 @@ public class GUI{
 		img = resizeImg(img);
 		btn = new JButton(img);
 				
-		btn.addActionListener(	e-> openWebPage("https://discord.gg/q6fUT")	);
+		btn.addActionListener(	e-> openWebPage("https://discord.gg/Uy6qCjX")	);
 	    btn.setBorderPainted(false); 
 	    btn.setContentAreaFilled(false);
 
