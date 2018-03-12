@@ -76,38 +76,52 @@ public class FileSystem {
 		path = "src/csgodc/log/" + mode + ".txt";
 		
 		switch(mode){
-			case "csgo": setDefaultLog("Outaimed,0\n"
+			case "csgo": setDefaultLog("Bad positioning,0\n"
 					+ "Crept up Upon,0\n"
-					+ "Bad positioning,0\n"
-					+ "Overwhelmed,0\n"
+					+ "Flashed,0\n"
 					+ "Got Traded,0\n"
 					+ "I Traded,0\n"
-					+ "Flashed,0\n"
+					+ "Outaimed,0\n"
+					+ "Overwhelmed,0\n"	
 					+ "Peaked an AWP,0\n"
 					+ "Tried to Cheese,0");
 				break;
-			case "lol": setDefaultLog("Overextended,0\n"
+			case "lol": setDefaultLog("Crept up upon,0\n"
 					+ "Facechecked Bush,0\n"
-					+ "Took Bad Fight,0\n" 
-					+ "Team Fight (Favourable),0\n"
-					+ "Team Fight (Unfavourable),0\n"
-					+ "Invaded,0\n"
 					+ "Ganked (Blame jg),0\n"
 					+ "Got Baited,0\n"
-					+ "Held Summoner Spells,0");
-				break;
-			case "ow": setDefaultLog("Separated from team,0\n"
-					+ "Picked off/Sniped,0\n"
-					+ "Crept up upon,0\n"
+					+ "Held Summoner Spells,0\n"
+					+ "Invaded,0\n"
+					+ "Overextended,0\n"	
+					+ "Took Bad Fight,0\n" 
 					+ "Team Fight (Favourable),0\n"
-					+ "Team Fight (Unfavourable),0\n"
+					+ "Team Fight (Unfavourable),0"
+					);
+
+				break;
+			case "ow": setDefaultLog("Backed into Wall,0\n"
+					+ "Crept up Upon,0\n"
+					+ "Didn't notice sniper,0\n"
 					+ "Dived on,0\n"
 					+ "I dived (Favourable),0\n"
-					+ "I dived (Unfavourable),0");
+					+ "I dived (Unfavourable),0\n"
+					+ "Picked off/Sniped,0\n"
+					+ "Separated from team,0\n"
+					+ "Team Fight (Favourable),0\n"
+					+ "Team Fight (Unfavourable),0\n"
+					+ "Dived on,0"
+					);
 				break;
-			case "pubg": setDefaultLog("Unaware of enemy,0\n"
+			case "pubg": setDefaultLog("Car Accident,0\n"
+					+ "Couldn't find vehicle,0\n"
+					+ "Enemy had better weapon,0\n"
+					+ "Glitch,0\n"
+					+ "Lost track of time,0\n"
 					+ "Poor Engagement,0\n"
-					+ ""
+					+ "Red Zone,0\n"
+					+ "Took a bad fight,0\n"
+					+ "Unaware of enemy,0\n"
+					+ "Unlucky Circles,0"
 					);
 				break;		
 		}
