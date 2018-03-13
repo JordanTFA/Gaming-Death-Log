@@ -270,15 +270,21 @@ public class GUI{
 				String cat = Log.getLastCat();
 				Double change = Log.getLastChange() * -1;
 				
-				for(String c: allCategories.keySet()){
-					if(c==cat){
-						allCategories.put(c, allCategories.get(c) + change);
+				if(change != 0){
+					for(String c: allCategories.keySet()){
+						if(c==cat){
+							allCategories.put(c, allCategories.get(c) + change);
+						}
 					}
+					
+					Log.updateLog(cat,change);
+					
+					FileSystem.updateFile(allCategories);
+				}else{
+					JOptionPane.showMessageDialog(null, "Nothing to Undo!");
 				}
-				
-				Log.updateLog(cat,change);
-				
-				FileSystem.updateFile(allCategories);
+
+
 			}
 			else{
 				JOptionPane.showMessageDialog(null, "Nothing to Undo!");
@@ -301,12 +307,15 @@ public class GUI{
 
 					allCategories.put(c, 0.0);
 				}
-			FileSystem.updateFile(allCategories);
 				
-			String fontColour = "<font color='purple'>";
-			Log.setLogContent("<p>" + fontColour + "Stats reset for " + currentMode.name + "</font></p>" + Log.getLogContent());
-			Log.addToLog();
-			
+				FileSystem.updateFile(allCategories);
+				
+				String fontColour = "<font color='purple'>";
+				Log.setLogContent("<p>" + fontColour + "Stats reset for " + currentMode.name + "</font></p>" + Log.getLogContent());
+				Log.addToLog();
+				
+				Log.setLastCat("");
+				Log.setLastChange(0.0);
 			}
 		});
 
