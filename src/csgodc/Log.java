@@ -125,6 +125,14 @@ public class Log {
 		logframe.setVisible(true);
 	}
 	
+	public static void applyDefaultContent(){
+		log.setText("<html><body><p>"
+				
+				+ "This is the log, that will show all of the changes that you make. Select a category to get started."
+				
+				+ "</p></body></html");
+	}
+	
 	public static JTextPane applyCSS(JTextPane pane, String cssContent){
 		
 		pane.setContentType("text/html");

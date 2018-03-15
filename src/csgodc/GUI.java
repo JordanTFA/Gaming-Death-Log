@@ -74,6 +74,7 @@ public class GUI{
 		
 		// Create the log window
 		Log.createLog();
+		Log.applyDefaultContent();
 		
 		// Make the log visible if it's selected from the menu bar
 		viewlog.addActionListener(e -> Log.makeLogVisible());
@@ -283,8 +284,6 @@ public class GUI{
 				}else{
 					JOptionPane.showMessageDialog(null, "Nothing to Undo!");
 				}
-
-
 			}
 			else{
 				JOptionPane.showMessageDialog(null, "Nothing to Undo!");
