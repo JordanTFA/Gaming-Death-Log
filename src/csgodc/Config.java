@@ -114,9 +114,7 @@ public class Config {
 			jcmb.setBounds(15, 220, 130, 25);
 			
 			JLabel lblCats = new JLabel();
-			lblCats.setForeground(Color.BLUE);
-			JLabel lblCats2 = new JLabel();
-			lblCats2.setForeground(Color.RED);		
+			JLabel lblCats2 = new JLabel();		
 
 			int counter = 0;
 			

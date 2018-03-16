@@ -48,7 +48,7 @@ public class GUI{
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle("Death Log");
 		frame.setVisible(true);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -164,7 +164,7 @@ public class GUI{
 	    btn.setBorderPainted(false); 
 	    btn.setContentAreaFilled(false);
 	    
-		panel.add(btn);
+	    panel.add(btn);
 		
 		img = new ImageIcon("src//img//links//img_twitter.png");
 		img = resizeImg(img);
@@ -174,7 +174,7 @@ public class GUI{
 	    btn.setBorderPainted(false); 
 	    btn.setContentAreaFilled(false);
 
-		panel.add(btn);
+	    panel.add(btn);
 		
 		img = new ImageIcon("src//img//links//img_discord.png");
 		img = resizeImg(img);
@@ -184,7 +184,7 @@ public class GUI{
 	    btn.setBorderPainted(false); 
 	    btn.setContentAreaFilled(false);
 
-		panel.add(btn);
+	    panel.add(btn);
 	}
 	
 	public static ImageIcon resizeImg(ImageIcon img){
@@ -290,7 +290,7 @@ public class GUI{
 			}			
 		});
 
-		undo.setBounds(40,HEIGHT-100, 80, 30);
+		undo.setBounds(40,HEIGHT-120, 80, 30);
 		utilButtons.add(undo);
 		
 		
@@ -318,7 +318,7 @@ public class GUI{
 			}
 		});
 
-		reset.setBounds(130,HEIGHT-100, 100, 30);
+		reset.setBounds(130,HEIGHT-120, 100, 30);
 		utilButtons.add(reset);
 
 		JButton stats = new JButton("Show Stats");
@@ -379,10 +379,9 @@ public class GUI{
 	
 		});
 
-		stats.setBounds(240,HEIGHT-100, 120, 30);
+		stats.setBounds(240,HEIGHT-120, 120, 30);
 		utilButtons.add(stats);
 		
-		//utilButtons.validate();
 		frame.validate();
 	}
 	
