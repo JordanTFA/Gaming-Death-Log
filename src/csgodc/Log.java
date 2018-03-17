@@ -128,7 +128,8 @@ public class Log {
 	public static void applyDefaultContent(){
 		log.setText("<html><body><p>"
 				
-				+ "This is the log, that will show all of the changes that you make. Select a category to get started."
+				+ "This is the log that will show all of the changes that you make. Select a category to get started.</p><p></p><p>"
+				+ " You can click 'New Game' to separate entries."
 				
 				+ "</p></body></html");
 	}
